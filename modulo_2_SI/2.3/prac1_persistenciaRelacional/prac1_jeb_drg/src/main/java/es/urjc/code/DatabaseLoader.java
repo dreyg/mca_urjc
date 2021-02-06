@@ -27,6 +27,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
         // Guardando datos
         // tripulantes
+        /*
         tripulanteRepository.save(new Tripulante("COM001","Alberto","Lopez Frau","Comanadante",new Vuelo("")));
         tripulanteRepository.save(new Tripulante("COM002","Alvaro","Fernandez Lopez","Co-Piloto",new Vuelo("")));
         tripulanteRepository.save(new Tripulante("COM003","Antonio","Gonzalez Ruiz","Sobrecargo",new Vuelo("")));
@@ -60,13 +61,8 @@ public class DatabaseLoader implements CommandLineRunner {
         avionRepository.save(new Avion("AVI002", "Airbus", "A380", 4500, new List<Vuelo>(), new List<Revision>()));
         avionRepository.save(new Avion("AVI003", "Airbus", "A400", 6500, new List<Vuelo>(), new List<Revision>()));
 
-
-
-
+*/
 /*
-        repository.save(new Producto("Apple Macbook", new Version("1.0",new Date(System.currentTimeMillis()-50000000))));
-        repository.save(new Producto("Apple Macbook Pro", new Version("1.5",new Date(System.currentTimeMillis()))));
-
         // Recupera productos
         List<Producto> productos = repository.findAll();
         System.out.println("Productos con findAll():");

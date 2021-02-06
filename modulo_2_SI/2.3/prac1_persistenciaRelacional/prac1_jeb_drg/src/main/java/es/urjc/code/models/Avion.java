@@ -16,10 +16,10 @@ public class Avion {
     private String modelo;
     private Integer horasVuelo;
 
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="vuelo")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="avion")
     private List<Vuelo> vuelos;
 
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="revision")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="avion")
     private List<Revision> revisiones;
 
     public Avion() {

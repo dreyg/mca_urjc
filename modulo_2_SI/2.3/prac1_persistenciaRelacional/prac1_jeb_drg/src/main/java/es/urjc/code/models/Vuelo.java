@@ -1,6 +1,7 @@
 package es.urjc.code.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,8 +15,8 @@ public class Vuelo {
     private String codVuelo;
     private String compania;
     private Date fechaHoraSalida;
-    @ManyToMany(cascade=CascadeType.ALL, mappedBy="tripulante")
-    private List<Tripulante> tripulantes;
+    @ManyToMany(cascade=CascadeType.ALL, mappedBy="vuelos")
+    private List<Tripulante> tripulantes  = new ArrayList<>();
     @ManyToOne
     private Avion avion;
     @ManyToOne

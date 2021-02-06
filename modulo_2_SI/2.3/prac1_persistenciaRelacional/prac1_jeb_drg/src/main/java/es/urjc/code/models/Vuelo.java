@@ -13,7 +13,6 @@ public class Vuelo {
 
     private String codVuelo;
     private String compania;
-    private String codAvion;
     private Date fechaHoraSalida;
     @ManyToMany(cascade=CascadeType.ALL, mappedBy="tripulante")
     private List<Tripulante> tripulantes;
@@ -27,11 +26,9 @@ public class Vuelo {
     public Vuelo() {
     }
 
-    public Vuelo(long id, String codVuelo, String compania, String codAvion, Date fechaHoraSalida, List<Tripulante> tripulantes, Avion avion, Aeropuerto aeropuertoOrigen, Aeropuerto aeropuertoDestino) {
-        this.id = id;
+    public Vuelo(String codVuelo, String compania, Date fechaHoraSalida, List<Tripulante> tripulantes, Avion avion, Aeropuerto aeropuertoOrigen, Aeropuerto aeropuertoDestino) {
         this.codVuelo = codVuelo;
         this.compania = compania;
-        this.codAvion = codAvion;
         this.fechaHoraSalida = fechaHoraSalida;
         this.tripulantes = tripulantes;
         this.avion = avion;
@@ -61,14 +58,6 @@ public class Vuelo {
 
     public void setCompania(String compania) {
         this.compania = compania;
-    }
-
-    public String getCodAvion() {
-        return codAvion;
-    }
-
-    public void setCodAvion(String codAvion) {
-        this.codAvion = codAvion;
     }
 
     public Date getFechaHoraSalida() {
@@ -117,7 +106,6 @@ public class Vuelo {
                 "id=" + id +
                 ", codVuelo='" + codVuelo + '\'' +
                 ", compania='" + compania + '\'' +
-                ", codAvion='" + codAvion + '\'' +
                 ", fechaHoraSalida=" + fechaHoraSalida +
                 ", tripulantes=" + tripulantes +
                 ", avion=" + avion +

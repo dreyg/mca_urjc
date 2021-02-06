@@ -26,8 +26,7 @@ public class Aeropuerto {
     public Aeropuerto() {
     }
 
-    public Aeropuerto(Long id, String codAeropuerto, String nombre, String ciudad, Integer pais, List<Vuelo> vuelos, List<Revision> revisiones) {
-        this.id = id;
+    public Aeropuerto(String codAeropuerto, String nombre, String ciudad, Integer pais, List<Vuelo> vuelos, List<Revision> revisiones) {
         this.codAeropuerto = codAeropuerto;
         this.nombre = nombre;
         this.ciudad = ciudad;

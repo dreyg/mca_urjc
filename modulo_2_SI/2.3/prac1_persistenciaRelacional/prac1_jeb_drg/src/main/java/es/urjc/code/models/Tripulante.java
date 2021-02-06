@@ -22,8 +22,7 @@ public class Tripulante {
     public Tripulante() {
     }
 
-    public Tripulante(long id, String codTripulante, String nombre, String apellido, String puesto, String compania, List<Vuelo> vuelos) {
-        this.id = id;
+    public Tripulante(String codTripulante, String nombre, String apellido, String puesto, String compania, List<Vuelo> vuelos) {
         this.codTripulante = codTripulante;
         this.nombre = nombre;
         this.apellido = apellido;

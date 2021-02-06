@@ -29,8 +29,7 @@ public class Revision {
     public Revision() {
     }
 
-    public Revision(long id, Date fechaInicio, Date fechaFin, Integer numHorasEmpleadas, String tipoRevision, String descripcionTrabajo, Avion avion, Mecanico mecanico, Aeropuerto aeropuerto) {
-        this.id = id;
+    public Revision(Date fechaInicio, Date fechaFin, Integer numHorasEmpleadas, String tipoRevision, String descripcionTrabajo, Avion avion, Mecanico mecanico, Aeropuerto aeropuerto) {
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.numHorasEmpleadas = numHorasEmpleadas;

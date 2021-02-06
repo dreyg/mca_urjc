@@ -17,7 +17,7 @@ public class Mecanico {
     private Integer anioIncorporacion;
     private String formacionPrevia;
 
-    @OneToMany
+    @OneToMany(mappedBy = "mecanico")
     private List<Revision> revisiones;
 
     public Mecanico() {

@@ -16,11 +16,10 @@ public class Aeropuerto {
     private Integer pais;
 
     // vuelo
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="vuelo")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy= "aeropuertoOrigen")
     private List<Vuelo> vuelos;
 
-    //revisión
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="revision")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="aeropuerto")
     private List<Revision> revisiones;
 
     public Aeropuerto() {

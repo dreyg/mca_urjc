@@ -23,8 +23,7 @@ public class Mecanico {
     public Mecanico() {
     }
 
-    public Mecanico(Long id, String codMecanico, String nombre, String apellidos, String empresa, Integer anioIncorporacion, String formacionPrevia, List<Revision> revisiones) {
-        this.id = id;
+    public Mecanico(String codMecanico, String nombre, String apellidos, String empresa, Integer anioIncorporacion, String formacionPrevia, List<Revision> revisiones) {
         this.codMecanico = codMecanico;
         this.nombre = nombre;
         this.apellidos = apellidos;

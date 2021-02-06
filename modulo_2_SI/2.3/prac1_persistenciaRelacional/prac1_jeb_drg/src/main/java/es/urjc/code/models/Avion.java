@@ -25,8 +25,7 @@ public class Avion {
     public Avion() {
     }
 
-    public Avion(long id, String codAvion, String fabricante, String modelo, Integer horasVuelo, List<Vuelo> vuelos, List<Revision> revisiones) {
-        this.id = id;
+    public Avion(String codAvion, String fabricante, String modelo, Integer horasVuelo, List<Vuelo> vuelos, List<Revision> revisiones) {
         this.codAvion = codAvion;
         this.fabricante = fabricante;
         this.modelo = modelo;

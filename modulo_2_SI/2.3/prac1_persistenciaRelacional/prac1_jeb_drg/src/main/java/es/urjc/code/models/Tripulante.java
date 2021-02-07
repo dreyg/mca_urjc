@@ -1,6 +1,7 @@
 package es.urjc.code.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,19 +18,18 @@ public class Tripulante {
     private String compania;
 
     //vuelo
-    @ManyToMany(mappedBy="tripulantes")
-    private List<Vuelo> vuelos;
+    @OneToMany(mappedBy = "tri", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<VueloTripulante> vuelos = new ArrayList<>();
 
     public Tripulante() {
     }
 
-    public Tripulante(String codTripulante, String nombre, String apellido, String puesto, String compania, List<Vuelo> vuelos) {
+    public Tripulante(String codTripulante, String nombre, String apellido, String puesto, String compania) {
         this.codTripulante = codTripulante;
         this.nombre = nombre;
         this.apellido = apellido;
         this.puesto = puesto;
         this.compania = compania;
-        this.vuelos = vuelos;
     }
 
     public long getId() {
@@ -80,11 +80,11 @@ public class Tripulante {
         this.compania = compania;
     }
 
-    public List<Vuelo> getVuelos() {
+    public List<VueloTripulante> getVuelos() {
         return vuelos;
     }
 
-    public void setVuelos(List<Vuelo> vuelos) {
+    public void setVuelos(List<VueloTripulante> vuelos) {
         this.vuelos = vuelos;
     }
 

@@ -39,9 +39,9 @@ public class DatabaseLoader implements CommandLineRunner {
         //Lista de aviones vacía
         List<Avion> sinAviones = new ArrayList<>();
 
-        Tripulante trip1 = new Tripulante("COM001","Alberto","Lopez Frau","Comanadante","IBERIA", new ArrayList <Vuelo> ());
-        Tripulante trip2 = new Tripulante("COM002","Alvaro","Fernandez Lopez","Co-Piloto","IBERIA", sinVuelos);
-        Tripulante trip3 = new Tripulante("COM003","Antonio","Gonzalez Ruiz","Sobrecargo","IBERIA", sinVuelos);
+        Tripulante trip1 = new Tripulante("COM001","Alberto","Lopez Frau","Comanadante","IBERIA");
+        Tripulante trip2 = new Tripulante("COM002","Alvaro","Fernandez Lopez","Co-Piloto","IBERIA");
+        Tripulante trip3 = new Tripulante("COM003","Antonio","Gonzalez Ruiz","Sobrecargo","IBERIA");
 
 
         Avion avion1 = avionRepository.save(new Avion("BOI001", "Boing", "Boing 737", 2500, sinVuelos, sinRevisiones));
@@ -61,17 +61,18 @@ public class DatabaseLoader implements CommandLineRunner {
         Aeropuerto aero3 = aeropuertoRepository.save(new Aeropuerto("BAR01","El prat","Barcelona","España",sinVuelos, sinRevisiones));
 
 
+        Vuelo vuelo1 = new Vuelo("IBE001","Iberia",new Date(System.currentTimeMillis()-10000000), avion1, aero1, aero3);
+        List <VueloTripulante> rels = new ArrayList<>();
+        VueloTripulante v1t1 = new VueloTripulante(vuelo1,trip1);
+        VueloTripulante v1t2 = new VueloTripulante(vuelo1,trip2);
+        VueloTripulante v1t3 = new VueloTripulante(vuelo1,trip3);
 
-        // Me creo una tripulación (para los vuelos) --> NO FUNCIONA
-        List<Tripulante> tripulantes = new ArrayList<>();
-        tripulantes.add(trip1);
-        tripulantes.add(trip2);
-        tripulantes.add(trip3);
+        rels.add(v1t1);
+        rels.add(v1t2);
+        rels.add(v1t3);
 
-        Vuelo vuelo1 = new Vuelo("IBE001","Iberia",new Date(System.currentTimeMillis()-10000000),tripulantes, avion1, aero1, aero3);
+        vuelo1.setTripulantes(rels);
         vueloRepository.save(vuelo1);
-
-
 
 
         /*Vuelo vuelo1 = vueloRepository.save(new Vuelo("IBE001","Iberia",new Date(System.currentTimeMillis()-10000000),tripulantes, avion1, aero1, aero3));

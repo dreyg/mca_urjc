@@ -15,11 +15,9 @@ public class Vuelo {
     private String codVuelo;
     private String compania;
     private Date fechaHoraSalida;
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE } )
-    @JoinTable(name = "vuelo_tripulante",
-            joinColumns = @JoinColumn(name = "vuelo_id"),
-            inverseJoinColumns = @JoinColumn(name = "tripulante_id") )
-    private List<Tripulante> tripulantes  = new ArrayList<>();
+
+    @OneToMany(mappedBy = "vue", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<VueloTripulante> tripulantes  = new ArrayList<>();
     @ManyToOne
     private Avion avion;
     @ManyToOne
@@ -30,11 +28,10 @@ public class Vuelo {
     public Vuelo() {
     }
 
-    public Vuelo(String codVuelo, String compania, Date fechaHoraSalida, List<Tripulante> tripulantes, Avion avion, Aeropuerto aeropuertoOrigen, Aeropuerto aeropuertoDestino) {
+    public Vuelo(String codVuelo, String compania, Date fechaHoraSalida, Avion avion, Aeropuerto aeropuertoOrigen, Aeropuerto aeropuertoDestino) {
         this.codVuelo = codVuelo;
         this.compania = compania;
         this.fechaHoraSalida = fechaHoraSalida;
-        this.tripulantes = tripulantes;
         this.avion = avion;
         this.aeropuertoOrigen = aeropuertoOrigen;
         this.aeropuertoDestino = aeropuertoDestino;
@@ -72,11 +69,11 @@ public class Vuelo {
         this.fechaHoraSalida = fechaHoraSalida;
     }
 
-    public List<Tripulante> getTripulantes() {
+    public List<VueloTripulante> getTripulantes() {
         return tripulantes;
     }
 
-    public void setTripulantes(List<Tripulante> tripulantes) {
+    public void setTripulantes(List<VueloTripulante> tripulantes) {
         this.tripulantes = tripulantes;
     }
 

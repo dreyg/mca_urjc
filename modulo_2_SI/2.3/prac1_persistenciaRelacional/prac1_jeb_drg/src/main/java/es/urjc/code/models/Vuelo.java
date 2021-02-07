@@ -2,6 +2,7 @@ package es.urjc.code.models;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class Vuelo {
     private String codVuelo;
     private String compania;
     private Date fechaHoraSalida;
+    private Date fechaHoraLlegada;
     private Float duracionVuelo;
 
     @OneToMany(mappedBy = "vue", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -37,6 +39,11 @@ public class Vuelo {
         this.avion = avion;
         this.aeropuertoOrigen = aeropuertoOrigen;
         this.aeropuertoDestino = aeropuertoDestino;
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fechaHoraSalida);
+        calendar.add(Calendar.SECOND, Math.round(duracionVuelo * 3600) );
+        this.fechaHoraLlegada = calendar.getTime();
     }
 
     public long getId() {
@@ -111,6 +118,14 @@ public class Vuelo {
         this.duracionVuelo = duracionVuelo;
     }
 
+    public Date getFechaHoraLlegada() {
+        return fechaHoraLlegada;
+    }
+
+    public void setFechaHoraLlegada(Date fechaHoraLlegada) {
+        this.fechaHoraLlegada = fechaHoraLlegada;
+    }
+
     @Override
     public String toString() {
         return "Vuelo{" +
@@ -118,6 +133,7 @@ public class Vuelo {
                 ", codVuelo='" + codVuelo + '\'' +
                 ", compania='" + compania + '\'' +
                 ", fechaHoraSalida=" + fechaHoraSalida +
+                ", fechaHoraLlegada=" + fechaHoraLlegada +
                 ", duracionVuelo=" + duracionVuelo +
                 ", tripulantes=" + tripulantes +
                 ", avion=" + avion +

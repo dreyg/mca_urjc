@@ -16,7 +16,8 @@ public class Tripulante {
     private String puesto;
     private String compania;
 
-    @ManyToMany
+    //vuelo
+    @ManyToMany(mappedBy="tripulantes")
     private List<Vuelo> vuelos;
 
     public Tripulante() {

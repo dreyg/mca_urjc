@@ -13,7 +13,7 @@ public class Aeropuerto {
     private String codAeropuerto;
     private String nombre;
     private String ciudad;
-    private Integer pais;
+    private String pais;
 
     // vuelo
     @OneToMany(cascade=CascadeType.ALL, mappedBy= "aeropuertoOrigen")
@@ -25,7 +25,7 @@ public class Aeropuerto {
     public Aeropuerto() {
     }
 
-    public Aeropuerto(String codAeropuerto, String nombre, String ciudad, Integer pais, List<Vuelo> vuelos, List<Revision> revisiones) {
+    public Aeropuerto(String codAeropuerto, String nombre, String ciudad, String pais, List<Vuelo> vuelos, List<Revision> revisiones) {
         this.codAeropuerto = codAeropuerto;
         this.nombre = nombre;
         this.ciudad = ciudad;
@@ -66,11 +66,11 @@ public class Aeropuerto {
         this.ciudad = ciudad;
     }
 
-    public Integer getPais() {
+    public String getPais() {
         return pais;
     }
 
-    public void setPais(Integer pais) {
+    public void setPais(String pais) {
         this.pais = pais;
     }
 

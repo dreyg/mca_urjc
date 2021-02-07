@@ -15,7 +15,10 @@ public class Vuelo {
     private String codVuelo;
     private String compania;
     private Date fechaHoraSalida;
-    @ManyToMany(cascade=CascadeType.ALL, mappedBy="vuelos")
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE } )
+    @JoinTable(name = "vuelo_tripulante",
+            joinColumns = @JoinColumn(name = "vuelo_id"),
+            inverseJoinColumns = @JoinColumn(name = "tripulante_id") )
     private List<Tripulante> tripulantes  = new ArrayList<>();
     @ManyToOne
     private Avion avion;

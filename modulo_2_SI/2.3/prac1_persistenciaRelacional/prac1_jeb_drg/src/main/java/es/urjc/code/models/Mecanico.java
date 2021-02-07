@@ -4,16 +4,8 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Mecanico {
+public class Mecanico extends Empleado{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    private String codMecanico;
-    private String nombre;
-    private String apellidos;
-    private String empresa;
     private Integer anioIncorporacion;
     private String formacionPrevia;
 
@@ -24,53 +16,10 @@ public class Mecanico {
     }
 
     public Mecanico(String codMecanico, String nombre, String apellidos, String empresa, Integer anioIncorporacion, String formacionPrevia, List<Revision> revisiones) {
-        this.codMecanico = codMecanico;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.empresa = empresa;
+        super(codMecanico,nombre, apellidos, empresa);
         this.anioIncorporacion = anioIncorporacion;
         this.formacionPrevia = formacionPrevia;
         this.revisiones = revisiones;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCodMecanico() {
-        return codMecanico;
-    }
-
-    public void setCodMecanico(String codMecanico) {
-        this.codMecanico = codMecanico;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellidos() {
-        return apellidos;
-    }
-
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
-    public String getEmpresa() {
-        return empresa;
-    }
-
-    public void setEmpresa(String empresa) {
-        this.empresa = empresa;
     }
 
     public Integer getAnioIncorporacion() {
@@ -99,13 +48,9 @@ public class Mecanico {
 
     @Override
     public String toString() {
-        return "Mecanico{" +
-                "id=" + id +
-                ", codMecanico='" + codMecanico + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", apellidos='" + apellidos + '\'' +
-                ", empresa='" + empresa + '\'' +
-                ", anioIncorporacion=" + anioIncorporacion +
+        String padre = super.toString();
+        return padre +"Mecanico{" +
+                "anioIncorporacion=" + anioIncorporacion +
                 ", formacionPrevia='" + formacionPrevia + '\'' +
                 ", revisiones=" + revisiones +
                 '}';

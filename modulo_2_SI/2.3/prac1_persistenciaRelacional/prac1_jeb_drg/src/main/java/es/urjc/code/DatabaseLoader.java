@@ -22,6 +22,7 @@ public class DatabaseLoader implements CommandLineRunner {
     @Autowired private RevisionRepository revisionRepository;
     @Autowired private TripulanteRepository tripulanteRepository;
     @Autowired private VueloRepository vueloRepository;
+    @Autowired private EmpleadoRepository empleadoRepository;
 
     @Override
     public void run(String... args) {
@@ -51,10 +52,16 @@ public class DatabaseLoader implements CommandLineRunner {
         Avion avion5 = avionRepository.save(new Avion("AVI002", "Airbus", "A380", 4500, sinVuelos, sinRevisiones));
         Avion avion6 = avionRepository.save(new Avion("AVI003", "Airbus", "A400", 6500, sinVuelos, sinRevisiones));
 
-        Mecanico meca1 = mecanicoRepository.save(new Mecanico("MEC001","Roberto","Ruiz Garcia","Airbus",1995,"", sinRevisiones));
-        Mecanico meca2 = mecanicoRepository.save(new Mecanico("MEC002","Rebeca","Tola Cruz","Airbus",1992,"", sinRevisiones));
-        Mecanico meca3 = mecanicoRepository.save(new Mecanico("MEC003","Ruben","Muñoz Rodriguez","Airbus",1998,"", sinRevisiones));
-        Mecanico meca4 = mecanicoRepository.save(new Mecanico("MEC004","Ramon","Lopez Perez","Airbus",2005,"", sinRevisiones));
+        Mecanico meca1 = new Mecanico("MEC001","Roberto","Ruiz Garcia","Airbus",1995,"", sinRevisiones);
+        Mecanico meca2 = new Mecanico("MEC002","Rebeca","Tola Cruz","Airbus",1992,"", sinRevisiones);
+        Mecanico meca3 = new Mecanico("MEC003","Ruben","Muñoz Rodriguez","Airbus",1998,"", sinRevisiones);
+        Mecanico meca4 = new Mecanico("MEC004","Ramon","Lopez Perez","Airbus",2005,"", sinRevisiones);
+
+        empleadoRepository.save(meca1);
+        empleadoRepository.save(meca2);
+        empleadoRepository.save(meca3);
+        empleadoRepository.save(meca4);
+
 
         Aeropuerto aero1 = aeropuertoRepository.save(new Aeropuerto("MAD01","Barajas","Madrid","España",sinVuelos, sinRevisiones));
         Aeropuerto aero2 = aeropuertoRepository.save(new Aeropuerto("MAD02","Cuatro Vientos","Madrid","España",sinVuelos, sinRevisiones));

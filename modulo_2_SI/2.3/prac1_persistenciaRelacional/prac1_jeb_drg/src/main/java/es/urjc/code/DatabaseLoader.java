@@ -34,15 +34,15 @@ public class DatabaseLoader implements CommandLineRunner {
         //Lista de revisiones vacía
         List<Revision> sinRevisiones = new ArrayList<>();
 
-        //Lista de tripulantes vacía
-        List<Tripulante> sinTripulantes = new ArrayList<>();
 
-        //Lista de aviones vacía
-        List<Avion> sinAviones = new ArrayList<>();
+
 
         Tripulante trip1 = new Tripulante("COM001","Alberto","Lopez Frau","Comanadante","IBERIA");
         Tripulante trip2 = new Tripulante("COM002","Alvaro","Fernandez Lopez","Co-Piloto","IBERIA");
         Tripulante trip3 = new Tripulante("COM003","Antonio","Gonzalez Ruiz","Sobrecargo","IBERIA");
+        Tripulante trip4 = new Tripulante("COM004","Juan","Gomez Sanchez","Comanadante","IBERIA");
+        Tripulante trip5 = new Tripulante("COM005","Pedro","Jimenez Diaz","Co-Piloto","IBERIA");
+        Tripulante trip6 = new Tripulante("COM006","David","Robledo Chavela","Sobrecargo","IBERIA");
 
 
         Avion avion1 = avionRepository.save(new Avion("BOI001", "Boing", "Boing 737", 2500, sinVuelos, sinRevisiones));
@@ -68,7 +68,10 @@ public class DatabaseLoader implements CommandLineRunner {
         Aeropuerto aero3 = aeropuertoRepository.save(new Aeropuerto("BAR01","El prat","Barcelona","España",sinVuelos, sinRevisiones));
 
 
-        Vuelo vuelo1 = new Vuelo("IBE001","Iberia",new Date(System.currentTimeMillis()-10000000), avion1, aero1, aero3);
+
+        Vuelo vuelo1 = new Vuelo("IBE001","Iberia",new Date(System.currentTimeMillis()-10000000), 0.45f, avion1, aero1, aero3);
+        Vuelo vuelo2 = new Vuelo("IBE002","Iberia",new Date(System.currentTimeMillis()-20000000),0.45f, avion2, aero2, aero3);
+
         List <VueloTripulante> rels = new ArrayList<>();
         VueloTripulante v1t1 = new VueloTripulante(vuelo1,trip1);
         VueloTripulante v1t2 = new VueloTripulante(vuelo1,trip2);
@@ -78,8 +81,20 @@ public class DatabaseLoader implements CommandLineRunner {
         rels.add(v1t2);
         rels.add(v1t3);
 
+        List <VueloTripulante> rels2 = new ArrayList<>();
+        VueloTripulante v2t4 = new VueloTripulante(vuelo2,trip4);
+        VueloTripulante v2t5 = new VueloTripulante(vuelo2,trip5);
+        VueloTripulante v2t6 = new VueloTripulante(vuelo2,trip6);
+
+        rels2.add(v2t4);
+        rels2.add(v2t5);
+        rels2.add(v2t6);
+
         vuelo1.setTripulantes(rels);
+        vuelo2.setTripulantes(rels2);
+
         vueloRepository.save(vuelo1);
+        vueloRepository.save(vuelo2);
 
 
         /*Vuelo vuelo1 = vueloRepository.save(new Vuelo("IBE001","Iberia",new Date(System.currentTimeMillis()-10000000),tripulantes, avion1, aero1, aero3));

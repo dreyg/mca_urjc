@@ -15,6 +15,7 @@ public class Vuelo {
     private String codVuelo;
     private String compania;
     private Date fechaHoraSalida;
+    private Float duracionVuelo;
 
     @OneToMany(mappedBy = "vue", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<VueloTripulante> tripulantes  = new ArrayList<>();
@@ -28,10 +29,11 @@ public class Vuelo {
     public Vuelo() {
     }
 
-    public Vuelo(String codVuelo, String compania, Date fechaHoraSalida, Avion avion, Aeropuerto aeropuertoOrigen, Aeropuerto aeropuertoDestino) {
+    public Vuelo(String codVuelo, String compania, Date fechaHoraSalida, Float duracionVuelo, Avion avion, Aeropuerto aeropuertoOrigen, Aeropuerto aeropuertoDestino) {
         this.codVuelo = codVuelo;
         this.compania = compania;
         this.fechaHoraSalida = fechaHoraSalida;
+        this.duracionVuelo = duracionVuelo;
         this.avion = avion;
         this.aeropuertoOrigen = aeropuertoOrigen;
         this.aeropuertoDestino = aeropuertoDestino;
@@ -101,6 +103,14 @@ public class Vuelo {
         this.aeropuertoDestino = aeropuertoDestino;
     }
 
+    public Float getDuracionVuelo() {
+        return duracionVuelo;
+    }
+
+    public void setDuracionVuelo(Float duracionVuelo) {
+        this.duracionVuelo = duracionVuelo;
+    }
+
     @Override
     public String toString() {
         return "Vuelo{" +
@@ -108,6 +118,7 @@ public class Vuelo {
                 ", codVuelo='" + codVuelo + '\'' +
                 ", compania='" + compania + '\'' +
                 ", fechaHoraSalida=" + fechaHoraSalida +
+                ", duracionVuelo=" + duracionVuelo +
                 ", tripulantes=" + tripulantes +
                 ", avion=" + avion +
                 ", aeropuertoOrigen=" + aeropuertoOrigen +

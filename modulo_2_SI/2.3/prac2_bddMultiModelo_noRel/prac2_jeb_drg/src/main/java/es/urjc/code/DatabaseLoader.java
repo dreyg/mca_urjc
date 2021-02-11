@@ -59,7 +59,7 @@ public class DatabaseLoader implements CommandLineRunner {
         Mecanico meca1 = new Mecanico("MEC001","Roberto","Ruiz Garcia","Airbus",1995,"", sinRevisiones);
         Mecanico meca2 = new Mecanico("MEC002","Rebeca","Tola Cruz","Airbus",1992,"", sinRevisiones);
         Mecanico meca3 = new Mecanico("MEC003","Ruben","Muñoz Rodriguez","Airbus",1998,"", sinRevisiones);
-        Mecanico meca4 = new Mecanico("MEC004","Ramon","Lopez Perez","Airbus",2005,"", sinRevisiones);
+        Mecanico meca4 = new Mecanico("MEC004","Ramon","ESCRIBANO Perez","Airbus",2005,"", sinRevisiones);
 
         empleadoRepository.save(meca1);
         empleadoRepository.save(meca2);

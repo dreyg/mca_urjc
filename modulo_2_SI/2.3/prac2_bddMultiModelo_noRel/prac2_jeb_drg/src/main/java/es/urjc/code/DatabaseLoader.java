@@ -28,6 +28,8 @@ public class DatabaseLoader implements CommandLineRunner {
     @Autowired private VueloRepository vueloRepository;
     @Autowired private EmpleadoRepository empleadoRepository;
 
+    @Autowired private ProvinciaRepository provinciaRepository;
+
     @Override
     public void run(String... args) {
 
@@ -64,6 +66,15 @@ public class DatabaseLoader implements CommandLineRunner {
         System.out.println("Tripulantes con tripulanteEstadisticasDTOList():");
         System.out.println("----------------------------------------");
         muestraDatosTripulanteEstadisticas(tripulanteEstadisticasDTOList);
+
+
+        // Consulta de todas las provincias
+        System.out.println("Provincias almacenadas:");
+        System.out.println("-------------------------------");
+        for (Provincia prov : provinciaRepository.findAll()) {
+            System.out.println(prov);
+        }
+        System.out.println();
 
     }
 

@@ -76,6 +76,11 @@ public class DatabaseLoader implements CommandLineRunner {
         }
         System.out.println();
 
+        System.out.println("Provincias almacenadas y su número de provincias:");
+        System.out.println("-------------------------------");
+        System.out.println();
+        List<CountPronvinciasDTO> listProvincias = provinciaRepository.findCountProvincias();
+
     }
 
     private static void muestraDatosRevision(List<MecanicoRevisionDTO> datos) {

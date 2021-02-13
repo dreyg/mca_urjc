@@ -143,6 +143,9 @@ INSERT INTO test.vuelo_tripulante (tri_id,vue_id) VALUES (17,14);
 INSERT INTO test.vuelo_tripulante (tri_id,vue_id) VALUES (19,18);
 INSERT INTO test.vuelo_tripulante (tri_id,vue_id) VALUES (20,18);
 INSERT INTO test.vuelo_tripulante (tri_id,vue_id) VALUES (21,18);
+INSERT INTO test.vuelo_tripulante (tri_id,vue_id) VALUES (19,14);
+INSERT INTO test.vuelo_tripulante (tri_id,vue_id) VALUES (20,14);
+INSERT INTO test.vuelo_tripulante (tri_id,vue_id) VALUES (21,14);
 
 INSERT INTO test.revision (id,descripcion_trabajo,fecha_fin,fecha_inicio,num_horas_empleadas,tipo_revision,aeropuerto_id,avion_id,mecanico_id) VALUES (22,'cambio de aceite y revisión del motor','2021-02-11 21:43:40.132000000','2021-02-10 04:03:50.132000000',15,'periodica',11,1,7);
 INSERT INTO test.revision (id,descripcion_trabajo,fecha_fin,fecha_inicio,num_horas_empleadas,tipo_revision,aeropuerto_id,avion_id,mecanico_id) VALUES (23,'revisión del motor e interiores','2021-02-11 21:43:30.177000000','2021-02-09 00:17:10.177000000',20,'periodica',12,2,8);
@@ -150,5 +153,7 @@ INSERT INTO test.revision (id,descripcion_trabajo,fecha_fin,fecha_inicio,num_hor
 INSERT INTO test.revision (id,descripcion_trabajo,fecha_fin,fecha_inicio,num_horas_empleadas,tipo_revision,aeropuerto_id,avion_id,mecanico_id) VALUES (25,'cabina y asientos business','2021-02-11 21:43:10.317000000','2021-02-06 16:43:50.317000000',30,'reparacion',11,4,10);
 INSERT INTO test.revision (id,descripcion_trabajo,fecha_fin,fecha_inicio,num_horas_empleadas,tipo_revision,aeropuerto_id,avion_id,mecanico_id) VALUES (26,'reparacion exteriores','2021-02-11 21:43:00.434000000','2021-02-05 12:57:10.434000000',35,'reparacion',12,5,7);
 INSERT INTO test.revision (id,descripcion_trabajo,fecha_fin,fecha_inicio,num_horas_empleadas,tipo_revision,aeropuerto_id,avion_id,mecanico_id) VALUES (27,'sustitucion caja negra','2021-02-11 21:42:50.495000000','2021-02-04 09:10:30.495000000',40,'reparacion',13,6,8);
+INSERT INTO test.revision (id,descripcion_trabajo,fecha_fin,fecha_inicio,num_horas_empleadas,tipo_revision,aeropuerto_id,avion_id,mecanico_id) VALUES (28,'sustitucion caja negra','2021-02-11 21:42:50.495000000','2021-02-04 09:10:30.495000000',40,'reparacion',13,1,8);
+INSERT INTO test.revision (id,descripcion_trabajo,fecha_fin,fecha_inicio,num_horas_empleadas,tipo_revision,aeropuerto_id,avion_id,mecanico_id) VALUES (29,'sustitucion caja negra','2021-02-11 21:42:50.495000000','2021-02-04 09:10:30.495000000',40,'reparacion',13,2,8);
 
-INSERT INTO test.hibernate_sequence (next_val) VALUES (28);
+INSERT INTO test.hibernate_sequence (next_val) VALUES (30);

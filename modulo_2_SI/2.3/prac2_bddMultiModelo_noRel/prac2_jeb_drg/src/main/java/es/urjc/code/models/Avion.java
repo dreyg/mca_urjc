@@ -22,16 +22,20 @@ public class Avion {
     @OneToMany(cascade=CascadeType.ALL, mappedBy="avion")
     private List<Revision> revisiones;
 
+    private String revisionjson;
+
     public Avion() {
     }
 
-    public Avion(String codAvion, String fabricante, String modelo, Integer horasVuelo, List<Vuelo> vuelos, List<Revision> revisiones) {
+    public Avion(long id, String codAvion, String fabricante, String modelo, Integer horasVuelo, List<Vuelo> vuelos, List<Revision> revisiones, String revisionjson) {
+        this.id = id;
         this.codAvion = codAvion;
         this.fabricante = fabricante;
         this.modelo = modelo;
         this.horasVuelo = horasVuelo;
         this.vuelos = vuelos;
         this.revisiones = revisiones;
+        this.revisionjson = revisionjson;
     }
 
     public long getId() {
@@ -90,6 +94,14 @@ public class Avion {
         this.revisiones = revisiones;
     }
 
+    public String getRevisionjson() {
+        return revisionjson;
+    }
+
+    public void setRevisionjson(String revisionjson) {
+        this.revisionjson = revisionjson;
+    }
+
     @Override
     public String toString() {
         return "Avion{" +
@@ -100,6 +112,7 @@ public class Avion {
                 ", horasVuelo=" + horasVuelo +
                 ", vuelos=" + vuelos +
                 ", revisiones=" + revisiones +
+                ", revisionjson='" + revisionjson + '\'' +
                 '}';
     }
 }

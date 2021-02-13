@@ -28,22 +28,23 @@ public class Vuelo {
     @ManyToOne
     private Aeropuerto aeropuertoDestino;
 
+    private String tripulantesjson;
+
     public Vuelo() {
     }
 
-    public Vuelo(String codVuelo, String compania, Date fechaHoraSalida, Float duracionVuelo, Avion avion, Aeropuerto aeropuertoOrigen, Aeropuerto aeropuertoDestino) {
+    public Vuelo(long id, String codVuelo, String compania, Date fechaHoraSalida, Date fechaHoraLlegada, Float duracionVuelo, List<VueloTripulante> tripulantes, Avion avion, Aeropuerto aeropuertoOrigen, Aeropuerto aeropuertoDestino, String tripulantesjson) {
+        this.id = id;
         this.codVuelo = codVuelo;
         this.compania = compania;
         this.fechaHoraSalida = fechaHoraSalida;
+        this.fechaHoraLlegada = fechaHoraLlegada;
         this.duracionVuelo = duracionVuelo;
+        this.tripulantes = tripulantes;
         this.avion = avion;
         this.aeropuertoOrigen = aeropuertoOrigen;
         this.aeropuertoDestino = aeropuertoDestino;
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(fechaHoraSalida);
-        calendar.add(Calendar.SECOND, Math.round(duracionVuelo * 3600) );
-        this.fechaHoraLlegada = calendar.getTime();
+        this.tripulantesjson = tripulantesjson;
     }
 
     public long getId() {
@@ -78,6 +79,22 @@ public class Vuelo {
         this.fechaHoraSalida = fechaHoraSalida;
     }
 
+    public Date getFechaHoraLlegada() {
+        return fechaHoraLlegada;
+    }
+
+    public void setFechaHoraLlegada(Date fechaHoraLlegada) {
+        this.fechaHoraLlegada = fechaHoraLlegada;
+    }
+
+    public Float getDuracionVuelo() {
+        return duracionVuelo;
+    }
+
+    public void setDuracionVuelo(Float duracionVuelo) {
+        this.duracionVuelo = duracionVuelo;
+    }
+
     public List<VueloTripulante> getTripulantes() {
         return tripulantes;
     }
@@ -110,20 +127,12 @@ public class Vuelo {
         this.aeropuertoDestino = aeropuertoDestino;
     }
 
-    public Float getDuracionVuelo() {
-        return duracionVuelo;
+    public String getTripulantesjson() {
+        return tripulantesjson;
     }
 
-    public void setDuracionVuelo(Float duracionVuelo) {
-        this.duracionVuelo = duracionVuelo;
-    }
-
-    public Date getFechaHoraLlegada() {
-        return fechaHoraLlegada;
-    }
-
-    public void setFechaHoraLlegada(Date fechaHoraLlegada) {
-        this.fechaHoraLlegada = fechaHoraLlegada;
+    public void setTripulantesjson(String tripulantesjson) {
+        this.tripulantesjson = tripulantesjson;
     }
 
     @Override
@@ -139,6 +148,7 @@ public class Vuelo {
                 ", avion=" + avion +
                 ", aeropuertoOrigen=" + aeropuertoOrigen +
                 ", aeropuertoDestino=" + aeropuertoDestino +
+                ", tripulantesjson='" + tripulantesjson + '\'' +
                 '}';
     }
 }

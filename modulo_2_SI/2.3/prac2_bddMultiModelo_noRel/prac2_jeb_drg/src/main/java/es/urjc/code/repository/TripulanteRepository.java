@@ -1,7 +1,6 @@
 package es.urjc.code.repository;
 
-import es.urjc.code.dto.TripulanteEstadisticasDTO;
-import es.urjc.code.dto.TripulanteViajesDTO;
+import es.urjc.code.dto.*;
 import es.urjc.code.models.Tripulante;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,24 +21,17 @@ public interface TripulanteRepository extends JpaRepository<Tripulante, Long> {
     List<TripulanteEstadisticasDTO> findAllTripulantesEstadisticas();
 
 
-    @Query(value = "SELECT t.codEmpleado, t.nombre, t.apellidos " +
+   @Query(value = "SELECT a.cod_avion AS codAvion, m.nombre AS nombre, m.apellidos as apellidos " +
             "FROM test.avion a, \n" +
             "     JSON_TABLE(a.revisionjson, '$[*].mecanico_id' COLUMNS (\n" +
-            "                mecanico_id varchar(40)  PATH '$')\n" +
+            "                mecanico_id varchar(40)  PATH '$') \n" +
             "     ) mr, mecanico m \n" +
-            "WHERE mr.mecanico_id = m.id\n" +
-            "order by cod_avion",
+            "WHERE mr.mecanico_id = m.id \n",
             nativeQuery = true)
-    List<TripulanteViajesDTO> findCodEmpleadoViajesJSON();
+    List<TripulanteViajesJsonInterfaceDTO> findCodEmpleadoViajesJSON();
 
 
-    @Query(value = "SELECT t.nombre, t.apellidos, COUNT(v.duracionVuelo), SUM(v.duracionVuelo)" +
-            "FROM test.vuelo v,\n" +
-            "    JSON_TABLE(v.tripulantesjson, '$[*]' COLUMNS (\n" +
-            "                tripulante_id varchar(40)  PATH '$')\n" +
-            "     ) tri, tripulante t \n" +
-            "WHERE tri.tripulante_id = t.id\n" +
-            "GROUP BY tri.tripulante_id",nativeQuery = true)
-    List<TripulanteEstadisticasDTO> findAllTripulantesEstadisticasJSON();
+    @Query(value = "SELECT t.nombre AS nombre, t.apellidos AS apellidos, COUNT(v.duracion_vuelo) AS numVuelos, SUM(v.duracion_vuelo) AS duracionVuelos FROM test.vuelo v, JSON_TABLE(v.tripulantesjson, '$[*]' COLUMNS (tripulante_id varchar(40)  PATH '$')) tri, tripulante t WHERE tri.tripulante_id = t.id GROUP BY tri.tripulante_id",nativeQuery = true)
+    List<TripulanteEstadisticasInterfaceDTO> findAllTripulantesEstadisticasJSON();
 
 }

@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import es.urjc.code.dto.MecanicoRevisionDTO;
-import es.urjc.code.dto.TripulanteEstadisticasDTO;
-import es.urjc.code.dto.TripulanteViajesDTO;
-import es.urjc.code.dto.VuelosAeropuertoDTO;
+import es.urjc.code.dto.*;
 import es.urjc.code.models.*;
 import es.urjc.code.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,18 +66,18 @@ public class DatabaseLoader implements CommandLineRunner {
 
 
         // APARTADO 2 - QUERY 1 - JSON
-        List<TripulanteViajesDTO> tripulanteViajesDTOListJSON = tripulanteRepository.findCodEmpleadoViajesJSON();
+        List<TripulanteViajesJsonInterfaceDTO> tripulanteViajesDTOListJSON = tripulanteRepository.findCodEmpleadoViajesJSON();
         System.out.println("----------------------------------------");
         System.out.println("2.1 - Tripulantes con findCodEmpleadoViajesJSON():");
         System.out.println("----------------------------------------");
-        muestraDatosTripulante(tripulanteViajesDTOListJSON);
+        muestraDatosViajesJson(tripulanteViajesDTOListJSON);
 
         // APARTADO 2 - QUERY 2 - JSON
-        List<TripulanteEstadisticasDTO> tripulanteEstadisticasDTOListJSON = tripulanteRepository.findAllTripulantesEstadisticasJSON();
+        List<TripulanteEstadisticasInterfaceDTO> tripulanteEstadisticasDTOListJSON = tripulanteRepository.findAllTripulantesEstadisticasJSON();
         System.out.println("----------------------------------------");
         System.out.println("2.2 - Tripulantes con findAllTripulantesEstadisticasJSON():");
         System.out.println("----------------------------------------");
-        muestraDatosTripulanteEstadisticas(tripulanteEstadisticasDTOListJSON);
+        muestraDatosTripulanteNativeEstadisticas(tripulanteEstadisticasDTOListJSON);
 
 
 
@@ -125,6 +122,20 @@ public class DatabaseLoader implements CommandLineRunner {
     private static void muestraDatosTripulanteEstadisticas(List<TripulanteEstadisticasDTO> datos) {
         for (TripulanteEstadisticasDTO p : datos) {
             System.out.println(p);
+        }
+        System.out.println();
+    }
+
+    private static void muestraDatosTripulanteNativeEstadisticas(List<TripulanteEstadisticasInterfaceDTO> datos) {
+        for (TripulanteEstadisticasInterfaceDTO p : datos) {
+            System.out.println(p.getNombre() + " " + p.getApellidos() + " " + p.getDuracionVuelos() + " " + p.getDuracionVuelos());
+        }
+        System.out.println();
+    }
+
+    private static void muestraDatosViajesJson(List<TripulanteViajesJsonInterfaceDTO> datos) {
+        for (TripulanteViajesJsonInterfaceDTO p : datos) {
+            System.out.println(p.getCodAvion() + " " + p.getNombre() + " " + p.getApellidos());
         }
         System.out.println();
     }

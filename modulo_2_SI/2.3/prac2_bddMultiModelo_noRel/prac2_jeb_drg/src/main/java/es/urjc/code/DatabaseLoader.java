@@ -68,15 +68,32 @@ public class DatabaseLoader implements CommandLineRunner {
         muestraDatosTripulanteEstadisticas(tripulanteEstadisticasDTOList);
 
 
+        // APARTADO 2 - QUERY 1 - JSON
+        List<TripulanteViajesDTO> tripulanteViajesDTOListJSON = tripulanteRepository.findCodEmpleadoViajesJSON();
+        System.out.println("----------------------------------------");
+        System.out.println("2.1 - Tripulantes con findCodEmpleadoViajesJSON():");
+        System.out.println("----------------------------------------");
+        muestraDatosTripulante(tripulanteViajesDTOListJSON);
+
+        // APARTADO 2 - QUERY 2 - JSON
+        List<TripulanteEstadisticasDTO> tripulanteEstadisticasDTOListJSON = tripulanteRepository.findAllTripulantesEstadisticasJSON();
+        System.out.println("----------------------------------------");
+        System.out.println("2.2 - Tripulantes con findAllTripulantesEstadisticasJSON():");
+        System.out.println("----------------------------------------");
+        muestraDatosTripulanteEstadisticas(tripulanteEstadisticasDTOListJSON);
+
+
+
+
         // Consulta de todas las provincias
-        System.out.println("Provincias almacenadas:");
+        System.out.println("3. Provincias almacenadas:");
         System.out.println("-------------------------------");
         for (Provincia prov : provinciaRepository.findAll()) {
             System.out.println(prov);
         }
         System.out.println();
 
-        System.out.println("Provincias almacenadas y su número de provincias:");
+        System.out.println("3. Provincias almacenadas y su número de provincias:");
         System.out.println("-------------------------------");
         System.out.println();
         List<CountPronvinciasDTO> listProvincias = provinciaRepository.findCountProvincias();

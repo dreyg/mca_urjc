@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Show Book</title>
+</head>
+<body>
+
+    <p>Titulo: {{book.title}}</p>
+    <p>Resumen: {{book.resume}}</p>
+    <p>Autor: {{book.author}}</p>
+    <p>Editorial: {{book.editorial}}</p>
+    <p>Año de Publicación: {{book.publishYear}}</p>
+
+    <a href="/book/{{book.id}}/delete">Borrar libro</a>
+
+    <br>
+
+    <h1>Comentarios</h1>
+    {{#books}}
+        <a href="book/{{id}}/">{{title}}</a><br>
+        <a href="/comment/{{comment.id}}/delete">Borrar comentario</a>
+    {{/books}}
+
+    {{^books}}
+        <p>Añade el primer comentario!!</p>
+    {{/books}}
+
+
+    <br>
+    <a href="/">Volver</a>
+
+</body>
+</html>

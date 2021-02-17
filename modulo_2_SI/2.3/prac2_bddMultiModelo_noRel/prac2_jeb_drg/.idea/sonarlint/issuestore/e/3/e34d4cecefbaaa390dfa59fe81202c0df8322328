@@ -1,0 +1,48 @@
+
+U	java:S106%"9Replace this use of System.out or System.err by a logger.(íê­…8¶éÌÃù.
+U	java:S106@"9Replace this use of System.out or System.err by a logger.(íê­…8¶éÌÃù.
+P
+java:S1481`"3Remove this unused "listProvincias" local variable.(Ñ¸…ü8ñ·Ü‹ú.
+Z	java:S1067"9Replace this use of System.out or System.err by a logger.(ö†ûÚøÿÿÿÿ8¶éÌÃù.
+Z	java:S106]"9Replace this use of System.out or System.err by a logger.(µŸÖÔÿÿÿÿÿ8¢áÜÖù.
+U	java:S1066"9Replace this use of System.out or System.err by a logger.(íê­…8¶éÌÃù.
+Z	java:S106_"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ8¢áÜÖù.
+Z	java:S106["9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ8÷ûÏÃù.
+T	java:S106V"9Replace this use of System.out or System.err by a logger.(’·®]8÷ûÏÃù.
+Z	java:S106&"9Replace this use of System.out or System.err by a logger.(ïİçÃûÿÿÿÿ8¶éÌÃù.
+U	java:S106>"9Replace this use of System.out or System.err by a logger.(íê­…8¶éÌÃù.
+U	java:S106N"9Replace this use of System.out or System.err by a logger.(ƒ¶£8ÉŒú.
+Z	java:S106f"9Replace this use of System.out or System.err by a logger.(úõ–áùÿÿÿÿ8¶éÌÃù.
+U	java:S106F"9Replace this use of System.out or System.err by a logger.(íê­…8ÏĞÚú.
+Z	java:S106h"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ8¶éÌÃù.
+Z	java:S106m"9Replace this use of System.out or System.err by a logger.(úõ–áùÿÿÿÿ8¶éÌÃù.
+€
+java:S1192%"jDefine a constant instead of duplicating this literal "----------------------------------------" 12 times.(íê­…
+U	java:S106/"9Replace this use of System.out or System.err by a logger.(íê­…8¶éÌÃù.
+Z	java:S106o"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ8¶éÌÃù.
+U	java:S106G"9Replace this use of System.out or System.err by a logger.(Àä½Æ8ÏĞÚú.
+Z	java:S106w"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ8¶éÌÃù.
+Z	java:S106|"9Replace this use of System.out or System.err by a logger.(úõ–áùÿÿÿÿ8¶éÌÃù.
+U	java:S106ƒ"9Replace this use of System.out or System.err by a logger.(Ô¬Ô>8™ùŸŒú.
+[	java:S106Œ"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ8²ï™ú.
+U	java:S106O"9Replace this use of System.out or System.err by a logger.(íê­…8ÉŒú.
+U	java:S106H"9Replace this use of System.out or System.err by a logger.(íê­…8ÏĞÚú.
+A
+java:S1128"+Remove this unused import 'java.util.Date'.(¸…¼ü
+Z	java:S106~"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ8¶éÌÃù.
+U	java:S1068"9Replace this use of System.out or System.err by a logger.(íê­…8¶éÌÃù.
+F
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ
+V	java:S106Š"9Replace this use of System.out or System.err by a logger.(íŠÃÃ8²ï™ú.
+U	java:S106M"9Replace this use of System.out or System.err by a logger.(íê­…8ÉŒú.
+_
+java:S1854`"BRemove this useless assignment to local variable "listProvincias".(Ñ¸…ü8ñ·Ü‹ú.
+U	java:S106Y"9Replace this use of System.out or System.err by a logger.(Ş«ˆ 8÷ûÏÃù.
+U	java:S106-"9Replace this use of System.out or System.err by a logger.(íê­…8¶éÌÃù.
+Z	java:S106W"9Replace this use of System.out or System.err by a logger.(ç‘ë®üÿÿÿÿ8÷ûÏÃù.
+Z	java:S106u"9Replace this use of System.out or System.err by a logger.(úõ–áùÿÿÿÿ8¶éÌÃù.
+U	java:S106'"9Replace this use of System.out or System.err by a logger.(íê­…8¶éÌÃù.
+Z	java:S106^"9Replace this use of System.out or System.err by a logger.(ç‘ë®üÿÿÿÿ8¢áÜÖù.
+U	java:S106."9Replace this use of System.out or System.err by a logger.(Ë¥ö·8¶éÌÃù.
+[	java:S106…"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ8™ùŸŒú.
+Z	java:S106?"9Replace this use of System.out or System.err by a logger.(æ˜±ùÿÿÿÿ8¶éÌÃù.

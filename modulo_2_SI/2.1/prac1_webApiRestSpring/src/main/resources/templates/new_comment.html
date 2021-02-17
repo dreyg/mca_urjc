@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Comment</title>
+</head>
+<body>
+
+
+<h1>Añade tu comentario:</h1>
+    <p>Nombre: {{book.commentsList.name}}</p>
+    <p>Comentario: {{book.commentsList.comment}}</p>
+    <p>Puntuación: {{book.commentsList.score}}</p>
+
+    <form action="/comment/new" method="post" enctype="multipart/form-data">
+        <p>Nombre: </p>
+        <input type='text' name='name' value='{{#user}}{{.}}{{/user}}'/>
+        <p>Puntuación:</p>
+        <input type='integer' name='score'/>
+        <p>Comentario:</p>
+        <textarea name='text' rows=5 cols=40></textarea>
+
+
+        <input type='submit' value='Guardar'/>
+    </form>
+<br>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package es.codeurjc.mastercloudapps.grpc;
+
+
+message GetWeatherRequest {
+    string city = 1;
+}
+
+message ResponseWeather {
+    string city = 1;
+    string weather = 2;
+}
+
+
+service WeatherService{
+    rpc getWeather(GetWeatherRequest) returns (ResponseWeather);
+}
+

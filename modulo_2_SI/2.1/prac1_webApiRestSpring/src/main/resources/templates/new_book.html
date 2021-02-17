@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Book</title>
+</head>
+<body>
+
+    <form action="/book/new" method="post" enctype="multipart/form-data">
+        <p>Usuario: </p>
+            <input type='text' name='user' value='{{#user}}{{.}}{{/user}}'/>
+        <p>Titulo:</p>
+            <input type='text' name='title'/>
+        <p>Resumen:</p>
+            <input type='text' name='resume'/>
+        <p>Autor:</p>
+            <input type='text' name='author'/>
+        <p>Editorial:</p>
+            <input type='text' name='editorial'/>
+        <p>Año de publicación:</p>
+            <input type='integer' name='publishYear'/>
+        <p>Comentario:</p>
+            <textarea name='text' rows=5 cols=40></textarea>
+
+
+        <input type='submit' value='Guardar'/>
+    </form>
+
+</body>
+</html>

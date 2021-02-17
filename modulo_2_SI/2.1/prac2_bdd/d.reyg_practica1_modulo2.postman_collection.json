@@ -1,0 +1,273 @@
+{
+	"info": {
+		"_postman_id": "905442ec-ae9d-43d2-bad9-36040aff1386",
+		"name": "d.reyg_practica2_modulo2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get books (only id+name )",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hostDev}}/api/v1/books/",
+					"host": [
+						"{{hostDev}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"books",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get book by id = 0",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hostDev}}/api/v1/books/1",
+					"host": [
+						"{{hostDev}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "new book",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"title\": \"El Mundo Negro\",\r\n        \"summary\": \" en los sueños, ellos se crearán\",\r\n        \"author\": \"Albert Espinosa\",\r\n        \"publisher\": \"Grijalbo\",\r\n        \"publicationYear\": 2012\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{hostDev}}/api/v1/books/",
+					"host": [
+						"{{hostDev}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"books",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "save comment asociated to bookId",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"comment\": \"Libro full\",\r\n    \"score\": 1,\r\n    \"user\": {\r\n        \"nick\": \"Pedro\",\r\n        \"mail\": \"asd@asd.es\"\r\n        }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{hostDev}}/api/v1/books/1/comments/",
+					"host": [
+						"{{hostDev}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"1",
+						"comments",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete comments by book id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{hostDev}}/api/v1/books/1/comments/3",
+					"host": [
+						"{{hostDev}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"1",
+						"comments",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hostDev}}/api/v1/users/",
+					"host": [
+						"{{hostDev}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user by id = 0 and all comments asociated",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hostDev}}/api/v1/users/2",
+					"host": [
+						"{{hostDev}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "new user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"nick\": \"Pedro\",\r\n        \"mail\": \"asd@asd.es\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{hostDev}}/api/v1/users/",
+					"host": [
+						"{{hostDev}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete user ",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{hostDev}}/api/v1/users/2/",
+					"host": [
+						"{{hostDev}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"2",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update user",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"nick\": \"pedro\",\r\n        \"mail\": \"pedro@gmail.com\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{hostDev}}/api/v1/users/",
+					"host": [
+						"{{hostDev}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"id": "35e78e8b-1ae4-4311-b964-e5edd847e328",
+			"key": "host",
+			"value": "http://localhost:8080"
+		},
+		{
+			"id": "be8773d4-466e-49e0-9686-9df9ae39d98c",
+			"key": "hostDev",
+			"value": "http://localhost:"
+		},
+		{
+			"id": "44d4f378-6544-46cd-b83e-700dd424d48f",
+			"key": "portJava",
+			"value": "8080"
+		},
+		{
+			"id": "ecd327ca-2985-4f05-b2c0-6f63253bac5a",
+			"key": "portNode",
+			"value": "3000"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

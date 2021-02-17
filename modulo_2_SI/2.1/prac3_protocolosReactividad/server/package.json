@@ -1,0 +1,17 @@
+{
+    "name": "practice-2-databases-node-mongodb",
+    "version": "1.0.0",
+    "scripts": {
+        "start": "node src/server",
+        "dev": "nodemon src/server"
+    },
+    "dependencies": {
+        "express": "4.17.1",
+        "mysql2": "^2.2.5",
+        "sequelize": "^6.3.5",
+        "amqplib": "^0.5.5"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.6"
+    }
+}

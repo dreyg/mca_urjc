@@ -1,6 +1,5 @@
 package es.codeurjc.shoppingCart.infrastructure.model;
 
-import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
 

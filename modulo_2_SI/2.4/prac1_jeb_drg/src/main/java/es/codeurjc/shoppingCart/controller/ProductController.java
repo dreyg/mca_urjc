@@ -17,7 +17,7 @@ public class ProductController {
     @Autowired
     private ProductService products;
 
-    @PostMapping("/product/")
+    @PostMapping("/api/product/")
     public ResponseEntity<ProductResponseDto> createBook(@RequestBody ProductRequestDto product) {
 
         FullProductDto fullProduct = products.save(product);
@@ -35,18 +35,18 @@ public class ProductController {
     }
 
 
-    @GetMapping("/products/")
+    @GetMapping("/api/products/")
     public Collection<ProductResponseDto> getProducts() {
         return products.findAll();
     }
 
-    @GetMapping("/products/{id}")
+    @GetMapping("/api/products/{id}")
     public ProductResponseDto getProduct(@PathVariable long id) {
 
         return products.findById(id).orElseThrow();
     }
 
-    @DeleteMapping("productss/{productId}")
+    @DeleteMapping("/api/productss/{productId}")
     public void deleteProduct(@PathVariable Long productId) {
 
         ProductResponseDto comment = products.findById(productId).orElseThrow();

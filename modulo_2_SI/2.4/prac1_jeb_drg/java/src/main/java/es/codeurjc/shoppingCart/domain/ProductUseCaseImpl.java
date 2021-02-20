@@ -14,21 +14,20 @@ public class ProductUseCaseImpl implements ProductUseCase {
         }
 
         @Override
-        public FullProductDto createProduct(ProductDto productDto) {
-                FullProductDto product = new FullProductDto(productDto.getName(), productDto.getDescription());
+        public ProductDto createProduct(ProductDto productDto) {
 
-                FullProductDto fullProduct = productRepository.save(product);
-                return fullProduct;
+                ProductDto product = productRepository.save(productDto);
+                return product;
         }
 
 
         @Override
-        public Collection<FullProductDto> findAllProducts() {
+        public Collection<ProductDto> findAllProducts() {
                 return productRepository.findAllProducts();
         }
 
         @Override
-        public Optional<FullProductDto> findProductById(Long id) {
+        public Optional<ProductDto> findProductById(Long id) {
                 return productRepository.findProductById(id);
         }
 

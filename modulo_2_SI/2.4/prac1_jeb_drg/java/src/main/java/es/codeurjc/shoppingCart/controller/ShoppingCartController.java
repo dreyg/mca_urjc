@@ -1,7 +1,6 @@
 package es.codeurjc.shoppingCart.controller;
 
-import es.codeurjc.shoppingCart.domain.FullProductDto;
-import es.codeurjc.shoppingCart.domain.FullShoppingCartDto;
+import es.codeurjc.shoppingCart.domain.ShoppingCartDto;
 import es.codeurjc.shoppingCart.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,20 +18,18 @@ public class ShoppingCartController {
 
 
     @PostMapping("/api/shoppingcarts")
-    public ResponseEntity<ShoppingCartResponseDto> createShoppingCart(@RequestBody ShoppingCartRequestDto shoppingCart){
+    public ResponseEntity<ShoppingCartResponseDto> createShoppingCart(@RequestBody ShoppingCartRequestDto shoppingCartRequestDto){
 
-        FullShoppingCartDto fullShoppingCart = shoppingCart.save(shoppingCart);
+        ShoppingCartDto shoppingCartDto = shoppingCart.save(shoppingCartRequestDto);
 
-        // Transform fullBook into BookResponseDto
         ShoppingCartResponseDto responseShoppingCartDto = new ShoppingCartResponseDto(
-                fullShoppingCart.getId(),
-                fullShoppingCart.getState(),
-                fullShoppingCart.getCount(),
-                fullShoppingCart.getProductList());
+                shoppingCartDto.getId(),
+                shoppingCartDto.getState(),
+                shoppingCartDto.getProducts());
 
 
         URI location = fromCurrentRequest().path("/{id}")
-                .buildAndExpand(fullShoppingCart.getId()).toUri();
+                .buildAndExpand(shoppingCart.getId()).toUri();
 
         return ResponseEntity.created(location).body(responseShoppingCartDto);
     }

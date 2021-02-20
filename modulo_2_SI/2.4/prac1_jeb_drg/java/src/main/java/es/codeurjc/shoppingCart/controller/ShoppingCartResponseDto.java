@@ -1,6 +1,6 @@
 package es.codeurjc.shoppingCart.controller;
 
-import es.codeurjc.shoppingCart.domain.FullShoppingCartDto;
+import es.codeurjc.shoppingCart.domain.ShoppingCartDto;
 
 import java.util.List;
 
@@ -11,27 +11,25 @@ public class ShoppingCartResponseDto {
     private Integer count;
     private List<ProductRequestDto> productRequestDtoList;
 
-    public static ShoppingCartResponseDto fromFullShoppingCartDto(FullShoppingCartDto fullShoppingCartDto){
+    public static ShoppingCartResponseDto fromShoppingCartDto(ShoppingCartDto shoppingCartDto){
         return new ShoppingCartResponseDto(
-                fullShoppingCartDto.getId(),
-            fullShoppingCartDto.getState(),
-            fullShoppingCartDto.getCount(),
-            fullShoppingCartDto.getProductList());
+                shoppingCartDto.getId(),
+            shoppingCartDto.getState(),
+            shoppingCartDto.getProducts());
     }
 
     public ShoppingCartResponseDto() {
     }
 
-    public ShoppingCartResponseDto(String state, Integer count, List<ProductRequestDto> productRequestDtoList) {
+    public ShoppingCartResponseDto(String state, List<ProductRequestDto> productRequestDtoList) {
+        this.id = null;
         this.state = state;
-        this.count = count;
         this.productRequestDtoList = productRequestDtoList;
     }
 
-    public ShoppingCartResponseDto(Long id, String state, Integer count, List<ProductRequestDto> productRequestDtoList) {
+    public ShoppingCartResponseDto(Long id, String state, List<ProductRequestDto> productRequestDtoList) {
         this.id = id;
         this.state = state;
-        this.count = count;
         this.productRequestDtoList = productRequestDtoList;
     }
 

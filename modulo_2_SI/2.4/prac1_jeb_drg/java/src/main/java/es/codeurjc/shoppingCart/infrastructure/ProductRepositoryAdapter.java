@@ -1,6 +1,6 @@
 package es.codeurjc.shoppingCart.infrastructure;
 
-import es.codeurjc.shoppingCart.domain.FullProductDto;
+import es.codeurjc.shoppingCart.domain.ProductDto;
 import es.codeurjc.shoppingCart.domain.ProductRepository;
 import es.codeurjc.shoppingCart.infrastructure.model.ProductEntity;
 import es.codeurjc.shoppingCart.infrastructure.repository.ProductJpaRepository;
@@ -22,7 +22,7 @@ public class ProductRepositoryAdapter implements ProductRepository {
 
 
     @Override
-    public FullProductDto save(FullProductDto product) {
+    public ProductDto save(ProductDto product) {
 
         ProductEntity productEntity = new ProductEntity(
                 product.getId(),
@@ -31,29 +31,29 @@ public class ProductRepositoryAdapter implements ProductRepository {
 
         ProductEntity savedProductEntity = productJpaRepository.save(productEntity);
 
-        return toFullProductDto(savedProductEntity);
+        return toProductDto(savedProductEntity);
     }
 
 
 
     @Override
-    public List<FullProductDto> findAllProducts() {
+    public List<ProductDto> findAllProducts() {
 
         List<ProductEntity> products = productJpaRepository.findAll();
 
         return products
                 .stream()
-                .map(ProductRepositoryAdapter::toFullProductDto)
+                .map(ProductRepositoryAdapter::toProductDto)
                 .collect(Collectors.toList());
 
     }
 
     @Override
-    public Optional<FullProductDto> findProductById(Long id) {
+    public Optional<ProductDto> findProductById(Long id) {
 
         Optional<ProductEntity> maybeAProduct = productJpaRepository.findById(id);
 
-        return maybeAProduct.map(ProductRepositoryAdapter::toFullProductDto);
+        return maybeAProduct.map(ProductRepositoryAdapter::toProductDto);
 
     }
 
@@ -66,9 +66,9 @@ public class ProductRepositoryAdapter implements ProductRepository {
 
 
 
-    private static FullProductDto toFullProductDto(ProductEntity product){
+    private static ProductDto toProductDto(ProductEntity product){
 
-        return new FullProductDto(
+        return new ProductDto(
                 product.getId(),
                 product.getName(),
                 product.getDescription());

@@ -5,9 +5,9 @@ import java.util.Optional;
 public interface ShoppingCartUseCase {
 
 
-    public FullShoppingCartDto createProduct(ShoppingCartDto shoppingCart);
+    public ShoppingCartDto createProduct(ShoppingCartDto shoppingCart);
 
-    public Optional<FullShoppingCartDto> findShoppingCartById(Long id);
+    public Optional<ShoppingCartDto> findShoppingCartById(Long id);
 
     public void deleteShoppingCartById(Long id);
 

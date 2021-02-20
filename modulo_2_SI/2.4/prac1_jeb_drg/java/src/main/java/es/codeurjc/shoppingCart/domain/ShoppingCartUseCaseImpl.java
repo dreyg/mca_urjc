@@ -12,15 +12,13 @@ public class ShoppingCartUseCaseImpl implements ShoppingCartUseCase {
 
 
         @Override
-        public FullShoppingCartDto createProduct(ShoppingCartDto shoppingCart) {
-                FullShoppingCartDto shoppingCar = new FullProductDto(shoppingCart.getState(), shoppingCart.getCount(), shoppingCart.getProductList());
-
-                FullShoppingCartDto fullShoppingCartDto = shoppingCartRepository.save(shoppingCar);
+        public ShoppingCartDto createProduct(ShoppingCartDto shoppingCart) {
+                ShoppingCartDto fullShoppingCartDto = shoppingCartRepository.save(shoppingCart);
                 return fullShoppingCartDto;
         }
 
         @Override
-        public Optional<FullShoppingCartDto> findShoppingCartById(Long id) {
+        public Optional<ShoppingCartDto> findShoppingCartById(Long id) {
                 return shoppingCartRepository.findShoppingCartById(id);
         }
 

@@ -1,6 +1,6 @@
 package es.codeurjc.shoppingCart.infrastructure;
 
-import es.codeurjc.shoppingCart.domain.FullShoppingCartDto;
+import es.codeurjc.shoppingCart.domain.ShoppingCartDto;
 import es.codeurjc.shoppingCart.domain.ShoppingCartRepository;
 import es.codeurjc.shoppingCart.infrastructure.model.ShoppingCartEntity;
 import es.codeurjc.shoppingCart.infrastructure.repository.ShoppingCartJpaRepository;
@@ -20,25 +20,24 @@ public class ShoppingCartRepositoryAdapter implements ShoppingCartRepository {
 
 
     @Override
-    public FullShoppingCartDto save(FullShoppingCartDto shoppingCart) {
+    public ShoppingCartDto save(ShoppingCartDto shoppingCart) {
 
         ShoppingCartEntity shoppingCartEntity = new ShoppingCartEntity(
                 shoppingCart.getId(),
                 shoppingCart.getState(),
-                shoppingCart.getCount(),
-                shoppingCart.getProductList());
+                shoppingCart.getProducts());
 
         ShoppingCartEntity savedShoppingCartEntity = shoppingCartJpaRepository.save(shoppingCartEntity);
 
-        return toFullShoppingCartDto(savedShoppingCartEntity);
+        return toShoppingCartDto(savedShoppingCartEntity);
     }
 
     @Override
-    public Optional<FullShoppingCartDto> findShoppingCartById(Long id) {
+    public Optional<ShoppingCartDto> findShoppingCartById(Long id) {
 
         Optional<ShoppingCartEntity> maybeAShoppingCart = shoppingCartJpaRepository.findById(id);
 
-        return maybeAShoppingCart.map(ShoppingCartRepositoryAdapter::toFullShoppingCartDto);
+        return maybeAShoppingCart.map(ShoppingCartRepositoryAdapter::toShoppingCartDto);
 
     }
 
@@ -51,12 +50,11 @@ public class ShoppingCartRepositoryAdapter implements ShoppingCartRepository {
 
 
 
-    private static FullShoppingCartDto toFullShoppingCartDto(ShoppingCartEntity shoppingCart){
+    private static ShoppingCartDto toShoppingCartDto(ShoppingCartEntity shoppingCart){
 
-        return new FullShoppingCartDto(
+        return new ShoppingCartDto(
                 shoppingCart.getId(),
                 shoppingCart.getStatus(),
-                shoppingCart.getCount(),
                 shoppingCart.getProducts());
 
     }

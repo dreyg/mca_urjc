@@ -2,7 +2,6 @@ package es.codeurjc.shoppingCart.service;
 
 import es.codeurjc.shoppingCart.controller.ProductRequestDto;
 import es.codeurjc.shoppingCart.controller.ProductResponseDto;
-import es.codeurjc.shoppingCart.domain.FullProductDto;
 import es.codeurjc.shoppingCart.domain.ProductDto;
 import es.codeurjc.shoppingCart.domain.ProductUseCase;
 import org.springframework.stereotype.Service;
@@ -20,11 +19,11 @@ public class ProductService {
         this.productUseCase = productUseCase;
     }
 
-    public FullProductDto save(ProductRequestDto product) {
+    public ProductDto save(ProductRequestDto product) {
 
         ProductDto productDto = new ProductDto(
                 product.getName(),
-                product.getName()
+                product.getDescription()
         );
 
         return productUseCase.createProduct(productDto);
@@ -35,12 +34,12 @@ public class ProductService {
         return productUseCase
                 .findAllProducts()
                 .stream()
-                .map(ProductResponseDto::fromFullProductDto)
+                .map(ProductResponseDto::fromProductDto)
                 .collect(Collectors.toList());
     }
 
     public Optional<ProductResponseDto> findById(Long id) {
-        return productUseCase.findProductById(id).map(ProductResponseDto::fromFullProductDto);
+        return productUseCase.findProductById(id).map(ProductResponseDto::fromProductDto);
     }
 
     public void deleteById(Long id) {

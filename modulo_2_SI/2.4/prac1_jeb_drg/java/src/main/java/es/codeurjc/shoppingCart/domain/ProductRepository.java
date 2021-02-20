@@ -6,11 +6,11 @@ import java.util.Optional;
 public interface ProductRepository {
 
 
-    FullProductDto save(FullProductDto product);
+    ProductDto save(ProductDto product);
 
-    List<FullProductDto> findAllProducts();
+    List<ProductDto> findAllProducts();
 
-    Optional<FullProductDto> findProductById(Long id);
+    Optional<ProductDto> findProductById(Long id);
 
     void deleteProductById(Long id);
 

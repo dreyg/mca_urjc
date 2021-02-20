@@ -1,6 +1,6 @@
 package es.codeurjc.shoppingCart.controller;
 
-import es.codeurjc.shoppingCart.domain.FullProductDto;
+import es.codeurjc.shoppingCart.domain.ProductDto;
 
 public class ProductResponseDto {
 
@@ -8,12 +8,19 @@ public class ProductResponseDto {
     private String name;
     private String description;
 
-    public static ProductResponseDto fromFullProductDto(FullProductDto fullProductDto){
-        return new ProductResponseDto(
-                fullProductDto.getId(),
-                fullProductDto.getName(),
-                fullProductDto.getDescription());
+    public ProductResponseDto(Long id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
     }
+
+    public static ProductResponseDto fromProductDto(ProductDto productDto) {
+        return new ProductResponseDto(
+                productDto.getId(),
+                productDto.getName(),
+                productDto.getDescription());
+    }
+
 
     public ProductResponseDto(){
     }
@@ -42,9 +49,5 @@ public class ProductResponseDto {
         this.description = description;
     }
 
-    public ProductResponseDto(Long id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
+
 }

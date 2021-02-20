@@ -1,6 +1,6 @@
 package es.codeurjc.shoppingCart.controller;
 
-import es.codeurjc.shoppingCart.domain.FullProductDto;
+import es.codeurjc.shoppingCart.domain.ProductDto;
 import es.codeurjc.shoppingCart.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,16 +20,16 @@ public class ProductController {
     @PostMapping("/api/product/")
     public ResponseEntity<ProductResponseDto> createBook(@RequestBody ProductRequestDto product) {
 
-        FullProductDto fullProduct = products.save(product);
+        ProductDto productDto = products.save(product);
 
         // Transform fullBook into BookResponseDto
         ProductResponseDto responseProductDto = new ProductResponseDto(
-                fullProduct.getId(),
-                fullProduct.getName(),
-                fullProduct.getDescription());
+                productDto.getId(),
+                productDto.getName(),
+                productDto.getDescription());
 
         URI location = fromCurrentRequest().path("/{id}")
-                .buildAndExpand(fullProduct.getId()).toUri();
+                .buildAndExpand(productDto.getId()).toUri();
 
         return ResponseEntity.created(location).body(responseProductDto);
     }

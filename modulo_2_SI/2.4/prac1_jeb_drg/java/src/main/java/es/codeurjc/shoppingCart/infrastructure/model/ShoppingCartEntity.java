@@ -1,7 +1,7 @@
 package es.codeurjc.shoppingCart.infrastructure.model;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Map;
 
 @Entity
 public class ShoppingCartEntity {
@@ -13,29 +13,24 @@ public class ShoppingCartEntity {
     @Column(columnDefinition = "STATUS")
     private String status;
 
-    @Column(columnDefinition = "COUNT")
-    private String count;
-
     //TODO ojo aqui el mapeo, revisar
 
     @OneToMany(mappedBy="product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProductEntity> productEntities;
+    private Map<ProductEntity, Integer> products;
 
     public ShoppingCartEntity() {
     }
 
-    public ShoppingCartEntity(Long id, String status, String count, List<ProductEntity> productEntities) {
+    public ShoppingCartEntity(Long id, String status, Map<ProductEntity, Integer> products) {
         this.id = id;
         this.status = status;
-        this.count = count;
-        this.productEntities = productEntities;
+        this.products = products;
     }
 
-    public ShoppingCartEntity(String status, String count, List<ProductEntity> productEntities) {
+    public ShoppingCartEntity(String status, Map<ProductEntity, Integer> products) {
         this.id = null;
         this.status = status;
-        this.count = count;
-        this.productEntities = productEntities;
+        this.products = products;
     }
 
     public Long getId() {
@@ -54,20 +49,12 @@ public class ShoppingCartEntity {
         this.status = status;
     }
 
-    public String getCount() {
-        return count;
+    public Map<ProductEntity, Integer> getProducts() {
+        return products;
     }
 
-    public void setCount(String count) {
-        this.count = count;
-    }
-
-    public List<ProductEntity> getProductEntities() {
-        return productEntities;
-    }
-
-    public void setProductEntities(List<ProductEntity> productEntities) {
-        this.productEntities = productEntities;
+    public void setProducts(Map<ProductEntity, Integer> products) {
+        this.products = products;
     }
 
     @Override
@@ -75,8 +62,7 @@ public class ShoppingCartEntity {
         return "ShoppingCartEntity{" +
                 "id=" + id +
                 ", status='" + status + '\'' +
-                ", count='" + count + '\'' +
-                ", productEntities=" + productEntities +
+                ", products=" + products +
                 '}';
     }
 }

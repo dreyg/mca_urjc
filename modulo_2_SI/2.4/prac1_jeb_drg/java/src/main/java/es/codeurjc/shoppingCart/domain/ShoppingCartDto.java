@@ -1,20 +1,34 @@
 package es.codeurjc.shoppingCart.domain;
 
-import java.util.List;
+import java.util.Map;
 
 public class ShoppingCartDto {
 
+    private Long id;
     private String state;
-    private Integer count;
-    private List<ProductDto> productList;
+    private Map<Product, Integer> products;
 
     public ShoppingCartDto() {
     }
 
-    public ShoppingCartDto(String state, Integer count, List<ProductDto> productList) {
+    public ShoppingCartDto(Long id, String state, Map<Product, Integer> products) {
+        this.id = id;
         this.state = state;
-        this.count = count;
-        this.productList = productList;
+        this.products = products;
+    }
+
+    public ShoppingCartDto(String state, Map<Product, Integer> products) {
+        this.id = null;
+        this.state = state;
+        this.products = products;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getState() {
@@ -25,21 +39,11 @@ public class ShoppingCartDto {
         this.state = state;
     }
 
-    public Integer getCount() {
-        return count;
+    public Map<Product, Integer> getProducts() {
+        return products;
     }
 
-    public void setCount(Integer count) {
-        this.count = count;
+    public void setProducts(Map<Product, Integer> products) {
+        this.products = products;
     }
-
-    public List<ProductDto> getProductList() {
-        return productList;
-    }
-
-    public void setProductList(List<ProductDto> productList) {
-        this.productList = productList;
-    }
-
-
 }

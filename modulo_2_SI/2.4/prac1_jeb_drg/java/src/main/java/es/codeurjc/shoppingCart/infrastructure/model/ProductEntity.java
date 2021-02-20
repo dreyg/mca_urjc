@@ -9,12 +9,9 @@ public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(columnDefinition = "NAME")
     private String name;
-
-    @Column(columnDefinition = "DESCRIPTION")
     private String description;
+
 
     public ProductEntity() {
     }

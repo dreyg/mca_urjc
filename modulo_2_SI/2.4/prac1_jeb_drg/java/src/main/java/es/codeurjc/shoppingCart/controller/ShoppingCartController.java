@@ -29,12 +29,12 @@ public class ShoppingCartController {
 
 
         URI location = fromCurrentRequest().path("/{id}")
-                .buildAndExpand(shoppingCart.getId()).toUri();
+                .buildAndExpand(shoppingCartDto.getId()).toUri();
 
         return ResponseEntity.created(location).body(responseShoppingCartDto);
     }
 
-    @PatchMapping("/api/shoppingcarts/{id}")
+    /*@PatchMapping("/api/shoppingcarts/{id}")
     public ResponseEntity<ShoppingCartResponseDto> updateShoppingCart(){
 
 
@@ -42,14 +42,14 @@ public class ShoppingCartController {
                 .buildAndExpand(fullShoppingCart.getId()).toUri();
 
         return ResponseEntity.created(location).body(responseShoppingCartDto);
-    }
+    }*/
 
-    @GetMapping("/api/shoppingcarts/{id}")
+    /*@GetMapping("/api/shoppingcarts/{id}")
     public ResponseEntity<ShoppingCartResponseDto> getShoppingCart(){
         return shoppingCart.findById(id).orElseThrow();
-    }
+    }*/
 
-    @DeleteMapping("/api/shoppingcarts/{id}")
+    /*@DeleteMapping("/api/shoppingcarts/{id}")
     public void  deleteShoppingCartById(){
 
 
@@ -57,9 +57,9 @@ public class ShoppingCartController {
 
         shoppingCart.deleteById(productId);
 
-    }
+    }*/
 
-    @PostMapping("/api/shoppingcarts/{cart_id}/product/{prod_id}/quantity/{prod_quantity}")
+    /*@PostMapping("/api/shoppingcarts/{cart_id}/product/{prod_id}/quantity/{prod_quantity}")
     public ResponseEntity<ShoppingCartResponseDto> updateShoppingCartProduct(){
 
         FullProductDto fullProduct = shoppingCart.save(product);
@@ -75,16 +75,16 @@ public class ShoppingCartController {
 
         return ResponseEntity.created(location).body(ShoppingCartResponseDto);
 
-    }
+    }*/
 
-    @DeleteMapping("/api/shoppingcarts/:cart_id/product/:prod_id")
+    /*@DeleteMapping("/api/shoppingcarts/:cart_id/product/:prod_id")
     public void deleteProductInShoppingCart(){
 
         ProductResponseDto comment = shoppingCart.findById(productId).orElseThrow();
 
         shoppingCart.deleteById(productId);
 
-    }
+    }*/
 
 
 }

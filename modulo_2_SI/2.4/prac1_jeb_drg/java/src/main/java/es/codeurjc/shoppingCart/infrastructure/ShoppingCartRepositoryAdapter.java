@@ -1,11 +1,16 @@
 package es.codeurjc.shoppingCart.infrastructure;
 
+import com.sun.xml.bind.v2.TODO;
+import es.codeurjc.shoppingCart.domain.CartProductDto;
 import es.codeurjc.shoppingCart.domain.ShoppingCartDto;
 import es.codeurjc.shoppingCart.domain.ShoppingCartRepository;
+import es.codeurjc.shoppingCart.infrastructure.model.CartProductEntity;
 import es.codeurjc.shoppingCart.infrastructure.model.ShoppingCartEntity;
 import es.codeurjc.shoppingCart.infrastructure.repository.ShoppingCartJpaRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -24,8 +29,10 @@ public class ShoppingCartRepositoryAdapter implements ShoppingCartRepository {
 
         ShoppingCartEntity shoppingCartEntity = new ShoppingCartEntity(
                 shoppingCart.getId(),
-                shoppingCart.getState(),
-                shoppingCart.getProducts());
+                shoppingCart.getState());
+
+                //Ahora creo el carro vacío:
+                //shoppingCart.getProducts());
 
         ShoppingCartEntity savedShoppingCartEntity = shoppingCartJpaRepository.save(shoppingCartEntity);
 
@@ -54,9 +61,11 @@ public class ShoppingCartRepositoryAdapter implements ShoppingCartRepository {
 
         return new ShoppingCartDto(
                 shoppingCart.getId(),
-                shoppingCart.getStatus(),
-                shoppingCart.getProducts());
-
+                shoppingCart.getStatus());
+                //Revisar con David, da problemas a recoger los productos,
+                //shoppingCart.getProducts());
     }
+
+
 
 }

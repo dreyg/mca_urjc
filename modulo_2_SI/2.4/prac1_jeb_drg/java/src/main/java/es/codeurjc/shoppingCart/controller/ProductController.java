@@ -46,7 +46,7 @@ public class ProductController {
         return products.findById(id).orElseThrow();
     }
 
-    @DeleteMapping("/api/productss/{productId}")
+    @DeleteMapping("/api/products/{productId}")
     public void deleteProduct(@PathVariable Long productId) {
 
         ProductResponseDto comment = products.findById(productId).orElseThrow();

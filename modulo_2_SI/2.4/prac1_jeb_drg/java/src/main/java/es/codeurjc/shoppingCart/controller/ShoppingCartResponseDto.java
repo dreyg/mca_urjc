@@ -1,15 +1,16 @@
 package es.codeurjc.shoppingCart.controller;
 
+import es.codeurjc.shoppingCart.domain.CartProductDto;
 import es.codeurjc.shoppingCart.domain.ShoppingCartDto;
 
 import java.util.List;
 
 public class ShoppingCartResponseDto {
 
+
     private Long id;
     private String state;
-    private Integer count;
-    private List<ProductRequestDto> productRequestDtoList;
+    private List<CartProductDto> products;
 
     public static ShoppingCartResponseDto fromShoppingCartDto(ShoppingCartDto shoppingCartDto){
         return new ShoppingCartResponseDto(
@@ -21,16 +22,18 @@ public class ShoppingCartResponseDto {
     public ShoppingCartResponseDto() {
     }
 
-    public ShoppingCartResponseDto(String state, List<ProductRequestDto> productRequestDtoList) {
-        this.id = null;
-        this.state = state;
-        this.productRequestDtoList = productRequestDtoList;
-    }
-
-    public ShoppingCartResponseDto(Long id, String state, List<ProductRequestDto> productRequestDtoList) {
+    public ShoppingCartResponseDto(Long id, String state, List<CartProductDto> products) {
         this.id = id;
         this.state = state;
-        this.productRequestDtoList = productRequestDtoList;
+        this.products = products;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getState() {
@@ -41,19 +44,11 @@ public class ShoppingCartResponseDto {
         this.state = state;
     }
 
-    public Integer getCount() {
-        return count;
+    public List<CartProductDto> getProducts() {
+        return products;
     }
 
-    public void setCount(Integer count) {
-        this.count = count;
-    }
-
-    public List<ProductRequestDto> getProductRequestDtoList() {
-        return productRequestDtoList;
-    }
-
-    public void setProductRequestDtoList(List<ProductRequestDto> productRequestDtoList) {
-        this.productRequestDtoList = productRequestDtoList;
+    public void setProducts(List<CartProductDto> products) {
+        this.products = products;
     }
 }

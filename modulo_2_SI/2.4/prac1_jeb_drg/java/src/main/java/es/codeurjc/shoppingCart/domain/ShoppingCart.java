@@ -1,5 +1,6 @@
 package es.codeurjc.shoppingCart.domain;
 
+import java.util.List;
 import java.util.Map;
 
 public class ShoppingCart {
@@ -7,12 +8,13 @@ public class ShoppingCart {
 
     private Long id;
     private String state;
-    private Map<Product, Integer> products;
+    private List <CartProductDto> products;
 
     public ShoppingCart() {
     }
 
-    public ShoppingCart(String state, Map<Product, Integer> products) {
+    public ShoppingCart(Long id, String state, List<CartProductDto> products) {
+        this.id = id;
         this.state = state;
         this.products = products;
     }

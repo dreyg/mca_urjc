@@ -3,26 +3,29 @@ package es.codeurjc.shoppingCart.domain;
 public class CartProductDto {
 
     private Long id;
-    private String quantity;
+    private Integer quantity;
     private ProductDto productDto;
     private ShoppingCartDto shoppingCartDto;
 
     public CartProductDto() {
     }
 
-    public CartProductDto(Long id, String quantity, ProductDto productDto, ShoppingCartDto shoppingCartDto) {
+    public CartProductDto(Long id, Integer quantity, ProductDto productDto, ShoppingCartDto shoppingCartDto) {
         this.id = id;
         this.quantity = quantity;
         this.productDto = productDto;
         this.shoppingCartDto = shoppingCartDto;
     }
 
-    public CartProductDto(String quantity, ProductDto productDto, ShoppingCartDto shoppingCartDto) {
+    public CartProductDto(Integer quantity, ProductDto productDto, ShoppingCartDto shoppingCartDto) {
         this.id = null;
         this.quantity = quantity;
         this.productDto = productDto;
         this.shoppingCartDto = shoppingCartDto;
     }
+
+
+
 
     public Long getId() {
         return id;
@@ -32,11 +35,11 @@ public class CartProductDto {
         this.id = id;
     }
 
-    public String getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 

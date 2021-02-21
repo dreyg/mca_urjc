@@ -6,15 +6,22 @@ import es.codeurjc.shoppingCart.domain.ShoppingCartDto;
 public class CartProductRequestDto {
 
     private Long id;
-    private String quantity;
+    private Integer quantity;
     private ProductDto product;
     private ShoppingCartDto shoppingCart;
 
     public CartProductRequestDto() {
     }
 
-    public CartProductRequestDto(Long id, String quantity, ProductDto product, ShoppingCartDto shoppingCart) {
+    public CartProductRequestDto(Long id, Integer quantity, ProductDto product, ShoppingCartDto shoppingCart) {
         this.id = id;
+        this.quantity = quantity;
+        this.product = product;
+        this.shoppingCart = shoppingCart;
+    }
+
+    public CartProductRequestDto(Integer quantity, ProductDto product, ShoppingCartDto shoppingCart) {
+        this.id = null;
         this.quantity = quantity;
         this.product = product;
         this.shoppingCart = shoppingCart;
@@ -28,11 +35,11 @@ public class CartProductRequestDto {
         this.id = id;
     }
 
-    public String getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 

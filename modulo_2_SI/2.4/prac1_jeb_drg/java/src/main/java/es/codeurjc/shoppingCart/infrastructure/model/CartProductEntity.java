@@ -10,7 +10,7 @@ public class CartProductEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String quantity;
+    private Integer quantity;
 
     @ManyToOne
     private ShoppingCartEntity shoppingCartEntity;
@@ -21,7 +21,7 @@ public class CartProductEntity {
     public CartProductEntity() {
     }
 
-    public CartProductEntity(Long id, String quantity, ShoppingCartEntity shoppingCartEntity, ProductEntity product) {
+    public CartProductEntity(Long id, Integer quantity, ShoppingCartEntity shoppingCartEntity, ProductEntity product) {
         this.id = id;
         this.quantity = quantity;
         this.shoppingCartEntity = shoppingCartEntity;
@@ -36,11 +36,11 @@ public class CartProductEntity {
         this.id = id;
     }
 
-    public String getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 

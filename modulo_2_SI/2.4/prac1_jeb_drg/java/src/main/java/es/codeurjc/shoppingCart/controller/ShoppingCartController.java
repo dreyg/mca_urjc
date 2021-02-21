@@ -1,5 +1,7 @@
 package es.codeurjc.shoppingCart.controller;
 
+import es.codeurjc.shoppingCart.domain.CartProductDto;
+import es.codeurjc.shoppingCart.domain.ProductDto;
 import es.codeurjc.shoppingCart.domain.ShoppingCartDto;
 import es.codeurjc.shoppingCart.service.CartProductService;
 import es.codeurjc.shoppingCart.service.ShoppingCartService;
@@ -73,18 +75,31 @@ public class ShoppingCartController {
 
     }
 
-    /*
+
     @PostMapping("/api/shoppingcarts/{cart_id}/product/{prod_id}/quantity/{prod_quantity}")
     public ShoppingCartResponseDto updateShoppingCartProduct(@PathVariable long cartId,
                                                                              @PathVariable long prodId,
-                                                                             @PathVariable long prodQuantity){
+                                                                             @PathVariable Integer prodQuantity){
 
         Optional<ShoppingCartDto> shoppingCartDto = shoppingCart.findByIdDto(cartId);
-        shoppingCartDto = cartProduct.updateShoppingCart(shoppingCartDto,prodId,prodQuantity);
+        //Optional<CartProductDto> cartProductDto = cartProduct.findByIdDto(prodId);
+        cartProduct.save(new CartProductRequestDto(prodQuantity,new ProductDto(),shoppingCartDto.get()));
 
+        /*if (!shoppingCartDto.isEmpty()) {
+            cartProductDto.get().setQuantity(prodQuantity);
+            shoppingCart.saveCartProduct(cartProductDto,cartProductDto)
+
+
+
+
+            shoppingCartDto.get().getCartProductDtos().add(cartProductDto);
+
+            shoppingCart.updateProductCartByShoppingCart(shoppingCartDto, cartProductDto);
+        }*/
         return shoppingCart.findById(cartId).orElseThrow();
     }
 
+/*
     @DeleteMapping("/api/shoppingcarts/:cart_id/product/:prod_id")
     public void deleteProductInShoppingCart(){
 
@@ -92,6 +107,7 @@ public class ShoppingCartController {
 
         shoppingCart.deleteById(productId);
 
-    }*/
+    }
+    */
 
 }

@@ -11,6 +11,6 @@ public interface ShoppingCartUseCase {
 
     public void deleteShoppingCartById(Long id);
 
-    // TODO añadir las funciones q faltan, revisar.
+    public ShoppingCartDto updateShoppingCart(ShoppingCartDto shoppingCart);
 
 }

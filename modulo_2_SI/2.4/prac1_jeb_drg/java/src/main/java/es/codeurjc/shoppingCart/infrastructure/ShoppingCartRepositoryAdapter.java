@@ -53,6 +53,23 @@ public class ShoppingCartRepositoryAdapter implements ShoppingCartRepository {
 
     }
 
+    @Override
+    public ShoppingCartDto update(ShoppingCartDto shoppingCart) {
+
+        ShoppingCartEntity shoppingCartEntity = new ShoppingCartEntity(
+                shoppingCart.getId(),
+                shoppingCart.getState(),
+                new ArrayList<CartProductEntity>());//shoppingCart.getCartProductDtos());
+
+        ShoppingCartEntity savedShoppingCartEntity = shoppingCartJpaRepository.save(shoppingCartEntity);
+
+        return toShoppingCartDto(savedShoppingCartEntity);
+    }
+
+
+
+
+
     private static ShoppingCartDto toShoppingCartDto(ShoppingCartEntity shoppingCart){
 
         return new ShoppingCartDto(
@@ -60,8 +77,6 @@ public class ShoppingCartRepositoryAdapter implements ShoppingCartRepository {
                 shoppingCart.getStatus(),
                 new ArrayList<>());//shoppingCart.getCartProducts());
     }
-
-
 
 
 }

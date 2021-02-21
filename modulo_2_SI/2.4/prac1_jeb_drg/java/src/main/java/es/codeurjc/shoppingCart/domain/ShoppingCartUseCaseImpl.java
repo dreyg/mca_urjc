@@ -26,4 +26,12 @@ public class ShoppingCartUseCaseImpl implements ShoppingCartUseCase {
         public void deleteShoppingCartById(Long id) {
                 shoppingCartRepository.deleteShoppingCartById(id);
         }
+
+        @Override
+        public ShoppingCartDto updateShoppingCart(ShoppingCartDto shoppingCart) {
+                ShoppingCartDto shoppingCartDto = shoppingCartRepository.update(shoppingCart);
+                return shoppingCartDto;
+        }
+
+
 }

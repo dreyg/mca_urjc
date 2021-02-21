@@ -11,4 +11,6 @@ public interface ShoppingCartRepository {
 
     void deleteShoppingCartById(Long id);
 
+    ShoppingCartDto update(ShoppingCartDto shoppingCartDto);
+
 }

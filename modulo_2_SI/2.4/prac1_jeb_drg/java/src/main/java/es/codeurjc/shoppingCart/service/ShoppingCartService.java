@@ -8,6 +8,7 @@ import es.codeurjc.shoppingCart.domain.ShoppingCartUseCase;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class ShoppingCartService {
@@ -40,6 +41,21 @@ public class ShoppingCartService {
     }
 
 
+    public ShoppingCartDto update(ShoppingCartResponseDto shoppingCartRequestDto) {
+
+        Random r = new Random();
+        Integer aux = r.nextInt(2);
+
+        shoppingCartRequestDto.setState((aux == 1) ? "completed" : "uncompleted");
+
+        ShoppingCartDto shoppingCartDto = new ShoppingCartDto(
+                shoppingCartRequestDto.getId(),
+                shoppingCartRequestDto.getState(),
+                shoppingCartRequestDto.getCartProduct());
+
+
+        return shoppingCartUseCase.updateShoppingCart(shoppingCartDto);
+    }
 
 
 

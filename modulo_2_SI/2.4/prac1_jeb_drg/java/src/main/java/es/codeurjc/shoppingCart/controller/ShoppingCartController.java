@@ -83,8 +83,13 @@ public class ShoppingCartController {
 
         Optional<ShoppingCartDto> shoppingCartDto = shoppingCart.findByIdDto(cartId);
         //Optional<CartProductDto> cartProductDto = cartProduct.findByIdDto(prodId);
-        cartProduct.save(new CartProductRequestDto(prodQuantity,new ProductDto(),shoppingCartDto.get()));
+        // ir a bdd de productos a el producto ID que nos viene en la request
+        // si viene, se lo setteamos en la llamada de abajo
 
+        // en algun momento, comprobar si esa manzana existe en mi carrito, para actualizar, o sino existe, añadimos
+
+        CartProductDto aux = cartProduct.save(new CartProductRequestDto(prodQuantity,new ProductDto(),shoppingCartDto.get()));
+        shoppingCartDto.get().getCartProductDtos().add(aux);
         /*if (!shoppingCartDto.isEmpty()) {
             cartProductDto.get().setQuantity(prodQuantity);
             shoppingCart.saveCartProduct(cartProductDto,cartProductDto)

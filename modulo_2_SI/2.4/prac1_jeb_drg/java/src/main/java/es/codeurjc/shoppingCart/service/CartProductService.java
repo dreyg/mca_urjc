@@ -3,10 +3,9 @@ package es.codeurjc.shoppingCart.service;
 
 import es.codeurjc.shoppingCart.controller.CartProductRequestDto;
 import es.codeurjc.shoppingCart.controller.CartProductResponseDto;
-import es.codeurjc.shoppingCart.controller.ShoppingCartResponseDto;
 import es.codeurjc.shoppingCart.domain.CartProductDto;
 import es.codeurjc.shoppingCart.domain.CartProductUseCase;
-import es.codeurjc.shoppingCart.domain.ShoppingCartDto;
+import es.codeurjc.shoppingCart.domain.ProductDto;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

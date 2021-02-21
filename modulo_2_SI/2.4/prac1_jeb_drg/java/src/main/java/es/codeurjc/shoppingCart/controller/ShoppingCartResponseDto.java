@@ -19,6 +19,13 @@ public class ShoppingCartResponseDto {
             shoppingCartDto.getCartProductDtos());
     }
 
+    public static ShoppingCartRequestDto fromShoppingCartDtoToRequest(ShoppingCartDto shoppingCartDto){
+        return new ShoppingCartRequestDto(
+                shoppingCartDto.getId(),
+                shoppingCartDto.getState(),
+                shoppingCartDto.getCartProductDtos());
+    }
+
     public ShoppingCartResponseDto() {
     }
 

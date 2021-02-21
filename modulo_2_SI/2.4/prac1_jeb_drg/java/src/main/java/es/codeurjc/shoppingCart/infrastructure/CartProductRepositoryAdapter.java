@@ -3,6 +3,7 @@ package es.codeurjc.shoppingCart.infrastructure;
 import es.codeurjc.shoppingCart.domain.*;
 import es.codeurjc.shoppingCart.infrastructure.model.CartProductEntity;
 import es.codeurjc.shoppingCart.infrastructure.model.CartProductEntity;
+import es.codeurjc.shoppingCart.infrastructure.model.ProductEntity;
 import es.codeurjc.shoppingCart.infrastructure.model.ShoppingCartEntity;
 import es.codeurjc.shoppingCart.infrastructure.repository.CartProductJpaRepository;
 import es.codeurjc.shoppingCart.infrastructure.repository.ShoppingCartJpaRepository;
@@ -27,7 +28,7 @@ public class CartProductRepositoryAdapter implements CartProductRepository {
                 cartProductDto.getId(),
                 cartProductDto.getQuantity(),
                 null,//cartProductDto.getShoppingCartDto(),
-                null);//cartProductDto.getProductDto());
+                null);//new ProductEntity(productDto.getName(),productDto.getDescription()));//cartProductDto.getProductDto());
 
         CartProductEntity savedCartProductEntity = cartProductJpaRepository.save(cartProductEntity);
 

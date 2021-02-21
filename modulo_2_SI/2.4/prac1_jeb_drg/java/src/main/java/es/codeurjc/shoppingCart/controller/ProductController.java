@@ -27,7 +27,6 @@ public class ProductController {
 
         ProductDto productDto = products.save(product);
 
-        // Transform fullBook into BookResponseDto
         ProductResponseDto responseProductDto = new ProductResponseDto(
                 productDto.getId(),
                 productDto.getName(),
@@ -42,16 +41,14 @@ public class ProductController {
     @GetMapping("/api/products/{id}")
     public ProductResponseDto getProduct(@PathVariable long id) {
 
-        return products.findById(id).orElseThrow();
+        ProductDto productDto = products.findById(id).orElseThrow();
+
+        return new ProductResponseDto(productDto.getId(),productDto.getName(),productDto.getDescription());
     }
 
     @DeleteMapping("/api/products/{productId}")
     public void deleteProduct(@PathVariable Long productId) {
-
-        ProductResponseDto comment = products.findById(productId).orElseThrow();
-
         products.deleteById(productId);
-
     }
 
 }

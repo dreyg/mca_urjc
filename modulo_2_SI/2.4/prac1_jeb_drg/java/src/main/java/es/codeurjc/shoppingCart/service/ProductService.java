@@ -38,8 +38,8 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<ProductResponseDto> findById(Long id) {
-        return productUseCase.findProductById(id).map(ProductResponseDto::fromProductDto);
+    public Optional<ProductDto> findById(Long id) {
+        return productUseCase.findProductById(id);
     }
 
     public void deleteById(Long id) {

@@ -20,11 +20,10 @@ public class CartProductRequestDto {
         this.shoppingCart = shoppingCart;
     }
 
-    public CartProductRequestDto(Integer quantity, ProductDto product, ShoppingCartDto shoppingCart) {
+    public CartProductRequestDto(Integer quantity, ProductDto product) {
         this.id = null;
         this.quantity = quantity;
         this.product = product;
-        this.shoppingCart = shoppingCart;
     }
 
     public Long getId() {

@@ -3,6 +3,7 @@ package es.codeurjc.shoppingCart.service;
 
 import es.codeurjc.shoppingCart.controller.ShoppingCartRequestDto;
 import es.codeurjc.shoppingCart.controller.ShoppingCartResponseDto;
+import es.codeurjc.shoppingCart.domain.CartProductDto;
 import es.codeurjc.shoppingCart.domain.ShoppingCartDto;
 import es.codeurjc.shoppingCart.domain.ShoppingCartUseCase;
 import org.springframework.stereotype.Service;
@@ -58,5 +59,11 @@ public class ShoppingCartService {
     }
 
 
+    public ShoppingCartDto saveCartProduct(CartProductDto cartProductDto, long cartId) {
+        Optional<ShoppingCartDto> shoppingCartDto = this.findByIdDto(cartId);
+        Optional<ShoppingCartRequestDto> shoppingCartRequestDto = shoppingCartDto.map(ShoppingCartResponseDto::fromShoppingCartDtoToRequest);
 
+        shoppingCartRequestDto.get().getCartProduct().add(cartProductDto);
+        return save(shoppingCartRequestDto.get());
+    }
 }

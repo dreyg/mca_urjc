@@ -4,6 +4,7 @@ import es.codeurjc.shoppingCart.domain.CartProductDto;
 import es.codeurjc.shoppingCart.domain.ProductDto;
 import es.codeurjc.shoppingCart.domain.ShoppingCartDto;
 import es.codeurjc.shoppingCart.service.CartProductService;
+import es.codeurjc.shoppingCart.service.ProductService;
 import es.codeurjc.shoppingCart.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,9 @@ public class ShoppingCartController {
 
     @Autowired
     private CartProductService cartProduct;
+
+    @Autowired
+    private ProductService productService;
 
 
     @PostMapping("/api/shoppingcarts")
@@ -76,43 +80,32 @@ public class ShoppingCartController {
     }
 
 
-    @PostMapping("/api/shoppingcarts/{cart_id}/product/{prod_id}/quantity/{prod_quantity}")
+    @PostMapping("/api/shoppingcarts/{cartId}/product/{prodId}/quantity/{prodQuantity}")
     public ShoppingCartResponseDto updateShoppingCartProduct(@PathVariable long cartId,
                                                                              @PathVariable long prodId,
                                                                              @PathVariable Integer prodQuantity){
 
-        Optional<ShoppingCartDto> shoppingCartDto = shoppingCart.findByIdDto(cartId);
-        //Optional<CartProductDto> cartProductDto = cartProduct.findByIdDto(prodId);
+
         // ir a bdd de productos a el producto ID que nos viene en la request
+        Optional<ProductDto> productDto = productService.findById(prodId);
         // si viene, se lo setteamos en la llamada de abajo
 
-        // en algun momento, comprobar si esa manzana existe en mi carrito, para actualizar, o sino existe, añadimos
+        CartProductDto cartProductDto = cartProduct.save(new CartProductRequestDto(prodQuantity,productDto.get()));
 
-        CartProductDto aux = cartProduct.save(new CartProductRequestDto(prodQuantity,new ProductDto(),shoppingCartDto.get()));
-        shoppingCartDto.get().getCartProductDtos().add(aux);
-        /*if (!shoppingCartDto.isEmpty()) {
-            cartProductDto.get().setQuantity(prodQuantity);
-            shoppingCart.saveCartProduct(cartProductDto,cartProductDto)
-
-
-
-
-            shoppingCartDto.get().getCartProductDtos().add(cartProductDto);
-
-            shoppingCart.updateProductCartByShoppingCart(shoppingCartDto, cartProductDto);
-        }*/
+        shoppingCart.saveCartProduct(cartProductDto, cartId);
         return shoppingCart.findById(cartId).orElseThrow();
     }
 
-/*
-    @DeleteMapping("/api/shoppingcarts/:cart_id/product/:prod_id")
-    public void deleteProductInShoppingCart(){
 
-        ProductResponseDto comment = shoppingCart.findById(productId).orElseThrow();
+    @DeleteMapping("/api/shoppingcarts/cartId/product/prodId")
+    public void deleteProductInShoppingCart(@PathVariable long cartId,
+                                            @PathVariable long prodId){
 
-        shoppingCart.deleteById(productId);
+        ShoppingCartResponseDto shoppingCartResponseDto = shoppingCart.findById(cartId).orElseThrow();
+
+        shoppingCart.deleteById(prodId);
 
     }
-    */
+
 
 }

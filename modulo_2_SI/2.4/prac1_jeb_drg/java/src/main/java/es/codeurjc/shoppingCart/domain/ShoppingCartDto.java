@@ -6,25 +6,21 @@ public class ShoppingCartDto {
 
     private Long id;
     private String state;
-    private List<CartProductDto> products;
+    private List <CartProductDto> cartProductDtos;
 
     public ShoppingCartDto() {
     }
 
-    public ShoppingCartDto(Long id, String state, List<CartProductDto> products) {
+    public ShoppingCartDto(Long id, String state, List<CartProductDto> cartProductDtos) {
         this.id = id;
         this.state = state;
-        this.products = products;
+        this.cartProductDtos = cartProductDtos;
     }
 
-    public ShoppingCartDto(Long id, String status) {
-        this.id = id;
+    public ShoppingCartDto(String state, List<CartProductDto> cartProductDtos) {
+        this.id = null;
         this.state = state;
-    }
-
-    public ShoppingCartDto(String state, List<CartProductDto> products) {
-        this.state = state;
-        this.products = products;
+        this.cartProductDtos = cartProductDtos;
     }
 
     public Long getId() {
@@ -43,11 +39,11 @@ public class ShoppingCartDto {
         this.state = state;
     }
 
-    public List<CartProductDto> getProducts() {
-        return products;
+    public List<CartProductDto> getCartProductDtos() {
+        return cartProductDtos;
     }
 
-    public void setProducts(List<CartProductDto> products) {
-        this.products = products;
+    public void setCartProductDtos(List<CartProductDto> cartProductDtos) {
+        this.cartProductDtos = cartProductDtos;
     }
 }

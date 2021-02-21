@@ -10,22 +10,22 @@ public class ShoppingCartResponseDto {
 
     private Long id;
     private String state;
-    private List<CartProductDto> products;
+    private List<CartProductDto> cartProduct;
 
     public static ShoppingCartResponseDto fromShoppingCartDto(ShoppingCartDto shoppingCartDto){
         return new ShoppingCartResponseDto(
                 shoppingCartDto.getId(),
             shoppingCartDto.getState(),
-            shoppingCartDto.getProducts());
+            shoppingCartDto.getCartProductDtos());
     }
 
     public ShoppingCartResponseDto() {
     }
 
-    public ShoppingCartResponseDto(Long id, String state, List<CartProductDto> products) {
+    public ShoppingCartResponseDto(Long id, String state, List<CartProductDto> cartProduct) {
         this.id = id;
         this.state = state;
-        this.products = products;
+        this.cartProduct = cartProduct;
     }
 
     public Long getId() {
@@ -44,11 +44,11 @@ public class ShoppingCartResponseDto {
         this.state = state;
     }
 
-    public List<CartProductDto> getProducts() {
-        return products;
+    public List<CartProductDto> getCartProduct() {
+        return cartProduct;
     }
 
-    public void setProducts(List<CartProductDto> products) {
-        this.products = products;
+    public void setCartProduct(List<CartProductDto> cartProduct) {
+        this.cartProduct = cartProduct;
     }
 }

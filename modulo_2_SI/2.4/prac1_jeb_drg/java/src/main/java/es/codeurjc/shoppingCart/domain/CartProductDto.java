@@ -4,15 +4,24 @@ public class CartProductDto {
 
     private Long id;
     private String quantity;
-    private Product product;
+    private ProductDto productDto;
+    private ShoppingCartDto shoppingCartDto;
 
     public CartProductDto() {
     }
 
-    public CartProductDto(Long id, String quantity, Product product) {
+    public CartProductDto(Long id, String quantity, ProductDto productDto, ShoppingCartDto shoppingCartDto) {
         this.id = id;
         this.quantity = quantity;
-        this.product = product;
+        this.productDto = productDto;
+        this.shoppingCartDto = shoppingCartDto;
+    }
+
+    public CartProductDto(String quantity, ProductDto productDto, ShoppingCartDto shoppingCartDto) {
+        this.id = null;
+        this.quantity = quantity;
+        this.productDto = productDto;
+        this.shoppingCartDto = shoppingCartDto;
     }
 
     public Long getId() {
@@ -31,11 +40,19 @@ public class CartProductDto {
         this.quantity = quantity;
     }
 
-    public Product getProduct() {
-        return product;
+    public ProductDto getProductDto() {
+        return productDto;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProductDto(ProductDto productDto) {
+        this.productDto = productDto;
+    }
+
+    public ShoppingCartDto getShoppingCartDto() {
+        return shoppingCartDto;
+    }
+
+    public void setShoppingCartDto(ShoppingCartDto shoppingCartDto) {
+        this.shoppingCartDto = shoppingCartDto;
     }
 }

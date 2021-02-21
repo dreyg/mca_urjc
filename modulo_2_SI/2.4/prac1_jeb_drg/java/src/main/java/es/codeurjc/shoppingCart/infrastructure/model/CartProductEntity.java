@@ -1,8 +1,6 @@
 package es.codeurjc.shoppingCart.infrastructure.model;
 
 
-import es.codeurjc.shoppingCart.domain.Product;
-
 import javax.persistence.*;
 
 @Entity

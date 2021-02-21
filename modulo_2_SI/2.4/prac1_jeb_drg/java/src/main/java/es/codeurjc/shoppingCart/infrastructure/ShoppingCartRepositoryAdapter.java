@@ -29,10 +29,8 @@ public class ShoppingCartRepositoryAdapter implements ShoppingCartRepository {
 
         ShoppingCartEntity shoppingCartEntity = new ShoppingCartEntity(
                 shoppingCart.getId(),
-                shoppingCart.getState());
-
-                //Ahora creo el carro vacío:
-                //shoppingCart.getProducts());
+                shoppingCart.getState(),
+                new ArrayList<CartProductEntity>());//shoppingCart.getCartProductDtos());
 
         ShoppingCartEntity savedShoppingCartEntity = shoppingCartJpaRepository.save(shoppingCartEntity);
 
@@ -55,16 +53,14 @@ public class ShoppingCartRepositoryAdapter implements ShoppingCartRepository {
 
     }
 
-
-
     private static ShoppingCartDto toShoppingCartDto(ShoppingCartEntity shoppingCart){
 
         return new ShoppingCartDto(
                 shoppingCart.getId(),
-                shoppingCart.getStatus());
-                //Revisar con David, da problemas a recoger los productos,
-                //shoppingCart.getProducts());
+                shoppingCart.getStatus(),
+                new ArrayList<>());//shoppingCart.getCartProducts());
     }
+
 
 
 

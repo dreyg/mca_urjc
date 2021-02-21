@@ -12,9 +12,9 @@ public class ShoppingCartUseCaseImpl implements ShoppingCartUseCase {
 
 
         @Override
-        public ShoppingCartDto createProduct(ShoppingCartDto shoppingCart) {
-                ShoppingCartDto fullShoppingCartDto = shoppingCartRepository.save(shoppingCart);
-                return fullShoppingCartDto;
+        public ShoppingCartDto createShoppingCart(ShoppingCartDto shoppingCart) {
+                ShoppingCartDto shoppingCartDto = shoppingCartRepository.save(shoppingCart);
+                return shoppingCartDto;
         }
 
         @Override

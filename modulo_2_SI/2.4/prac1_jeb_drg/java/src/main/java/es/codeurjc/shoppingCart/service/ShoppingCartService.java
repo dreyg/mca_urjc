@@ -21,14 +21,18 @@ public class ShoppingCartService {
 
         ShoppingCartDto shoppingCartDto = new ShoppingCartDto(
                 shoppingCartRequestDto.getState(),
-                shoppingCartRequestDto.getProducts());
+                shoppingCartRequestDto.getCartProduct());
 
-        return shoppingCartUseCase.createProduct(shoppingCartDto);
+        return shoppingCartUseCase.createShoppingCart(shoppingCartDto);
     }
 
 
     public Optional<ShoppingCartResponseDto> findById(Long id) {
         return shoppingCartUseCase.findShoppingCartById(id).map(ShoppingCartResponseDto::fromShoppingCartDto);
+    }
+
+    public Optional<ShoppingCartDto> findByIdDto(Long id) {
+        return shoppingCartUseCase.findShoppingCartById(id);
     }
 
     public void deleteById(Long id) {

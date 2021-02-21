@@ -17,8 +17,13 @@ public class ProductController {
     @Autowired
     private ProductService products;
 
+    @GetMapping("/api/products/")
+    public Collection<ProductResponseDto> getProducts() {
+        return products.findAll();
+    }
+
     @PostMapping("/api/product/")
-    public ResponseEntity<ProductResponseDto> createBook(@RequestBody ProductRequestDto product) {
+    public ResponseEntity<ProductResponseDto> createProduct(@RequestBody ProductRequestDto product) {
 
         ProductDto productDto = products.save(product);
 
@@ -32,12 +37,6 @@ public class ProductController {
                 .buildAndExpand(productDto.getId()).toUri();
 
         return ResponseEntity.created(location).body(responseProductDto);
-    }
-
-
-    @GetMapping("/api/products/")
-    public Collection<ProductResponseDto> getProducts() {
-        return products.findAll();
     }
 
     @GetMapping("/api/products/{id}")

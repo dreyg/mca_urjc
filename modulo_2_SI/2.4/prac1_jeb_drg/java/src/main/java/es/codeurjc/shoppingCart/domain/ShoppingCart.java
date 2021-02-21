@@ -1,21 +1,19 @@
 package es.codeurjc.shoppingCart.domain;
 
 import java.util.List;
-import java.util.Map;
 
 public class ShoppingCart {
 
-
     private Long id;
     private String state;
-    private List <CartProductDto> products;
+    private List <CartProduct> cartProducts;
 
     public ShoppingCart() {
     }
 
-    public ShoppingCart(Long id, String state, List<CartProductDto> products) {
-        this.id = id;
+    public ShoppingCart(String state, List<CartProduct> cartProducts) {
         this.state = state;
-        this.products = products;
+        this.cartProducts = cartProducts;
     }
+
 }

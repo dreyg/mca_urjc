@@ -12,10 +12,15 @@
   "author": "David Rey / Juan Escribano",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
+    "express-list-endpoints": "^5.0.0",
     "express-winston": "^4.1.0",
+    "moment": "^2.29.1",
     "mongodb": "^3.6.3",
     "mongoose": "^5.11.15",
+    "mongoose-paginate": "^5.0.3",
+    "mongoose-unique-validator": "^2.0.3",
     "path": "^0.12.7",
     "winston": "^3.3.3"
   }

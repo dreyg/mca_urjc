@@ -6,9 +6,6 @@ mongoose.Promise = require('bluebird');
 
 module.exports = ({ dbConnectionString }) => {
 
-    console.log("testdbConnectionString");
-    console.log(dbConnectionString);
-
     if (!dbConnectionString) {
         throw new Error('add correct format of config with dbConnectionString');
     }
@@ -37,6 +34,7 @@ module.exports = ({ dbConnectionString }) => {
         //logging.info('Connection to MongoDB closed');
         //logging.info('-------------------');
     });
+
 
     const schemas = schemasFactory.create(mongoose);
 

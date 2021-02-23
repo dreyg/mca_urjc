@@ -4,29 +4,23 @@ const {
 } = require('./configuration');
 const signals = require('./signals');
 const db = require('./data/infrastructure/db')({ dbConnectionString });
+console.log("db");
+console.log(db);
+
 const productsRepositoryContainer = require('./data/repositories/products');
 const productsRepository = productsRepositoryContainer.init(db.schemas);
 
-console.log("productsRepository");
-console.log(productsRepository);
-
+const listEndpoints = require('express-list-endpoints')
 const productServiceContainer = require('./domain/product/service');
 const appContainer = require('./router/http/app');
 
-//console.log(appContainer);
-
-
 const productService = productServiceContainer.init({
-    productsRepository
+    productsRepository,
 });
 
 const app = appContainer.init({
     productService,
 });
-
-
-
-//console.log(app);
 
 let server;
 server = app.listen(httpPort, () => {
@@ -49,3 +43,4 @@ const shutdown = signals.init(async () => {
 
 process.on('SIGINT', shutdown);
 process.on('SIGTERM', shutdown);
+

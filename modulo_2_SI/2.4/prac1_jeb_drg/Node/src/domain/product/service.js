@@ -1,14 +1,13 @@
-function init({productRepository}) {
-
-    console.log("testproductRepository");
-    console.log(productRepository);
+function init({
+                  productsRepository,
+              }) {
 
     async function createProduct({
                                       id,
                                       name,
                                       description,
                                   }) {
-        return productRepository.createProduct({
+        return productsRepository.createProduct({
             id,
             name,
             description,
@@ -17,31 +16,26 @@ function init({productRepository}) {
 
     async function findAllProducts() {
 
-        return productRepository.findAllProducts([{
-                id,
-                name,
-                description,
+        return productsRepository.findAllProducts([{
         }]);
 
     }
 
     async function findProductById({
-                                     id,
-                               }) {
-        return productRepository.findProductById({
-            id,
-            name,
-            description,
+                                       productId,
+                               })
+    {
+
+        return productsRepository.findProductById({
+            productId
         });
     }
 
     async function deleteProductById({
-                                       id,
+                                         productId,
                                    }) {
-        return productRepository.deleteProductById({
-            id,
-            name,
-            description,
+        return productsRepository.deleteProductById({
+            productId
         });
     }
 

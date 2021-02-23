@@ -8,18 +8,27 @@ console.log("db");
 console.log(db);
 
 const productsRepositoryContainer = require('./data/repositories/products');
-const productsRepository = productsRepositoryContainer.init(db.schemas);
+const shoppingCartRepositoryContainer = require('./data/repositories/shoppingCarts');
 
-const listEndpoints = require('express-list-endpoints')
+const productsRepository = productsRepositoryContainer.init(db.schemas);
+const shoppingCartRepository = shoppingCartRepositoryContainer.init(db.schemas);
+
 const productServiceContainer = require('./domain/product/service');
+const shoppingCartServiceContainer = require('./domain/shoppingCart/service');
+
 const appContainer = require('./router/http/app');
 
 const productService = productServiceContainer.init({
     productsRepository,
 });
 
+const shoppingCartService = shoppingCartServiceContainer.init({
+    shoppingCartRepository,
+});
+
 const app = appContainer.init({
     productService,
+    shoppingCartService,
 });
 
 let server;

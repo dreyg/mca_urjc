@@ -1,6 +1,10 @@
 package es.urjc.code.ejem1.domain;
 
+import es.urjc.code.ejem1.controller.ShoppingCartExpenditureResponseDTO;
 import org.modelmapper.ModelMapper;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ShoppingCartServiceImpl implements ShoppingCartService {
 
@@ -96,5 +100,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		FullShoppingCartDTO newFullProductDTO = mapper.map(shoppingCart, FullShoppingCartDTO.class);
 
 		return saveShoppingCart(newFullProductDTO);
+	}
+
+	@Override
+	public List<FullShoppingCartDTO> getShoppingCartExpenditure() {
+		return shoppingCartRepository.findAll();
 	}
 }

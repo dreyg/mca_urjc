@@ -6,6 +6,9 @@ import org.springframework.stereotype.Component;
 import es.urjc.code.ejem1.domain.FullShoppingCartDTO;
 import es.urjc.code.ejem1.domain.ShoppingCartRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class SpringDataJPAShoppingCartRepositoryAdapter implements ShoppingCartRepository {
 
@@ -34,5 +37,15 @@ public class SpringDataJPAShoppingCartRepositoryAdapter implements ShoppingCartR
 	public void deleteById(Long id) {
 		repository.deleteById(id);
 	}
+
+	@Override
+	public List<FullShoppingCartDTO> findAll() {
+		List<ShoppingCartEntity> shoppingCartEntities = repository.findAll();
+		return shoppingCartEntities
+				.stream()
+				.map(element -> mapper.map(element, FullShoppingCartDTO.class))
+				.collect(Collectors.toList());
+	}
+
 
 }

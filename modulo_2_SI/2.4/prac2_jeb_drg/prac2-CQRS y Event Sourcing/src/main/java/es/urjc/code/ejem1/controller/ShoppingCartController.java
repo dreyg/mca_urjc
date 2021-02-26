@@ -3,6 +3,8 @@ package es.urjc.code.ejem1.controller;
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
@@ -77,5 +79,14 @@ public class ShoppingCartController {
 	@DeleteMapping("/{id}")
 	public ShoppingCartResponseDTO deleteShoppingCart(@PathVariable Long id) {
 		return mapper.map(shoppingService.deleteShoppingCart(id), ShoppingCartResponseDTO.class);
+	}
+
+	@GetMapping("/cartexpenditure")
+	public List<ShoppingCartExpenditureResponseDTO> getShoppingCartExpenditure() {
+		List<FullShoppingCartDTO> fullShoppingCartDTOS = shoppingService.getShoppingCartExpenditure();
+		return fullShoppingCartDTOS
+				.stream()
+				.map(element -> mapper.map(element, ShoppingCartExpenditureResponseDTO.class))
+				.collect(Collectors.toList());
 	}
 }

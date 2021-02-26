@@ -1,5 +1,7 @@
 package es.urjc.code.ejem1.domain;
 
+import java.util.List;
+
 public interface ShoppingCartService {
 	public FullShoppingCartDTO getShoppingCart(Long id);
 
@@ -15,4 +17,6 @@ public interface ShoppingCartService {
 	        int quantity);
 
 	public FullShoppingCartDTO deleteProduct(Long idShoppingCart, Long idProduct);
+
+	public List<FullShoppingCartDTO> getShoppingCartExpenditure();
 }

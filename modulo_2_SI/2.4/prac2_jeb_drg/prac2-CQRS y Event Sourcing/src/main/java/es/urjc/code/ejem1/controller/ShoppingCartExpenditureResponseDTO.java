@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ShoppingCartExpenditureResponseDTO {
 
-    private Long id;
-    @JsonProperty("cartExpenditure") private double price;
+    @JsonProperty("cartId") private Long id;
+    @JsonProperty("expenditure") private double price;
 
     public ShoppingCartExpenditureResponseDTO() {
     }

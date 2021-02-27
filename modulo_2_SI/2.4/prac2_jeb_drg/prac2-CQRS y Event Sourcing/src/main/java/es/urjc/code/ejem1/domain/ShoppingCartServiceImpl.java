@@ -1,7 +1,6 @@
 package es.urjc.code.ejem1.domain;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.context.ApplicationEventPublisher;
 
 import java.util.List;
 
@@ -10,16 +9,18 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	private ShoppingCartRepository shoppingCartRepository;
 	private ProductRepository productRepository;
 	private ValidationService validationService;
+	private ShoppingExpenditureService shoppingExpenditureService;
 	
 	private ModelMapper mapper = new ModelMapper();
-	private ApplicationEventPublisher applicationEventPublisher;
 
 	public ShoppingCartServiceImpl(ShoppingCartRepository shoppingCartRepository,
-	        ProductRepository productRepository,
-	        ValidationService validationService) {
+									ProductRepository productRepository,
+									ValidationService validationService,
+								   ShoppingExpenditureService shoppingExpenditureService) {
 		this.shoppingCartRepository = shoppingCartRepository;
 		this.productRepository = productRepository;
 		this.validationService = validationService;
+		this.shoppingExpenditureService = shoppingExpenditureService;
 	}
 	
 	private FullShoppingCartDTO saveShoppingCart(FullShoppingCartDTO fullShoppingCartDTO) {
@@ -57,7 +58,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		if(shoppingCart.getStatus() == ShoppingCartStatus.COMPLETED){
 			shoppingCartDTO = mapper.map(shoppingCart, ShoppingCartDTO.class);
 			ShoppingExpenditureDTO shoppingExpenditureEventDTO = mapper.map(shoppingCartDTO, ShoppingExpenditureDTO.class);
-			applicationEventPublisher.publishEvent(shoppingExpenditureEventDTO);
+			shoppingExpenditureService.publishEvent(shoppingExpenditureEventDTO);
 		}
 
 		FullShoppingCartDTO newShoppingCartDTO = mapper.map(shoppingCart, FullShoppingCartDTO.class);

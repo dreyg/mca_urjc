@@ -12,16 +12,14 @@ public class ShoppingExpenditureEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String cartId;
 	private BigDecimal price;
 
 	public ShoppingExpenditureEntity() {
 		super();
 	}
 
-	public ShoppingExpenditureEntity(Long id, String cartId, BigDecimal price) {
+	public ShoppingExpenditureEntity(Long id, BigDecimal price) {
 		this.id = id;
-		this.cartId = cartId;
 		this.price = price;
 	}
 
@@ -31,14 +29,6 @@ public class ShoppingExpenditureEntity {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getCartId() {
-		return cartId;
-	}
-
-	public void setCartId(String cartId) {
-		this.cartId = cartId;
 	}
 
 	public BigDecimal getPrice() {

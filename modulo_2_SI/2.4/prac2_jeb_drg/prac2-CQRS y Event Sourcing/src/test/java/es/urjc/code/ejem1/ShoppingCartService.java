@@ -6,6 +6,7 @@ import static org.mockito.Mockito.verify;
 
 import java.util.Random;
 
+import es.urjc.code.ejem1.service.ShoppingExpenditureServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -46,7 +47,8 @@ public class ShoppingCartService {
 		shoppingCartService = new ShoppingCartServiceImpl(
 				shoppingCartRepository,
 		        productRepository,
-		        new ValidationServiceImpl());
+		        new ValidationServiceImpl(),
+				null);
 	}
 	
 	@Test

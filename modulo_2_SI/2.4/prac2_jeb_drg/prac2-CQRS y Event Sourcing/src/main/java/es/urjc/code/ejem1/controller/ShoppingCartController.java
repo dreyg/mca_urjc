@@ -6,6 +6,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import es.urjc.code.ejem1.domain.ShoppingExpenditureService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -27,6 +28,7 @@ import es.urjc.code.ejem1.domain.ShoppingCartService;
 public class ShoppingCartController {
 
 	private ShoppingCartService shoppingService;
+	private ShoppingExpenditureService shoppingExpenditureService;
 	private ModelMapper mapper = new ModelMapper();
 
 	public ShoppingCartController(ShoppingCartService shoppingService) {

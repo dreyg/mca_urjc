@@ -103,8 +103,4 @@ public class ShoppingCartCommandServiceImpl implements ShoppingCartCommandServic
 		return saveShoppingCart(newFullProductDTO);
 	}
 
-	@Override
-	public List<FullShoppingCartDTO> getShoppingCartExpenditure() {
-		return shoppingCartRepository.findAll();
-	}
 }

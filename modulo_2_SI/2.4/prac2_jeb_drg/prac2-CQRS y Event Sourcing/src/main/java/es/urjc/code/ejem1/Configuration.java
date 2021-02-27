@@ -15,13 +15,13 @@ public class Configuration {
 
 	@Bean
 	public ShoppingCartService shoppingCartService(
-	        SpringDataJPAShoppingCartRepositoryAdapter shoppingCartRepositoryAdapter,
-	        SpringDataJPAProductRepositoryAdapter productRepositoryAdapter,
+			SpringDataJPAShoppingCartRepositoryAdapter shoppingCartRepositoryAdapter,
+			SpringDataJPAProductRepositoryAdapter productRepositoryAdapter,
 			ApplicationEventPublisher applicationEventPublisher) {
 		return new ShoppingCartServiceImpl(
-		        shoppingCartRepositoryAdapter,
-		        productRepositoryAdapter,
-		        new ValidationServiceImpl(),
+				shoppingCartRepositoryAdapter,
+				productRepositoryAdapter,
+				new ValidationServiceImpl(),
 				new ShoppingExpenditureServiceImpl(applicationEventPublisher));
 	}
 
@@ -29,11 +29,5 @@ public class Configuration {
 	public ProductService productService(SpringDataJPAProductRepositoryAdapter repositoryAdapter) {
 		return new ProductServiceImpl(repositoryAdapter);
 	}
-
-	// TODO inicializar shoppingExpenditureService
-	/*@Bean
-	public ShoppingExpenditureService shoppingExpenditureService(SpringDataJPAShoppingExpenditureRepositoryAdapter repositoryAdapter) {
-		return new ShoppingExpenditureServiceImpl(repositoryAdapter);
-	}*/
 
 }

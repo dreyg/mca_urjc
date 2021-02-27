@@ -4,6 +4,7 @@ import es.urjc.code.ejem1.domain.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,8 +26,8 @@ public class SpringDataJPAShoppingExpenditureRepositoryAdapter implements Shoppi
 	}
 
 	@Override
-	public List<ShoppingExpenditureDTO> findAll() {
-		List<ShoppingExpenditureEntity> shoppingExpenditureEntities = repository.findAll();
+	public Collection<ShoppingExpenditureDTO> findAll() {
+		Collection<ShoppingExpenditureEntity> shoppingExpenditureEntities = repository.findAll();
 		return shoppingExpenditureEntities
 				.stream()
 				.map(element -> mapper.map(element, ShoppingExpenditureDTO.class))

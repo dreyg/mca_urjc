@@ -28,7 +28,6 @@ import es.urjc.code.ejem1.domain.ShoppingCartService;
 public class ShoppingCartController {
 
 	private ShoppingCartService shoppingService;
-	private ShoppingExpenditureService shoppingExpenditureService;
 	private ModelMapper mapper = new ModelMapper();
 
 	public ShoppingCartController(ShoppingCartService shoppingService) {
@@ -83,12 +82,4 @@ public class ShoppingCartController {
 		return mapper.map(shoppingService.deleteShoppingCart(id), ShoppingCartResponseDTO.class);
 	}
 
-	@GetMapping("/cartexpenditure")
-	public List<ShoppingCartExpenditureResponseDTO> getShoppingCartExpenditure() {
-		List<FullShoppingCartDTO> fullShoppingCartDTOS = shoppingService.getShoppingCartExpenditure();
-		return fullShoppingCartDTOS
-				.stream()
-				.map(element -> mapper.map(element, ShoppingCartExpenditureResponseDTO.class))
-				.collect(Collectors.toList());
-	}
 }

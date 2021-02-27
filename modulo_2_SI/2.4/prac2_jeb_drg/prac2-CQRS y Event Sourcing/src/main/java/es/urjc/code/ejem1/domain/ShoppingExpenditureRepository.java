@@ -1,12 +1,12 @@
 package es.urjc.code.ejem1.domain;
 
-import java.util.List;
+import java.util.Collection;
 
 public interface ShoppingExpenditureRepository {
 
 	ShoppingExpenditureDTO save(ShoppingExpenditureDTO shoppingExpenditureDTO);
 
-	List<ShoppingExpenditureDTO> findAll();
+	Collection<ShoppingExpenditureDTO> findAll();
 
 	ShoppingExpenditureDTO findById(Long id);
 

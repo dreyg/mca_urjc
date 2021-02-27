@@ -12,7 +12,8 @@ public class ValidationServiceImpl implements ValidationService {
 	public boolean validate(List<ShoppingCartItem> items) {
 		Random rnd = new Random();
 
-		return rnd.nextBoolean();
+		//return rnd.nextBoolean();
+		return true;
 	}
 
 

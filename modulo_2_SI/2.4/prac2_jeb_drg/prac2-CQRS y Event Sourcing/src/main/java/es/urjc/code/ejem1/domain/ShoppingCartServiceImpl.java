@@ -1,10 +1,9 @@
 package es.urjc.code.ejem1.domain;
 
-import es.urjc.code.ejem1.controller.ShoppingCartExpenditureResponseDTO;
 import org.modelmapper.ModelMapper;
+import org.springframework.context.ApplicationEventPublisher;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ShoppingCartServiceImpl implements ShoppingCartService {
 
@@ -13,6 +12,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	private ValidationService validationService;
 	
 	private ModelMapper mapper = new ModelMapper();
+	private ApplicationEventPublisher applicationEventPublisher;
 
 	public ShoppingCartServiceImpl(ShoppingCartRepository shoppingCartRepository,
 	        ProductRepository productRepository,
@@ -54,8 +54,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 			shoppingCart.validate();
 		}
 
+		if(shoppingCart.getStatus() == ShoppingCartStatus.COMPLETED){
+			shoppingCartDTO = mapper.map(shoppingCart, ShoppingCartDTO.class);
+			ShoppingExpenditureDTO shoppingExpenditureEventDTO = mapper.map(shoppingCartDTO, ShoppingExpenditureDTO.class);
+			applicationEventPublisher.publishEvent(shoppingExpenditureEventDTO);
+		}
+
 		FullShoppingCartDTO newShoppingCartDTO = mapper.map(shoppingCart, FullShoppingCartDTO.class);
-		
 		return saveShoppingCart(newShoppingCartDTO);
 	}
 

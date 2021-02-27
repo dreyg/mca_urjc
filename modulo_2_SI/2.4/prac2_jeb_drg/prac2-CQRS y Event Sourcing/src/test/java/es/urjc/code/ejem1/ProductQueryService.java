@@ -3,6 +3,7 @@ package es.urjc.code.ejem1;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
+import es.urjc.code.ejem1.domain.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -10,17 +11,12 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.modelmapper.ModelMapper;
 
-import es.urjc.code.ejem1.domain.FullProductDTO;
-import es.urjc.code.ejem1.domain.Product;
-import es.urjc.code.ejem1.domain.ProductDTO;
-import es.urjc.code.ejem1.domain.ProductRepository;
-import es.urjc.code.ejem1.domain.ProductServiceImpl;
-
 @TestMethodOrder(OrderAnnotation.class)
-public class ProductService {
+public class ProductQueryService {
 
 	private ProductRepository productRepository;
-	private ProductServiceImpl productService;
+	private ProductQueryServiceImpl productQueryService;
+	private ProductCommandServiceImpl productCommandService;
 
 	private ModelMapper mapper = new ModelMapper();
 
@@ -29,7 +25,8 @@ public class ProductService {
 	@BeforeEach
 	void setUp() {
 		productRepository = mock(ProductRepository.class);
-		productService = new ProductServiceImpl(productRepository);
+		productCommandService = new ProductCommandServiceImpl(productRepository);
+		productQueryService = new ProductQueryServiceImpl(productRepository);
 	}
 
 	@Test
@@ -42,14 +39,14 @@ public class ProductService {
 
 		ProductDTO productDTO = mapper.map(product, ProductDTO.class);
 
-		createdProduct = productService.createProduct(productDTO);
+		createdProduct = productCommandService.createProduct(productDTO);
 		verify(productRepository).save(createdProduct);
 	}
 
 	@Test
 	@Order(2)
 	void productCanBeDeleted() {
-		productService.deleteProduct(createdProduct.getId());
+		productCommandService.deleteProduct(createdProduct.getId());
 		verify(productRepository).deleteById(createdProduct.getId());
 	}
 }

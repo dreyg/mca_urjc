@@ -1,27 +1,18 @@
 package es.urjc.code.ejem1.domain;
 
-import java.util.Collection;
-
 import org.modelmapper.ModelMapper;
 
-public class ProductServiceImpl implements ProductService {
+import java.util.Collection;
+
+public class ProductCommandServiceImpl implements ProductCommandService {
 
 	private ProductRepository repository;
 	ModelMapper mapper = new ModelMapper();
 
-	public ProductServiceImpl(ProductRepository repository) {
+	public ProductCommandServiceImpl(ProductRepository repository) {
 		this.repository = repository;
 	}
 
-	@Override
-	public Collection<FullProductDTO> getProducts() {
-		return repository.finAll();
-	}
-
-	@Override
-	public FullProductDTO getProduct(Long id) {
-		return repository.findById(id);
-	}
 
 	@Override
 	public FullProductDTO createProduct(ProductDTO productDTO) {

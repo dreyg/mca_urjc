@@ -1,7 +1,6 @@
 package es.urjc.code.ejem1;
 
 import es.urjc.code.ejem1.domain.*;
-import es.urjc.code.ejem1.infrastructure.SpringDataJPAShoppingExpenditureRepositoryAdapter;
 import es.urjc.code.ejem1.service.ShoppingExpenditureServiceImpl;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
@@ -26,8 +25,13 @@ public class Configuration {
 	}
 
 	@Bean
-	public ProductService productService(SpringDataJPAProductRepositoryAdapter repositoryAdapter) {
-		return new ProductServiceImpl(repositoryAdapter);
+	public ProductQueryService productQueryService(SpringDataJPAProductRepositoryAdapter repositoryAdapter) {
+		return new ProductQueryServiceImpl(repositoryAdapter);
+	}
+
+	@Bean
+	public ProductCommandService productCommandService(SpringDataJPAProductRepositoryAdapter repositoryAdapter) {
+		return new ProductCommandServiceImpl(repositoryAdapter);
 	}
 
 }

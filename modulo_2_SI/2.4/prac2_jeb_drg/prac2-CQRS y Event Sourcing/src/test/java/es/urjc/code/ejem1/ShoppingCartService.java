@@ -6,6 +6,7 @@ import static org.mockito.Mockito.verify;
 
 import java.util.Random;
 
+import es.urjc.code.ejem1.domain.*;
 import es.urjc.code.ejem1.service.ShoppingExpenditureServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -14,22 +15,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.modelmapper.ModelMapper;
 
-import es.urjc.code.ejem1.domain.FullProductDTO;
-import es.urjc.code.ejem1.domain.FullShoppingCartDTO;
-import es.urjc.code.ejem1.domain.FullShoppingCartItemDTO;
-import es.urjc.code.ejem1.domain.Product;
-import es.urjc.code.ejem1.domain.ProductDTO;
-import es.urjc.code.ejem1.domain.ProductRepository;
-import es.urjc.code.ejem1.domain.ProductServiceImpl;
-import es.urjc.code.ejem1.domain.ShoppingCartRepository;
-import es.urjc.code.ejem1.domain.ShoppingCartServiceImpl;
 import es.urjc.code.ejem1.service.ValidationServiceImpl;
 
 @TestMethodOrder(OrderAnnotation.class)
 public class ShoppingCartService {
 	
 	private ProductRepository productRepository;
-	private ProductServiceImpl productService;
+	private ProductQueryServiceImpl productQueryService;
+	private ProductCommandServiceImpl productCommandService;
 
 	private ShoppingCartRepository shoppingCartRepository;
 	private ShoppingCartServiceImpl shoppingCartService;
@@ -43,7 +36,8 @@ public class ShoppingCartService {
 		productRepository = mock(ProductRepository.class);
 		shoppingCartRepository = mock(ShoppingCartRepository.class);
 		
-		productService = new ProductServiceImpl(productRepository);
+		productQueryService = new ProductQueryServiceImpl(productRepository);
+		productCommandService = new ProductCommandServiceImpl(productRepository);
 		shoppingCartService = new ShoppingCartServiceImpl(
 				shoppingCartRepository,
 		        productRepository,
@@ -67,7 +61,7 @@ public class ShoppingCartService {
 		        49.99);
 		ProductDTO productDTO = mapper.map(product, ProductDTO.class);
 
-		FullProductDTO fullProductDTO = productService.createProduct(productDTO);
+		FullProductDTO fullProductDTO = productCommandService.createProduct(productDTO);
 		verify(productRepository).save(fullProductDTO);
 		
 		int items = Math.abs(new Random().nextInt());

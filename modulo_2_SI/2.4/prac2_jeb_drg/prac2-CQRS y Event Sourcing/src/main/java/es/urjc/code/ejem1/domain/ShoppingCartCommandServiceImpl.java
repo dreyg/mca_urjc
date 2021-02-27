@@ -4,7 +4,7 @@ import org.modelmapper.ModelMapper;
 
 import java.util.List;
 
-public class ShoppingCartServiceImpl implements ShoppingCartService {
+public class ShoppingCartCommandServiceImpl implements ShoppingCartCommandService {
 
 	private ShoppingCartRepository shoppingCartRepository;
 	private ProductRepository productRepository;
@@ -13,10 +13,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	
 	private ModelMapper mapper = new ModelMapper();
 
-	public ShoppingCartServiceImpl(ShoppingCartRepository shoppingCartRepository,
-									ProductRepository productRepository,
-									ValidationService validationService,
-								   ShoppingExpenditureService shoppingExpenditureService) {
+	public ShoppingCartCommandServiceImpl(ShoppingCartRepository shoppingCartRepository,
+										  ProductRepository productRepository,
+										  ValidationService validationService,
+										  ShoppingExpenditureService shoppingExpenditureService) {
 		this.shoppingCartRepository = shoppingCartRepository;
 		this.productRepository = productRepository;
 		this.validationService = validationService;
@@ -27,11 +27,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		FullShoppingCartDTO saveFullShoppingCartDTO = shoppingCartRepository.save(fullShoppingCartDTO);
 
 		return (saveFullShoppingCartDTO != null) ? saveFullShoppingCartDTO : fullShoppingCartDTO;
-	}
-
-	@Override
-	public FullShoppingCartDTO getShoppingCart(Long id) {
-		return mapper.map(shoppingCartRepository.findById(id), FullShoppingCartDTO.class);
 	}
 
 	@Override

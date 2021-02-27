@@ -7,7 +7,6 @@ import static org.mockito.Mockito.verify;
 import java.util.Random;
 
 import es.urjc.code.ejem1.domain.*;
-import es.urjc.code.ejem1.service.ShoppingExpenditureServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -18,14 +17,14 @@ import org.modelmapper.ModelMapper;
 import es.urjc.code.ejem1.service.ValidationServiceImpl;
 
 @TestMethodOrder(OrderAnnotation.class)
-public class ShoppingCartService {
+public class ShoppingCartCommandService {
 	
 	private ProductRepository productRepository;
 	private ProductQueryServiceImpl productQueryService;
 	private ProductCommandServiceImpl productCommandService;
 
 	private ShoppingCartRepository shoppingCartRepository;
-	private ShoppingCartServiceImpl shoppingCartService;
+	private ShoppingCartCommandServiceImpl shoppingCartService;
 
 	private ModelMapper mapper = new ModelMapper();
 	
@@ -38,7 +37,7 @@ public class ShoppingCartService {
 		
 		productQueryService = new ProductQueryServiceImpl(productRepository);
 		productCommandService = new ProductCommandServiceImpl(productRepository);
-		shoppingCartService = new ShoppingCartServiceImpl(
+		shoppingCartService = new ShoppingCartCommandServiceImpl(
 				shoppingCartRepository,
 		        productRepository,
 		        new ValidationServiceImpl(),

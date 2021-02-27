@@ -3,15 +3,10 @@ package es.urjc.code.ejem1.controller;
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 import java.net.URI;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import es.urjc.code.ejem1.domain.ShoppingExpenditureService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,23 +16,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.urjc.code.ejem1.domain.FullShoppingCartDTO;
 import es.urjc.code.ejem1.domain.ShoppingCartDTO;
-import es.urjc.code.ejem1.domain.ShoppingCartService;
+import es.urjc.code.ejem1.domain.ShoppingCartCommandService;
 
 @RestController
 @RequestMapping("/api/shoppingcarts")
-public class ShoppingCartController {
+public class ShoppingCartCommandController {
 
-	private ShoppingCartService shoppingService;
+	private ShoppingCartCommandService shoppingCartCommandService;
 	private ModelMapper mapper = new ModelMapper();
 
-	public ShoppingCartController(ShoppingCartService shoppingService) {
-		this.shoppingService = shoppingService;
+	public ShoppingCartCommandController(ShoppingCartCommandService shoppingCartCommandService) {
+		this.shoppingCartCommandService = shoppingCartCommandService;
 	}
 
-	@GetMapping("/{id}")
-	public ShoppingCartResponseDTO getShoppingCart(@PathVariable Long id) {
-		return mapper.map(shoppingService.getShoppingCart(id), ShoppingCartResponseDTO.class);
-	}
 
 	@PostMapping("/{idShoppingCart}/product/{idProduct}/quantity/{quantity}")
 	public ShoppingCartResponseDTO getShoppingCart(
@@ -45,7 +36,7 @@ public class ShoppingCartController {
 	        @PathVariable Long idProduct,
 	        @PathVariable int quantity) {
 
-		return mapper.map(shoppingService.addProduct(idShoppingCart, idProduct, quantity),
+		return mapper.map(shoppingCartCommandService.addProduct(idShoppingCart, idProduct, quantity),
 		        ShoppingCartResponseDTO.class);
 	}
 
@@ -53,12 +44,12 @@ public class ShoppingCartController {
 	public ShoppingCartResponseDTO deleteProductInShoppingCart(
 	        @PathVariable Long idShoppingCart,
 	        @PathVariable Long idProduct) {
-		return mapper.map(shoppingService.deleteProduct(idShoppingCart, idProduct), ShoppingCartResponseDTO.class);
+		return mapper.map(shoppingCartCommandService.deleteProduct(idShoppingCart, idProduct), ShoppingCartResponseDTO.class);
 	}
 
 	@PostMapping
 	public ResponseEntity<ShoppingCartResponseDTO> createShoppingCart() {
-		FullShoppingCartDTO fullShoppingCartDTO = shoppingService.createShoppingCart();
+		FullShoppingCartDTO fullShoppingCartDTO = shoppingCartCommandService.createShoppingCart();
 
 		URI location = fromCurrentRequest().path("/{id}")
 		        .buildAndExpand(fullShoppingCartDTO.getId()).toUri();
@@ -71,7 +62,7 @@ public class ShoppingCartController {
 	public ShoppingCartResponseDTO updateShoppingCart(
 	        @PathVariable Long id,
 	        @Validated @RequestBody ShoppingCartRequestDTO shoppingCartRequestDTO) {
-		FullShoppingCartDTO fullShoppingCartDTO = shoppingService.updateShoppingCart(id,
+		FullShoppingCartDTO fullShoppingCartDTO = shoppingCartCommandService.updateShoppingCart(id,
 		        mapper.map(shoppingCartRequestDTO, ShoppingCartDTO.class));
 
 		return mapper.map(fullShoppingCartDTO, ShoppingCartResponseDTO.class);
@@ -79,7 +70,7 @@ public class ShoppingCartController {
 
 	@DeleteMapping("/{id}")
 	public ShoppingCartResponseDTO deleteShoppingCart(@PathVariable Long id) {
-		return mapper.map(shoppingService.deleteShoppingCart(id), ShoppingCartResponseDTO.class);
+		return mapper.map(shoppingCartCommandService.deleteShoppingCart(id), ShoppingCartResponseDTO.class);
 	}
 
 }

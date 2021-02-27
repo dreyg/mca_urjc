@@ -13,11 +13,23 @@ import es.urjc.code.ejem1.service.ValidationServiceImpl;
 public class Configuration {
 
 	@Bean
-	public ShoppingCartService shoppingCartService(
+	public ShoppingCartCommandService shoppingCartCommandService(
 			SpringDataJPAShoppingCartRepositoryAdapter shoppingCartRepositoryAdapter,
 			SpringDataJPAProductRepositoryAdapter productRepositoryAdapter,
 			ApplicationEventPublisher applicationEventPublisher) {
-		return new ShoppingCartServiceImpl(
+		return new ShoppingCartCommandServiceImpl(
+				shoppingCartRepositoryAdapter,
+				productRepositoryAdapter,
+				new ValidationServiceImpl(),
+				new ShoppingExpenditureServiceImpl(applicationEventPublisher));
+	}
+
+	@Bean
+	public ShoppingCartQueryService shoppingCartQueryService(
+			SpringDataJPAShoppingCartRepositoryAdapter shoppingCartRepositoryAdapter,
+			SpringDataJPAProductRepositoryAdapter productRepositoryAdapter,
+			ApplicationEventPublisher applicationEventPublisher) {
+		return new ShoppingCartQueryServiceImpl(
 				shoppingCartRepositoryAdapter,
 				productRepositoryAdapter,
 				new ValidationServiceImpl(),

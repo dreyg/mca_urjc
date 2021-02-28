@@ -1,20 +1,18 @@
 package es.urjc.code.ejem1.domain;
 
-import java.util.List;
-
 public interface ShoppingCartCommandService {
 
-	public FullShoppingCartDTO createShoppingCart();
+	public void createShoppingCart();
 
-	public FullShoppingCartDTO updateShoppingCart(Long id, ShoppingCartDTO shoppingCartDTO);
+	public void deleteShoppingCart(Long id);
 
-	public FullShoppingCartDTO deleteShoppingCart(Long id);
+	public void deleteProduct(Long idShoppingCart, Long idProduct);
 
-	public FullShoppingCartDTO addProduct(Long idShoppingCart, Long idProduct, int nProducts);
+	public void updateShoppingCart(Long id, ShoppingCartDTO shoppingCartDTO);
 
-	public FullShoppingCartDTO addProduct(FullProductDTO fullProductDTO, FullShoppingCartDTO fullShoppingCartDTO,
+	public void addProduct(Long idShoppingCart, Long idProduct, int nProducts);
+
+	public void addProduct(FullProductDTO fullProductDTO, FullShoppingCartDTO fullShoppingCartDTO,
 	        int quantity);
-
-	public FullShoppingCartDTO deleteProduct(Long idShoppingCart, Long idProduct);
 
 }

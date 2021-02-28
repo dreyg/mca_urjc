@@ -1,6 +1,8 @@
 package es.urjc.code.ejem1;
 
 import es.urjc.code.ejem1.domain.*;
+import es.urjc.code.ejem1.domain.ShoppingCartCommandServiceImpl;
+import es.urjc.code.ejem1.service.ShoppingCartPublishServiceImpl;
 import es.urjc.code.ejem1.service.ShoppingExpenditureServiceImpl;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +23,8 @@ public class Configuration {
 				shoppingCartRepositoryAdapter,
 				productRepositoryAdapter,
 				new ValidationServiceImpl(),
-				new ShoppingExpenditureServiceImpl(applicationEventPublisher));
+				new ShoppingExpenditureServiceImpl(applicationEventPublisher),
+				new ShoppingCartPublishServiceImpl(applicationEventPublisher));
 	}
 
 	@Bean

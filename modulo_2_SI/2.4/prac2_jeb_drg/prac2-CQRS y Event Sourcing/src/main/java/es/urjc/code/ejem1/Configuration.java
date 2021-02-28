@@ -2,6 +2,7 @@ package es.urjc.code.ejem1;
 
 import es.urjc.code.ejem1.domain.*;
 import es.urjc.code.ejem1.domain.ShoppingCartCommandServiceImpl;
+import es.urjc.code.ejem1.service.ProductPublishServiceImpl;
 import es.urjc.code.ejem1.service.ShoppingCartPublishServiceImpl;
 import es.urjc.code.ejem1.service.ShoppingExpenditureServiceImpl;
 import org.springframework.context.ApplicationEventPublisher;
@@ -45,8 +46,8 @@ public class Configuration {
 	}
 
 	@Bean
-	public ProductCommandService productCommandService(SpringDataJPAProductRepositoryAdapter repositoryAdapter) {
-		return new ProductCommandServiceImpl(repositoryAdapter);
+	public ProductCommandService productCommandService(SpringDataJPAProductRepositoryAdapter repositoryAdapter, ApplicationEventPublisher applicationEventPublisher) {
+		return new ProductCommandServiceImpl(new ProductPublishServiceImpl(applicationEventPublisher), repositoryAdapter);
 	}
 
 }

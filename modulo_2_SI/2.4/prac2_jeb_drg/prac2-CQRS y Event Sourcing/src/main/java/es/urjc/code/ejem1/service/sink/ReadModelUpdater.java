@@ -17,6 +17,9 @@ public class ReadModelUpdater {
     @Autowired
     private ShoppingCartRepository shoppingCartRepository;
 
+    @Autowired
+    private ProductRepository productRepository;
+
     @EventListener
     public void addCompletedShoppingCartExpenditure(ShoppingExpenditureDTO shoppingExpenditureDTO) {
         shoppingExpenditureRepository.save(shoppingExpenditureDTO);
@@ -25,18 +28,27 @@ public class ReadModelUpdater {
     @EventListener
     public void operationsShoppingCart(ShoppingCartEventDTO shoppingCartEventDTO) {
         FullShoppingCartDTO fullShoppingCartDTO = mapper.map(shoppingCartEventDTO, FullShoppingCartDTO.class);
-        switch (shoppingCartEventDTO.getTypeOperation()){
+        switch (shoppingCartEventDTO.getTypeOperation()) {
             case 1:
                 shoppingCartRepository.save(fullShoppingCartDTO);
                 break;
             case 2:
                 shoppingCartRepository.deleteById(fullShoppingCartDTO.getId());
                 break;
-            case 3:
-                shoppingCartRepository.save(fullShoppingCartDTO);
+        }
+    }
+
+    @EventListener
+    public void operationsProduct(ProductEventDTO productEventDTO) {
+        FullProductDTO fullProductDTO = mapper.map(productEventDTO, FullProductDTO.class);
+        switch (productEventDTO.getTypeOperation()) {
+            case 1:
+                productRepository.save(fullProductDTO);
+                break;
+            case 2:
+                productRepository.deleteById(fullProductDTO.getId());
                 break;
         }
-
     }
 
 }

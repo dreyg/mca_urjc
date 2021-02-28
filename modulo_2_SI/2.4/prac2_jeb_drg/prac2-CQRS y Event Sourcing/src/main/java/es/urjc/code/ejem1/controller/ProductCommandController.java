@@ -30,20 +30,14 @@ public class ProductCommandController {
 	}
 
 	@PostMapping
-	public ResponseEntity<ProductResponseDTO> createProduct(@RequestBody ProductRequestDTO productRequestDTO) {
+	public void createProduct(@RequestBody ProductRequestDTO productRequestDTO) {
 		ProductDTO productDTO = mapper.map(productRequestDTO, ProductDTO.class);
-		FullProductDTO fullProductDTO = productCommandService.createProduct(productDTO);
-
-		URI location = fromCurrentRequest().path("/{id}")
-		        .buildAndExpand(fullProductDTO.getId()).toUri();
-
-		return ResponseEntity.created(location).body(
-		        mapper.map(fullProductDTO, ProductResponseDTO.class));
+		productCommandService.createProduct(productDTO);
 	}
 
 	@DeleteMapping("/{id}")
-	public ProductResponseDTO deleteProduct(@PathVariable Long id) {
-		return mapper.map(productCommandService.deleteProduct(id), ProductResponseDTO.class);
+	public void deleteProduct(@PathVariable Long id) {
+		productCommandService.deleteProduct(id);
 	}
 
 }

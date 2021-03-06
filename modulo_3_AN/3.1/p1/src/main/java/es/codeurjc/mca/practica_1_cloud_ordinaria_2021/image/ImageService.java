@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public interface ImageService {
 
-    public String createImage(MultipartFile multiPartFile) throws IOException;
+    public String createImage(MultipartFile multiPartFile);
 
     public void deleteImage(String image);
 }

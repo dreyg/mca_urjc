@@ -22,7 +22,7 @@ public class ProductionImageService implements ImageService {
     //@Value("${amazon.s3.endpoint}")
     private String endpoint = "https://s3.amazonaws.com/j.escribanob2020-d.reyg2020.master.codeurjc.es";
     //@Value("${amazon.s3.region}")
-    private String region = "eu-west-1a";
+    private String region = "eu-west-1";
 
     private Logger log = LoggerFactory.getLogger(ProductionImageService.class);
 
@@ -46,7 +46,7 @@ public class ProductionImageService implements ImageService {
             PutObjectRequest por = new PutObjectRequest(bucket, fileName, file);
             //if (isPublic) por.setCannedAcl(CannedAccessControlList.PublicRead);
             s3.putObject(por);
-            return endpoint + fileName;
+            return fileName;
         }catch (IllegalStateException | IOException exception){
             log.error(exception.getMessage());
             return null;

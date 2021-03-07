@@ -2,6 +2,7 @@ package es.codeurjc.mca.practica_1_cloud_ordinaria_2021.image;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,28 +18,31 @@ import java.io.IOException;
 @Profile("production")
 public class ProductionImageService implements ImageService {
 
-    //@Value("${amazon.s3.bucket-name}")
-    private String bucket = "j.escribanob2020-d.reyg2020.master.codeurjc.es";
-    //@Value("${amazon.s3.endpoint}")
-    private String endpoint = "https://s3.amazonaws.com/j.escribanob2020-d.reyg2020.master.codeurjc.es";
-    //@Value("${amazon.s3.region}")
-    private String region = "eu-west-1";
+    private String bucket;
+    private String endpoint;
+    private String region;
 
     private Logger log = LoggerFactory.getLogger(ProductionImageService.class);
 
     public static AmazonS3 s3;
 
 
+    public ProductionImageService(@Value("${amazon.s3.bucket-name}") String bucket,@Value("${amazon.s3.endpoint}") String endpoint, @Value("${amazon.s3.region}") String region) {
+        this.bucket = bucket;
+        this.endpoint = endpoint;
+        this.region = region;
 
-
-    public ProductionImageService() {
         s3 = AmazonS3ClientBuilder.standard().withRegion(region).build();
     }
-
 
     @Override
     public String createImage(MultipartFile multiPartFile) {
         try{
+
+            if(!s3.doesBucketExistV2(bucket)) {
+                s3.createBucket(bucket);
+            }
+
             String fileName = multiPartFile.getOriginalFilename();
             File file = new File(System.getProperty("java.io.tmpdir")+"/"+fileName);
             multiPartFile.transferTo(file);
@@ -59,5 +63,5 @@ public class ProductionImageService implements ImageService {
     }
 
 
-    
+
 }

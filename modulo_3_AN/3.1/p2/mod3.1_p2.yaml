@@ -1,0 +1,111 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: EC2
+
+Parameters:
+  AMIId:
+    Description: The ami to use (it must be an AMI on the current region and must be Ubuntu 20.04)
+    Type: 'AWS::EC2::Image::Id'
+    Default: 'ami-013f17f36f8b1fefb'
+  DBPassword:
+    Description: Database password
+    Type: String
+    NoEcho: true
+    MinLength: 8
+  BuckectPrac2:
+    Description: The name of the Bucket
+    Type: String
+  UrlDownloadApp:
+    Description: Url app
+    Type: String
+    Default: 'https://s3.amazonaws.com/practica-2.cloud.michel/app.jar'
+
+Resources:
+  myEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      KeyName: "jescribanob-dreyg-aws-ec2-virginia"
+      ImageId: !Ref AMIId
+      InstanceType: "t2.micro"
+      Monitoring: true
+      SecurityGroups:
+        - !Ref prac2SecurityGroup
+      UserData: !Base64 |
+        #!/bin/bash -ex
+        apt update && apt install -y openjdk-11-jre-headless
+        sudo java -jar -Dspring.profiles.active=production app.jar \\
+                    --server.port=443 \\
+                    --spring.datasource.url= !Ref JDBCConnectionString.Value \\
+                    --spring.datasource.username=admin \\
+                    --spring.datasource.password= !Ref DBPassword \\
+                    --amazon.s3.bucket-name= !Ref BuckectPrac2 \\
+                    --amazon.s3.endpoint= !Ref bucketURL.Value \\
+                    --amazon.s3.region=us-east-1
+      Tags:
+        - Key: Name
+          Value: jescribanob-dreyg-01
+  prac2SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: spring-8443
+      GroupDescription: "SG for Prac2 ports 443"
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '8443'
+          ToPort: '8443'
+          CidrIp: 0.0.0.0/0
+  rdsSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: "SG for MySQL RDS"
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '3306'
+          ToPort: '3306'
+          SourceSecurityGroupName: !Ref prac2SecurityGroup # Sólo permite acceso a las instancias de este grupo
+
+  rdsDBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBInstanceClass: db.t2.micro
+      AllocatedStorage: 10
+      AllowMajorVersionUpgrade: false
+      AutoMinorVersionUpgrade: true
+      DBInstanceIdentifier: db-prac2-id
+      DBName: dbprac2aws
+      Engine: mysql
+      EngineVersion: 8.0
+      MasterUsername: admin
+      MasterUserPassword: !Ref DBPassword
+      MultiAZ: false
+      PubliclyAccessible: true
+      StorageEncrypted: false
+      VPCSecurityGroups:
+        - !GetAtt rdsSecurityGroup.GroupId
+      Tags:
+        - Key: Name
+          Value: mca-cf-rds-prac2
+
+  myBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref BuckectPrac2
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: error.html
+
+Outputs:
+  WebSiteURL:
+    Value:
+      !Join
+      - ''
+      - - "https://"
+        - !GetAtt myEC2Instance.PublicDnsName
+    Description: "Application Endpoint"
+  JDBCConnectionString:
+    Description: JDBC connection string for the database
+    Value: !Join [ '', [ 'jdbc:mysql://', !GetAtt [ rdsDBInstance, Endpoint.Address ], ':', !GetAtt [
+        rdsDBInstance, Endpoint.Port ], /, dbprac2aws ] ]
+  bucketURL:
+    Value: !GetAtt [ myBucket, WebsiteURL ]
+    Description: URL for website hosted on S3

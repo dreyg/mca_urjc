@@ -66,6 +66,7 @@ Resources:
           Value: mca-cf-rds-prac2
   myEC2Instance:
     Type: AWS::EC2::Instance
+    DependsOn: rdsDBInstance
     Properties:
       KeyName: "dreyg-jescribanob-aws-virginia"
       ImageId: !Ref AMIId
@@ -73,18 +74,19 @@ Resources:
       Monitoring: true
       SecurityGroups:
         - !Ref prac2SecurityGroup
-      UserData: !Base64 |
-        #!/bin/bash -ex
-        apt update && apt install -y openjdk-11-jre-headless
-        wget !Sub UrlDownloadApp
-        sudo java -jar -Dspring.profiles.active=production app.jar \\
-                    --server.port=443 \\
-                    --spring.datasource.url= !Sub JDBCConnectionString \\
-                    --spring.datasource.username=admin \\
-                    --spring.datasource.password= !Sub DBPassword \\
-                    --amazon.s3.bucket-name= !Sub BuckectPrac2 \\
-                    --amazon.s3.endpoint= !Sub bucketURL \\
-                    --amazon.s3.region=us-east-1
+      UserData:
+        Fn::Base64:
+          Fn::Sub:
+            - |
+              #!/bin/bash -ex
+              apt update && apt install -y openjdk-11-jre-headless
+              wget ${Url}
+              sudo java -jar -Dspring.profiles.active=production app.jar --server.port=443 --spring.datasource.url=${JDBC} --spring.datasource.username=admin --spring.datasource.password=${Pass} --amazon.s3.bucket-name=${BucketName} --amazon.s3.endpoint=${BucketURL} --amazon.s3.region=us-east-1
+            - Url: !Ref UrlDownloadApp
+              JDBC: !Join [ [ 'jdbc:mysql://', !GetAtt [ rdsDBInstance, Endpoint.Address ] , / , dbprac2aws ] ]
+              Pass: !Ref DBPassword
+              BucketName: !Ref BuckectPrac2
+              BucketURL: !GetAtt [ myBucket, WebsiteURL ]
       Tags:
         - Key: Name
           Value: jescribanob-dreyg-01
@@ -105,10 +107,3 @@ Outputs:
       - - "https://"
         - !GetAtt myEC2Instance.PublicDnsName
     Description: "Application Endpoint"
-  JDBCConnectionString:
-    Description: JDBC connection string for the database
-    Value: !Join [ '', [ 'jdbc:mysql://', !GetAtt [ rdsDBInstance, Endpoint.Address ], ':', !GetAtt [
-        rdsDBInstance, Endpoint.Port ], /, dbprac2aws ] ]
-  bucketURL:
-    Value: !GetAtt [ myBucket, WebsiteURL ]
-    Description: URL for website hosted on S3

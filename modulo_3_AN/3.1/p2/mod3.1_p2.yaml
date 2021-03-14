@@ -20,29 +20,10 @@ Parameters:
     Default: 'https://s3.amazonaws.com/practica-2.cloud.michel/app.jar'
 
 Resources:
-  myEC2Instance:
-    Type: AWS::EC2::Instance
+  CloudFormationLogs:
+    Type: AWS::Logs::LogGroup
     Properties:
-      KeyName: "jescribanob-dreyg-aws-ec2-virginia"
-      ImageId: !Ref AMIId
-      InstanceType: "t2.micro"
-      Monitoring: true
-      SecurityGroups:
-        - !Ref prac2SecurityGroup
-      UserData: !Base64 |
-        #!/bin/bash -ex
-        apt update && apt install -y openjdk-11-jre-headless
-        sudo java -jar -Dspring.profiles.active=production app.jar \\
-                    --server.port=443 \\
-                    --spring.datasource.url= !Ref JDBCConnectionString.Value \\
-                    --spring.datasource.username=admin \\
-                    --spring.datasource.password= !Ref DBPassword \\
-                    --amazon.s3.bucket-name= !Ref BuckectPrac2 \\
-                    --amazon.s3.endpoint= !Ref bucketURL.Value \\
-                    --amazon.s3.region=us-east-1
-      Tags:
-        - Key: Name
-          Value: jescribanob-dreyg-01
+      RetentionInDays: 7
   prac2SecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -62,7 +43,6 @@ Resources:
           FromPort: '3306'
           ToPort: '3306'
           SourceSecurityGroupName: !Ref prac2SecurityGroup # Sólo permite acceso a las instancias de este grupo
-
   rdsDBInstance:
     Type: AWS::RDS::DBInstance
     Properties:
@@ -84,7 +64,30 @@ Resources:
       Tags:
         - Key: Name
           Value: mca-cf-rds-prac2
-
+  myEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      KeyName: "jescribanob-dreyg-aws-ec2-virginia"
+      ImageId: !Ref AMIId
+      InstanceType: "t2.micro"
+      Monitoring: true
+      SecurityGroups:
+        - !Ref prac2SecurityGroup
+      UserData: !Base64 |
+        #!/bin/bash -ex
+        apt update && apt install -y openjdk-11-jre-headless
+        wget !Ref UrlDownloadApp
+        sudo java -jar -Dspring.profiles.active=production app.jar \\
+                    --server.port=443 \\
+                    --spring.datasource.url= !Ref JDBCConnectionString \\
+                    --spring.datasource.username=admin \\
+                    --spring.datasource.password= !Ref DBPassword \\
+                    --amazon.s3.bucket-name= !Ref BuckectPrac2 \\
+                    --amazon.s3.endpoint= !Ref bucketURL \\
+                    --amazon.s3.region=us-east-1
+      Tags:
+        - Key: Name
+          Value: jescribanob-dreyg-01
   myBucket:
     Type: AWS::S3::Bucket
     Properties:

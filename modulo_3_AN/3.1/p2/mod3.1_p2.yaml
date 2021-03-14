@@ -20,10 +20,40 @@ Parameters:
     Default: 'https://s3.amazonaws.com/practica-2.cloud.michel/app.jar'
 
 Resources:
-  CloudFormationLogs:
-    Type: AWS::Logs::LogGroup
+
+  myRoleBucket:
+    Type: AWS::IAM::Role
     Properties:
-      RetentionInDays: 7
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Path: "/"
+
+  myRoleBucketInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: "/"
+      Roles:
+        - !Ref myRoleBucket
+
+  myRoleBucketPolicies:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: myRoleBucket
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Action: "*"
+            Resource: "*"
+      Roles:
+        - !Ref myRoleBucketInstanceProfile
+
+
   prac2SecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -74,6 +104,8 @@ Resources:
       Monitoring: true
       SecurityGroups:
         - !Ref prac2SecurityGroup
+      IamInstanceProfile:
+        - !Ref myRoleBucketInstanceProfile
       UserData:
         Fn::Base64:
           Fn::Sub:
@@ -83,7 +115,7 @@ Resources:
               wget ${Url}
               sudo java -jar -Dspring.profiles.active=production app.jar --server.port=443 --spring.datasource.url=${JDBC} --spring.datasource.username=admin --spring.datasource.password=${Pass} --amazon.s3.bucket-name=${BucketName} --amazon.s3.endpoint=${BucketURL} --amazon.s3.region=us-east-1
             - Url: !Ref UrlDownloadApp
-              JDBC: !Join [ [ 'jdbc:mysql://', !GetAtt [ rdsDBInstance, Endpoint.Address ] , / , dbprac2aws ] ]
+              JDBC: !Join [ '', [ 'jdbc:mysql://', !GetAtt [ rdsDBInstance, Endpoint.Address ], /, dbprac2aws ] ]
               Pass: !Ref DBPassword
               BucketName: !Ref BuckectPrac2
               BucketURL: !GetAtt [ myBucket, WebsiteURL ]

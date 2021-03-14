@@ -32,37 +32,34 @@ Resources:
                 - ec2.amazonaws.com
             Action:
               - sts:AssumeRole
-      Path: "/"
+      Path: /
+      Policies:
+        - PolicyName: myRoleBucket
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action: '*'
+                Resource: '*'
 
   myRoleBucketInstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
+      InstanceProfileName: "MyInstanceName"
       Path: "/"
       Roles:
         - !Ref myRoleBucket
-
-  myRoleBucketPolicies:
-    Type: AWS::IAM::Policy
-    Properties:
-      PolicyName: myRoleBucket
-      PolicyDocument:
-        Statement:
-          - Effect: Allow
-            Action: "*"
-            Resource: "*"
-      Roles:
-        - !Ref myRoleBucketInstanceProfile
 
 
   prac2SecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupName: spring-8443
+      GroupName: spring-443
       GroupDescription: "SG for Prac2 ports 443"
       SecurityGroupIngress:
         - IpProtocol: tcp
-          FromPort: '8443'
-          ToPort: '8443'
+          FromPort: '443'
+          ToPort: '443'
           CidrIp: 0.0.0.0/0
   rdsSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -80,7 +77,7 @@ Resources:
       AllocatedStorage: 10
       AllowMajorVersionUpgrade: false
       AutoMinorVersionUpgrade: true
-      DBInstanceIdentifier: db-prac2-id
+      DBInstanceIdentifier: dbprac2id
       DBName: dbprac2aws
       Engine: mysql
       EngineVersion: 8.0

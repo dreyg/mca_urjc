@@ -33,17 +33,28 @@ Resources:
             Action:
               - sts:AssumeRole
       Path: /
-      Policies:
-        - PolicyName: myRoleBucket
-          PolicyDocument:
-            Version: 2012-10-17
-            Statement:
-              - Effect: Allow
-                Action: '*'
-                Resource: '*'
+
+  RolePolicies:
+    Type: AWS::IAM::Policy
+    DependsOn: myRoleBucket
+    Properties:
+      PolicyName: RolePolicies
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - s3:GetObject
+              - s3:PutObject
+              - s3:PutObjectAcl
+            Resource: '*'
+      Roles:
+        - !Ref myRoleBucket
+
 
   myRoleBucketInstanceProfile:
     Type: AWS::IAM::InstanceProfile
+    DependsOn: myRoleBucket
     Properties:
       InstanceProfileName: "MyInstanceName"
       Path: "/"
@@ -101,8 +112,7 @@ Resources:
       Monitoring: true
       SecurityGroups:
         - !Ref prac2SecurityGroup
-      IamInstanceProfile:
-        - !Ref myRoleBucketInstanceProfile
+      IamInstanceProfile: !Ref myRoleBucketInstanceProfile
       UserData:
         Fn::Base64:
           Fn::Sub:

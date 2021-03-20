@@ -31,3 +31,24 @@ Ejecuta los servicios. En proyectos Java usa Maven. En proyectos Node usa esta t
 ```
 $ node exec.js
 ```
+
+# EJECUCIÓN DE LA APLICACIÓN CON DOCKER
+
+Dockerizar los siguientes servicios:
+
+## MySQL para el Planner
+
+1- definimos una red
+$ docker network create server-network
+2- creamos la bdd mysql + rabbitmq
+$ docker run --rm -d --network server-network -v "$PWD":/data -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=eoloplantsDB -p 3306:3306 --name mysql mysql:8.0.22'
+$ docker run --rm -d --network server-network -p 5672:5672 -p 15672:15672 --name rabbitmq rabbitmq:3-management  
+
+## Creamos Server con la bdd
+
+docker build -t jescribanobdreyg/server .
+docker run --rm --network server-network --name server -p 3000:3000 jescribanobdreyg/server
+
+## Planner
+
+docker build -f multistage.Dockerfile -t jescribanobdreyg/planner .

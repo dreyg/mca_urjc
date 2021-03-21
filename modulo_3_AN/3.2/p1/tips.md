@@ -19,3 +19,17 @@
   
 - Listar imágenes descargadas
   'docker image ls'
+
+- Parar y lanzar los contenedores
+  docker rm -f $(docker ps -a -q)
+
+- Borrar los contenedores y las imagenes
+docker rmi $(docker images -a -q)
+  
+- REvisar las redes de docker
+  docker network ls
+  
+
+- Ejecutar un docker-compose
+  docker-compose up
+

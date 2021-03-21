@@ -52,3 +52,12 @@ docker run --rm --network server-network --name server -p 3000:3000 jescribanobd
 ## Planner
 
 docker build -f multistage.Dockerfile -t jescribanobdreyg/planner .
+
+## WeatherService
+(previo instalar el pack --> https://buildpacks.io/docs/tools/pack/)
+pack build dreygjescribanob/grpc-ejem1 --path . --builder gcr.io/buildpacks/builder:v1
+
+## TopoService
+
+docker login 
+mvn compile jib:build -Dimage=juaneb/toposervice

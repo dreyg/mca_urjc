@@ -7,6 +7,15 @@ ENV NODE_ENV production
 # Definimos el directorio de trabajo en /usr/src/app/
 WORKDIR /usr/server/
 
+
+# Descargamos el script wait-for-it.sh
+RUN apk add --no-cache curl
+RUN apk add --no-cache bash
+RUN rm -rf /var/lib/apt/lists/*
+RUN curl -LJO https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
+# Descargamos el script wait-for-it.sh
+RUN chmod +x /usr/server/wait-for-it.sh
+
 # Copiamos los ficheros de la aplicación
 COPY ./config /usr/server/config/
 COPY ./public /usr/server/public/
@@ -21,3 +30,4 @@ EXPOSE 3000
 
 # Comando que se ejecuta cuando se arranque el contenedor
 CMD ["node", "src/server.js"]
+

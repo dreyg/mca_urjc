@@ -1,0 +1,58 @@
+version: "3.9"
+services:
+  mysql:
+    image: mysql:8.0.22    
+    ports:
+    - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=eoloplantsDB    
+    volumes:
+      - ./mysql:/var/lib/mysql      
+    
+  rabbitMQ:
+    image: rabbitmq:3-management  
+    ports:
+    - 15672:15672
+
+  mongo:
+    image: mongo
+    ports:
+    - 27017:27017  
+    environment:
+      - MONGO_INITDB_DATABASE=topo
+    volumes:
+      - ./mongo:/data/db
+
+  server:
+    image: jescribanobdreyg/server    
+    ports:
+    - 3000:3000
+    environment:
+      - MYSQL_HOST=mysql   
+    depends_on:
+    - mysql    
+    - rabbitMQ
+    command: ["./wait-for-it.sh", "rabbitMQ:15672", "--", "node", "src/server.js"]    
+
+  planner:
+    image: jescribanobdreyg/planner    
+    environment:
+      - spring.rabbitmq.host=rabbitmq   
+      - grpc.client.weatherServer.address=static://weatherService:9090
+    depends_on:
+    - server
+    
+  weatherService:
+    image: dreygjescribanob/grpc-ejem1        
+    depends_on:
+    - planner
+
+  topoService:
+    image: juaneb/toposervice
+    environment:
+      - spring.data.mongodb.host=mongo   
+      - spring.data.mongodb.port=27017       
+      - spring.data.mongodb.database=topo             
+    depends_on:
+    - planner

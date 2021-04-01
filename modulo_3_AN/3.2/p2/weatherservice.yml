@@ -1,0 +1,35 @@
+apiVersion: weatherservice/v1
+kind: Deployment
+metadata:
+  name: weatherservice
+spec:
+  selector:
+    matchLabels:
+      app: weatherservice
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: weatherservice
+    spec:
+      containers:
+      - name: java
+        image: oscarsotosanchez/weatherservice:v1.0
+        env:
+        - name: GRPC_HOST
+          value: weatherservice
+        - name: GRPC_PORT
+          value: 9090
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: weatherservice
+  labels:
+    app: weatherservice
+spec:
+  ports:
+  - port: 9090
+  selector:
+    app: weatherservice
+  type: ClusterIP

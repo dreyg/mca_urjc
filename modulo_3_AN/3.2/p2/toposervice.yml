@@ -1,0 +1,43 @@
+apiVersion: toposervice/v1
+kind: Deployment
+metadata:
+  name: toposervice
+spec:
+  selector:
+    matchLabels:
+      app: toposervice
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: toposervice
+    spec:
+      containers:
+      - name: java
+        image: oscarsotosanchez/toposervice:v1.0
+        env:
+        - name: SPRING_DATA_MONGODB_HOST
+          value: mongodb
+        - name: SPRING_DATA_MONGODB_PORT
+          value: 27017
+        - name: SPRING_DATA_MONGODB_DATABASE
+          value: toposervice
+        - name: SPRING_DATA_MONGODB_AUTHENTICATION-DATABASE
+          value: admin
+        - name: SPRING_DATA_MONGODB_USERNAME
+          value: root
+        - name: SPRING_DATA_MONGODB_PASSWORD
+          value: password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: toposervice
+  labels:
+    app: toposervice
+spec:
+  ports:
+  - port: 8080
+  selector:
+    app: toposervice
+  type: ClusterIP

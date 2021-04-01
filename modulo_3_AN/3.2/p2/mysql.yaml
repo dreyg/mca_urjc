@@ -1,15 +1,16 @@
-apiVersion: mysql/v1 
+---
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: db
+  name: mysql
 spec:
   selector:
     matchLabels:
-      app: db
+      app: mysql
   template:
     metadata:
       labels:
-        app: db
+        app: mysql
     spec:
       containers:
       - name: mysql
@@ -23,10 +24,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: db
+  name: mysql
 spec:
   ports:
   - port: 3306
   selector:
-    app: db
+    app: mysql
   type: ClusterIP

@@ -1,4 +1,4 @@
-apiVersion: rabbitmq/v1 
+apiVersion: apps/v1 
 kind: Deployment
 metadata:
   name: rabbit
@@ -12,7 +12,7 @@ spec:
         app: rabbit
     spec:
       containers:
-      - name: mysql
+      - name: rabbitmq
         image: rabbitmq:3-management
         env:
         - name: RABBITMQ_DEFAULT_USER
@@ -26,8 +26,12 @@ metadata:
   name: rabbit
 spec:
   ports:
-  - port: 5672
-  - port: 15672
+  - name: http
+    port: 5672 
+    targetPort: 5672
+  - name: something
+    port: 15672
+    targetPort: 15672
   selector:
     app: rabbit
   type: ClusterIP

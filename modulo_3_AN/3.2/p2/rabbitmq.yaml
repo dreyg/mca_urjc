@@ -1,15 +1,15 @@
 apiVersion: apps/v1 
 kind: Deployment
 metadata:
-  name: rabbit
+  name: rabbitmq
 spec:
   selector:
     matchLabels:
-      app: rabbit
+      app: rabbitmq
   template:
     metadata:
       labels:
-        app: rabbit
+        app: rabbitmq
     spec:
       containers:
       - name: rabbitmq
@@ -23,7 +23,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: rabbit
+  name: rabbitmq
 spec:
   ports:
   - name: http
@@ -33,5 +33,5 @@ spec:
     port: 15672
     targetPort: 15672
   selector:
-    app: rabbit
+    app: rabbitmq
   type: ClusterIP

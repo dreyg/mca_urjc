@@ -14,20 +14,14 @@ spec:
     spec:
       containers:
       - name: java
-        image: oscarsotosanchez/toposervice:v1.0
+        image: juaneb/jescribanobdreygtoposervice
         env:
-        - name: SPRING_DATA_MONGODB_HOST
-          value: mongodb
-        - name: SPRING_DATA_MONGODB_PORT
-          value: 27017
-        - name: SPRING_DATA_MONGODB_DATABASE
-          value: toposervice
-        - name: SPRING_DATA_MONGODB_AUTHENTICATION-DATABASE
-          value: admin
-        - name: SPRING_DATA_MONGODB_USERNAME
-          value: root
-        - name: SPRING_DATA_MONGODB_PASSWORD
-          value: password
+        - name: spring.data.mongodb.host
+          value: mongo
+        - name: spring.data.mongodb.port
+          value: '27017'
+        - name: spring.data.mongodb.database
+          value: topo
 ---
 apiVersion: v1
 kind: Service

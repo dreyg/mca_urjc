@@ -1,15 +1,15 @@
 apiVersion: apps/v1 
 kind: Deployment
 metadata:
-  name: dbmongo
+  name: mongodb
 spec:
   selector:
     matchLabels:
-      app: dbmongo
+      app: mongodb
   template:
     metadata:
       labels:
-        app: dbmongo
+        app: mongodb
     spec:
       containers:
       - name: mongo
@@ -25,12 +25,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: dbmongo
+  name: mongodb
 spec:
   ports:
   - port: 27017
-  - port: 27018
-  - port: 27019
   selector:
-    app: dbmongo
+    app: mongodb
   type: ClusterIP

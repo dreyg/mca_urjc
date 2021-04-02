@@ -19,13 +19,13 @@ spec:
         - name: TOPO_HOST
           value: toposervice
         - name: TOPO_PORT
-          value: 8080
+          value: '8080'
         - name: GRPC_CLIENT_WEATHERSERVER_ADDRESS
           value: static://weatherservice:9090
         - name: SPRING_RABBITMQ_HOST
           value: rabbitmq
         - name: SPRING_RABBITMQ_PORT
-          value: 5672
+          value: '5672'
         - name: SPRING_RABBITMQ_USERNAME
           value: root
         - name: SPRING_RABBITMQ_PASSWORD
@@ -40,7 +40,6 @@ metadata:
 spec:
   ports:
   - port: 8080
-  - port: 5672
   selector:
     app: planner
   type: ClusterIP

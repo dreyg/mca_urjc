@@ -13,7 +13,7 @@ spec:
         app: server
     spec:
       containers:
-      - name: java
+      - name: server
         image: oscarsotosanchez/server:v1.0
         env:
         - name: MYSQL_HOST
@@ -30,7 +30,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: server
+  name: serverservice
   labels:
     app: server
 spec:
@@ -38,4 +38,4 @@ spec:
   - port: 3000
   selector:
     app: server
-  type: LoadBalancer
+  type: NodePort

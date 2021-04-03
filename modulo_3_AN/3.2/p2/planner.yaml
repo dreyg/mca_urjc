@@ -21,7 +21,7 @@ spec:
         - name: TOPO_PORT
           value: '8080'
         - name: GRPC_CLIENT_WEATHERSERVER_ADDRESS
-          value: static://weatherservice:9090
+          value: static://127.0.0.1:9090
         - name: SPRING_RABBITMQ_HOST
           value: rabbitmq
         - name: SPRING_RABBITMQ_PORT

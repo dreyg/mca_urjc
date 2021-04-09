@@ -47,9 +47,8 @@ spec:
   ports:
   - port: 3000
     targetPort: 3000
-    nodePort: 30000
     protocol: TCP
     name: server-port
   selector:
     app: server
-  type: NodePort
+  type: ClusterIP

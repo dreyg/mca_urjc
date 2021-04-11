@@ -67,13 +67,13 @@ spec:
     matchLabels:
       app: server
   egress:
-  - to:
-    - podSelector:
-        matchLabels:
-          app: mysql
+  - to:    
     - podSelector:
         matchLabels:
           app: rabbitmq
+    - podSelector:
+        matchLabels:
+          app: mysql
     ports:
     - port: 3306
       protocol: TCP
@@ -81,3 +81,14 @@ spec:
       protocol: TCP
     - port: 15672
       protocol: TCP
+  ingress:
+    - from:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: kube-system
+        podSelector:
+          matchLabels:
+            app.kubernetes.io/name: eoloplanner-ingress
+      ports:
+        - protocol: TCP
+          port: 80

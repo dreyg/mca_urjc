@@ -89,3 +89,26 @@ spec:
     - ReadWriteOnce
   hostPath:
     path: "/mnt/data"
+
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: mongodb
+spec:
+  podSelector:
+    matchLabels:
+      app: mongodb  
+  ingress:
+    - from:
+      - podSelector:
+          matchLabels:
+            app: toposervice
+      ports:
+      - port: 27017
+        protocol: TCP  
+      - port: 27018
+        protocol: TCP  
+      - port: 27019
+        protocol: TCP  

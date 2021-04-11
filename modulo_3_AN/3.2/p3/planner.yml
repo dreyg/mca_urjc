@@ -38,3 +38,40 @@ spec:
           value: password
         securityContext:
           allowPrivilegeEscalation: false 
+
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: planner
+spec:
+  podSelector:
+    matchLabels:
+      app: planner
+  egress:
+  - to:    
+    - podSelector:
+        matchLabels:
+          app: weatherservice
+    - podSelector:
+        matchLabels:
+          app: toposervice
+    ports:
+    - port: 8080
+      protocol: TCP
+    - port: 9090
+      protocol: TCP
+  ingress:
+    - from:
+      - podSelector:
+          matchLabels:
+            app: weatherservice
+      - podSelector:
+          matchLabels:
+            app: toposervice
+      ports:
+      - port: 8080
+        protocol: TCP
+      - port: 9090
+        protocol: TCP

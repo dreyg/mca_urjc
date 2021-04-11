@@ -15,6 +15,8 @@ spec:
       labels:
         app: server
     spec:
+      securityContext:
+        runAsUser: 1000
       restartPolicy: Always
       containers:
       - name: server
@@ -36,6 +38,8 @@ spec:
           value: amqp://root:password@rabbitmq-service
         ports:
         - containerPort: 3000
+        securityContext:
+          allowPrivilegeEscalation: false 
 ---
 apiVersion: v1
 kind: Service
@@ -52,3 +56,28 @@ spec:
   selector:
     app: server
   type: ClusterIP
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: server
+spec:
+  podSelector:
+    matchLabels:
+      app: server
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app: mysql
+    - podSelector:
+        matchLabels:
+          app: rabbitmq
+    ports:
+    - port: 3306
+      protocol: TCP
+    - port: 5672
+      protocol: TCP
+    - port: 15672
+      protocol: TCP

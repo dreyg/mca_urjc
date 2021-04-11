@@ -14,7 +14,7 @@ spec:
     metadata:
       labels:
         app: mysql
-    spec:
+    spec:      
       containers:
       - name: mysql
         image: mysql:8.0.22
@@ -27,7 +27,7 @@ spec:
         - containerPort: 3306
         volumeMounts:
         - name: mysql-persistent-storage
-          mountPath: /var/lib/mysql
+          mountPath: /var/lib/mysql        
       volumes:
       - name: mysql-persistent-storage
         persistentVolumeClaim:

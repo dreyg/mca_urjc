@@ -14,7 +14,7 @@ spec:
     metadata:
       labels:
         app: mongodb
-    spec:
+    spec:      
       containers:
       - name: mongodb
         image: mongo:4.2.12-bionic
@@ -31,11 +31,12 @@ spec:
         - containerPort: 27019
         volumeMounts:
         - name: mongodb-persistent-storage
-          mountPath: /data/db
+          mountPath: /data/db        
       volumes:
       - name: mongodb-persistent-storage
         persistentVolumeClaim:
           claimName: mongodb-pvc
+          
 ---
 apiVersion: v1
 kind: Service

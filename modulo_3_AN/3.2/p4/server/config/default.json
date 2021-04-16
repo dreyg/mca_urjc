@@ -1,0 +1,10 @@
+{
+  "amqp": {        
+    "url": "amqp://guest:guest@rabbitmq",
+    "queues": {
+      "progress": "eoloplantCreationProgressNotifications",
+      "creation": "eoloplantCreationRequests"
+    },
+    "options": {"durable": false}
+  }
+}

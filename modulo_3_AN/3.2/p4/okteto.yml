@@ -1,0 +1,7 @@
+name: planner-deploy
+image: okteto/node:12
+command: bash
+sync:
+- .:/usr/src/app
+forward:
+- 9229:9229

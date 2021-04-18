@@ -1,8 +1,9 @@
 name: planner-deploy
 image: maven:3.8.1-jdk-11
-command:
-  - mvn
-  - spring-boot:run
+workdir: /okteto
+volumes:
+  - /root/.m2
+  - /root/.vscode-server
 forward:
-  - 8080:8080
-  - 8000:8000
+  - 8080:8080  
+  - 35729:35729  

@@ -66,7 +66,9 @@ No vamos a ir por ahí....
 
 Esta parte del video se comienza a comentar en el 1:00 de la clase del viernes 16/04/2021:
 
-  1. Modificar el fichero .vscode/launch.json
+  1. Modificar la dependencia
+
+  2. Modificar el fichero .vscode/launch.json
 
   Si este fichero no existe, vamos a crearlo como pone en este artículo:
 
@@ -88,6 +90,20 @@ Esta parte del video se comienza a comentar en el 1:00 de la clase del viernes 1
     }
   ]
 } 
+
+
+
+##-----------##
+
+
+### Grabación video, construcción de la imagen y push de la misma para usarse en el chart:
+- Construcción de la imagen (en el mismo directorio)
+  docker build -t juaneb/jescribanobdreygplanner .
+
+- Push de la imagen a DockerHub
+  docker push juaneb/jescribanobdreygplanner:latest
+
+
     
 
   

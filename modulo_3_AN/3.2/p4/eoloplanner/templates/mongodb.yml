@@ -1,0 +1,91 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-mongodb-deploy
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-mongodb
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-mongodb
+    spec:
+      containers:
+      - name: {{ .Release.Name }}-mongodb
+        image: mongo:4.2.12-bionic
+        env:
+        - name: MONGO_INITDB_DATABASE
+          value: topoDB
+        - name: MONGO_INITDB_ROOT_USERNAME
+          value: root
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          value: password
+        ports:
+        - containerPort: 27017
+        - containerPort: 27018
+        - containerPort: 27019
+        volumeMounts:
+        - mountPath: {{ .Release.Name }}-/data/db-
+          name: {{ .Release.Name }}-datadb
+      volumes:
+      - name: {{ .Release.Name }}-datadb
+        persistentVolumeClaim:
+          claimName: {{ .Release.Name }}-mongo-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Release.Name }}-mongo-pvc
+spec:
+  storageClassName: {{ .Release.Name }}-mongo
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi          
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-mongodb-service
+  labels:
+    app: {{ .Release.Name }}-mongodb
+spec:
+  ports:
+  - port: 27017
+    targetPort: 27017
+    protocol: TCP
+    name: {{ .Release.Name }}-mongodb-port-27017
+  - port: 27018
+    targetPort: 27018
+    protocol: TCP
+    name: {{ .Release.Name }}-mongodb-port-27018
+  - port: 27019
+    targetPort: 27019
+    protocol: TCP
+    name: {{ .Release.Name }}-mongodb-port-27019
+  selector:
+    app: {{ .Release.Name }}-mongodb
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ .Release.Name }}-mongodb-from-topo
+spec:
+  podSelector:
+    matchLabels:
+      app: {{ .Release.Name }}-mongodb
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: {{ .Release.Name }}-toposervice
+    ports:
+    - port: 27017
+      protocol: TCP

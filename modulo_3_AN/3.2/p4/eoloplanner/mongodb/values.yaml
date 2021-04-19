@@ -1,14 +1,33 @@
-# Default values for eoloplanner.
+# Default values for mongodb.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
+strategyType: Recreate
+volumeMount:
+  path: /data/db
+  name: datadb
+envs:
+  - key: MONGO_INITDB_DATABASE
+    value: topoDB
+  - key: MONGO_INITDB_ROOT_USERNAME
+    value: root
+  - key: MONGO_INITDB_ROOT_PASSWORD
+    value: password
 
 image:
-  repository: nginx
+  repository: mongo
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: 4.2.12-bionic
+
+persistentVolume:
+  create: true
+  name: mongo
+  storage: 1Gi
+  hostPath: /db/mongo
+  claim:
+    name: mongo-pvc
 
 imagePullSecrets: []
 nameOverride: ""
@@ -37,8 +56,18 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
+  name: mongodb
   type: ClusterIP
-  port: 80
+  ports: 
+    - port: 27017
+      protocol: TCP
+      portName: mongodb-port-27017
+    - port: 27018
+      protocol: TCP
+      portName: mongodb-port-27018        
+    - port: 27019
+      protocol: TCP
+      portName: mongodb-port-27019
 
 ingress:
   enabled: false
@@ -68,6 +97,13 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
+
+networkPolicy:
+  enabled: true
+  ingress:
+  - service: toposervice
+    portNumber: 27017
+    portProtocol: TCP
 
 autoscaling:
   enabled: false

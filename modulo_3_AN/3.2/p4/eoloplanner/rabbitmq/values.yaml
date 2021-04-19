@@ -1,14 +1,31 @@
-# Default values for eoloplanner.
+# Default values for rabbitmq.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
+strategyType: Recreate
+volumeMount:
+  path: /var/lib/rabbitmq/mnesia
+  name: datarabbit
+envs:
+  - key: RABBITMQ_DEFAULT_USER
+    value: root
+  - key: RABBITMQ_DEFAULT_PASS
+    value: password
 
 image:
-  repository: nginx
+  repository: rabbitmq
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: 3-management
+
+persistentVolume: 
+  create: false
+  name: rabbit
+  storage: 1Gi
+  hostPath: /db/rabbitmq
+  claim:
+    name: rabbit-pvc
 
 imagePullSecrets: []
 nameOverride: ""
@@ -37,8 +54,15 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
+  name: rabbitmq
   type: ClusterIP
-  port: 80
+  ports: 
+    - port: 5672
+      protocol: TCP
+      portName: rabbitmq-port-5672
+    - port: 15672
+      protocol: TCP
+      portName: rabbitmq-port-15672
 
 ingress:
   enabled: false
@@ -68,6 +92,15 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
+
+networkPolicy:
+  enabled: true
+  ingress:
+  - services:
+    - name: planner
+    - name: server
+    portNumber: 5672
+    portProtocol: TCP
 
 autoscaling:
   enabled: false

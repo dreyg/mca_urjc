@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}-multi-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+      {{- range .Values.ingress.hosts }}
+    - host: {{ .host | quote }}
+      http:
+        paths:
+          {{- range .paths }}
+          - path: {{ .path }}
+            pathType: ImplementationSpecific
+            backend:
+              {{- $serviceName := .backend.serviceName }}
+              {{- $releaseName := $.Release.Name }}
+              serviceName: {{ print $releaseName "-" $serviceName "-service" }}
+              servicePort: {{ .backend.servicePort | printf "%s-port" }}
+          {{- end }}
+    {{- end }}
+

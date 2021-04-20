@@ -21,7 +21,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: {{ .Release.Name }}-planner
-        image: oscarsotosanchez/planner:v1.0
+        image: {{ print .Values.planner.deployment.image.repository ":" .Values.planner.deployment.image.tag }}
         env:
         - name: TOPO_HOST
           value: toposervice-service
@@ -38,6 +38,7 @@ spec:
         - name: SPRING_RABBITMQ_PASSWORD
           value: password
 ---
+{{- if .Values.common.networkPolicyEnabled -}}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -68,3 +69,4 @@ spec:
     ports:
     - port: 8080
       protocol: TCP
+{{- end }}      

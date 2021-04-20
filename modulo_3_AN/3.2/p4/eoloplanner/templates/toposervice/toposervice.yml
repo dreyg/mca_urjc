@@ -21,7 +21,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: {{ .Release.Name }}-toposervice
-        image: oscarsotosanchez/toposervice:v1.0
+        image: {{ print .Values.toposervice.deployment.image.repository ":" .Values.toposervice.deployment.image.tag }}
         env:
         - name: SPRING_DATA_MONGODB_HOST
           value: mongodb-service
@@ -55,6 +55,8 @@ spec:
     app: {{ .Release.Name }}-toposervice  
   type: {{ .Values.common.ingressEnabled | ternary .Values.toposervice.service.type $nodePort}}
 ---
+
+{{- if .Values.common.networkPolicyEnabled -}}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -71,7 +73,10 @@ spec:
     ports:
     - port: 27017
       protocol: TCP
+{{- end }}      
 ---
+
+{{- if .Values.common.networkPolicyEnabled -}}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -94,3 +99,4 @@ spec:
     ports:
     - protocol: TCP
       port: 8080
+{{- end }}            

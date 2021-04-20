@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: {{ .Release.Name }}-mysql
-        image: mysql:8.0.22
+        image: {{ print .Values.mysql.deployment.image.repository ":" .Values.mysql.deployment.image.tag }}
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: password
@@ -61,6 +61,7 @@ spec:
     app: {{ .Release.Name }}-mysql
   type: ClusterIP
 ---
+{{- if .Values.common.networkPolicyEnabled -}}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -77,3 +78,4 @@ spec:
     ports:
     - port: 3306
       protocol: TCP
+{{- end }}      

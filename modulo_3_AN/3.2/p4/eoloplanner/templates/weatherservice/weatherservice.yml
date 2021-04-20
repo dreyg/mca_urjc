@@ -19,8 +19,8 @@ spec:
         runAsUser: 1001
       restartPolicy: Always
       containers:
-      - name: {{ .Release.Name }}-weatherservice
-        image: oscarsotosanchez/weatherservice:v1.0
+      - name: {{ .Release.Name }}-weatherservice        
+        image: {{ print .Values.weatherservice.deployment.image.repository ":" .Values.weatherservice.deployment.image.tag }}
         env:
         - name: GRPC_HOST
           valueFrom:
@@ -47,6 +47,7 @@ spec:
     app: {{ .Release.Name }}-weatherservice
   type: ClusterIP
 ---
+{{- if .Values.common.networkPolicyEnabled -}}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -63,3 +64,4 @@ spec:
     ports:
     - port: 9090
       protocol: TCP
+{{- end }}      

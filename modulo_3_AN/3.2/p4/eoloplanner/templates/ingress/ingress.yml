@@ -1,25 +1,28 @@
-apiVersion: networking.k8s.io/v1
+{{- if .Values.common.ingressEnabled -}}
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: {{ .Release.Name }}-multi-ingress
+  name: {{ .Release.Name }}-ingress
+  labels:
+    {{- include "eoloplanner.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   rules:
-  - host: cluster-ip
-    http:
-      paths:
-      - path: /(.*)
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: {{ .Release.Name }}-server-service
-            port:
-              name: {{ .Release.Name }}-server-port
-      - path: /toposervice/(.*)
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: {{ .Release.Name }}-toposervice-service
-            port:
-              name: {{ .Release.Name }}-topo-port    
+    {{- range .Values.ingress.hosts }}
+    - host: {{ .host | quote }}
+      http:
+        paths:
+          {{- range .paths }}
+          - path: {{ .path }}
+            pathType: ImplementationSpecific
+            backend:
+              {{- $serviceName := .backend.serviceName }}
+              {{- $releaseName := $.Release.Name }}
+              serviceName: {{ print $releaseName "-" $serviceName "-service" }}
+              servicePort: {{ .backend.servicePort | printf "%s-port" }}
+          {{- end }}
+    {{- end }}
+  {{- end }}

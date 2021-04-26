@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-Application<escabilidadTolerancia>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "es.codeurjc.kubetest.Application",
+            "projectName": "escabilidadTolerancia",
+            "args": ""
+        }
+    ]
+}

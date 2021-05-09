@@ -23,8 +23,9 @@
     <modules>
         <module>order-service</module>
         <module>customer-service</module>
-        <module>inventory-service</module>
+        <module>city-service</module>
         <module>gateway-service</module>
+		<module>delivery-service</module>
     </modules>
 
 	<dependencyManagement>

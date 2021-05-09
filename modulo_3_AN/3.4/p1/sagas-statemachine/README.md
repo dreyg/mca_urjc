@@ -12,7 +12,7 @@ mvn spring-boot:run
 ## Terminal en order-service
 mvn spring-boot:run
 
-## Terminal en inventory-service
+## Terminal en city-service
 mvn spring-boot:run
 
 ## Terminal en customer-service

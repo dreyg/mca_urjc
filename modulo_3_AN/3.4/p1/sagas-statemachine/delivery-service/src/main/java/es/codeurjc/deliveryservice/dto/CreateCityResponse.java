@@ -4,22 +4,22 @@ import java.util.UUID;
 
 public class CreateCityResponse {
 
-	private UUID inventoryId;
+	private UUID cityId;
 
 
 	public CreateCityResponse() {
 	}
 
-	public CreateCityResponse(UUID inventoryId) {
-		this.inventoryId = inventoryId;
+	public CreateCityResponse(UUID cityId) {
+		this.cityId = cityId;
 	}
 
-	public UUID getInventoryId() {
-		return inventoryId;
+	public UUID getCityId() {
+		return cityId;
 	}
 
-	public void setInventoryId(UUID inventoryId) {
-		this.inventoryId = inventoryId;
+	public void setCityId(UUID cityId) {
+		this.cityId = cityId;
 	}
 
 }

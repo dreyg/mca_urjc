@@ -24,7 +24,7 @@ public class DeliveryController {
 		this.deliveryService = deliveryService;
 	}
 
-    @GetMapping("products/{productId}")
+    @GetMapping("delivery/{deliveryId}")
     public ResponseEntity<DeliveryResponse> getDelivery(@PathVariable(value = "deliveryId") UUID deliveryId) {
         return new ResponseEntity<>(deliveryService.getDelivery(deliveryId), HttpStatus.OK);
     }	

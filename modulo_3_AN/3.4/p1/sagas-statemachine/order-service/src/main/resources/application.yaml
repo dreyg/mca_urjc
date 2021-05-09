@@ -66,6 +66,20 @@ spring:
           group: ordering
           producer:
             partition-count: 3
+        allocate-delivery-order-request:
+          destination: allocate-delivery-order-request
+          contentType: application/json
+          group: ordering
+          producer:
+            partition-count: 3
+        allocate-delivery-order-response:
+          destination: allocate-delivery-order-response
+          contentType: application/json
+          group: ordering
+          consumer:
+            partitioned: true
+            concurrency: 3
+            auto.offset.reset: earliest
 
   kafka:
     bootstrap-servers: localhost:9092            

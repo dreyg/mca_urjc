@@ -12,20 +12,20 @@ import org.springframework.util.MimeTypeUtils;
 import es.codeurjc.deliveryservice.model.events.AllocateResult;
 
 @Service
-public class InventoryStreamService {
+public class DeliveryStreamService {
 	
-	private Logger log = LoggerFactory.getLogger(InventoryStreamService.class);
+	private Logger log = LoggerFactory.getLogger(DeliveryStreamService.class);
 	
-	private final InventoryStream inventoryStream;
+	private final DeliveryStream deliveryStream;
 	
 	@Autowired
-	public InventoryStreamService(InventoryStream inventoryStream) {
-		this.inventoryStream = inventoryStream;
+	public DeliveryStreamService(DeliveryStream deliveryStream) {
+		this.deliveryStream = deliveryStream;
 	}
 	
 	public void sendAllocateResult(final AllocateResult allocateResult) {
 		log.info("Sending allocateResult {}", allocateResult);
-		MessageChannel messageChannel = inventoryStream.outboundAllocateOrder();
+		MessageChannel messageChannel = deliveryStream.outboundAllocateOrder();
         messageChannel.send(MessageBuilder
                 .withPayload(allocateResult)
                 .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)

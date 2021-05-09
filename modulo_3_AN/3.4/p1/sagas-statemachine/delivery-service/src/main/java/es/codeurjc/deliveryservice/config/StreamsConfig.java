@@ -2,9 +2,9 @@ package es.codeurjc.deliveryservice.config;
 
 import org.springframework.cloud.stream.annotation.EnableBinding;
 
-import es.codeurjc.deliveryservice.stream.kafka.InventoryStream;
+import es.codeurjc.deliveryservice.stream.kafka.DeliveryStream;
 
-@EnableBinding(InventoryStream.class)
+@EnableBinding(DeliveryStream.class)
 public class StreamsConfig {
 
 }

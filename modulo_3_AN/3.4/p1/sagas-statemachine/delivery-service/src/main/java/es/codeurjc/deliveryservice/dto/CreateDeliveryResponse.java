@@ -4,22 +4,22 @@ import java.util.UUID;
 
 public class CreateDeliveryResponse {
 
-	private UUID inventoryId;
+	private UUID deliveryId;
 
 	
 	public CreateDeliveryResponse() {
 	}
 
-	public CreateDeliveryResponse(UUID inventoryId) {
-		this.inventoryId = inventoryId;
+	public CreateDeliveryResponse(UUID deliveryId) {
+		this.deliveryId = deliveryId;
 	}
 
-	public UUID getInventoryId() {
-		return inventoryId;
+	public UUID getDeliveryId() {
+		return deliveryId;
 	}
 
-	public void setInventoryId(UUID inventoryId) {
-		this.inventoryId = inventoryId;
+	public void setDeliveryId(UUID deliveryId) {
+		this.deliveryId = deliveryId;
 	}
 
 }

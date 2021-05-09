@@ -18,29 +18,31 @@ import es.codeurjc.deliveryservice.service.AllocationService;
 
 @Component
 @Transactional
-public class InventoryStreamListener {
+public class DeliveryStreamListener {
 	
-	private Logger log = LoggerFactory.getLogger(InventoryStreamListener.class);
+	private Logger log = LoggerFactory.getLogger(DeliveryStreamListener.class);
 	private final AllocationService allocationService;
-	private final InventoryStreamService inventoryStreamService;
+	private final DeliveryStreamService deliveryStreamService;
 	
 	@Autowired
-	public InventoryStreamListener(AllocationService allocationService,InventoryStreamService inventoryStreamService) {
+	public DeliveryStreamListener(AllocationService allocationService, DeliveryStreamService deliveryStreamService) {
 		this.allocationService = allocationService;
-		this.inventoryStreamService = inventoryStreamService;
+		this.deliveryStreamService = deliveryStreamService;
 	}
 	
-	@StreamListener(InventoryStream.INPUT_ALLOCATE_ORDER)
+	@StreamListener(DeliveryStream.INPUT_ALLOCATE_DELIVERY_ORDER)
 	public void handleAllocateRequest(@Payload AllocateRequest allocateRequest) {
+		// TODO cambiar logica
 		final OrderDto orderDto =  allocateRequest.getOrder();
 		final Boolean result = allocationService.allocateOrder(orderDto);
 		final AllocateResult allocateResult = new AllocateResult.Builder().withIsValid(result).withOrderId(orderDto.getId()).withReason(Boolean.FALSE.equals(result) ? "SOLD_OUT":null).build();
-		inventoryStreamService.sendAllocateResult(allocateResult);
+		deliveryStreamService.sendAllocateResult(allocateResult);
 	}
 	
-	@StreamListener(InventoryStream.INPUT_DEALLOCATE_ORDER)
+	/*@StreamListener(DeliveryStream.INPUT_DEALLOCATE_ORDER)
     public void handleDeallocateRequest(@Payload DeallocateRequest deallocateRequest) {
+		// TODO cambiar logica
 		final OrderDto orderDto =  deallocateRequest.getOrder();
 		allocationService.deallocateOrder(orderDto);
-	}
+	}*/
 }

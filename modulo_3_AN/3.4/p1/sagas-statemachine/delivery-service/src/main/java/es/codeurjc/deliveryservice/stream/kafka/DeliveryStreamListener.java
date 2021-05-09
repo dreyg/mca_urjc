@@ -9,11 +9,11 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
-import es.codeurjc.deliveryservice.model.events.AllocateRequest;
-import es.codeurjc.deliveryservice.model.events.AllocateResult;
-import es.codeurjc.deliveryservice.model.events.DeallocateRequest;
+import es.codeurjc.deliveryservice.model.events.AllocateDeliveryRequest;
+import es.codeurjc.deliveryservice.model.events.AllocateDeliveryResult;
+import es.codeurjc.deliveryservice.model.events.DeallocateDeliveryRequest;
 import es.codeurjc.deliveryservice.model.events.dto.OrderDto;
-import es.codeurjc.deliveryservice.service.AllocationService;
+import es.codeurjc.deliveryservice.service.AllocationDeliveryService;
 
 
 @Component
@@ -21,28 +21,26 @@ import es.codeurjc.deliveryservice.service.AllocationService;
 public class DeliveryStreamListener {
 	
 	private Logger log = LoggerFactory.getLogger(DeliveryStreamListener.class);
-	private final AllocationService allocationService;
+	private final AllocationDeliveryService allocationDeliveryService;
 	private final DeliveryStreamService deliveryStreamService;
 	
 	@Autowired
-	public DeliveryStreamListener(AllocationService allocationService, DeliveryStreamService deliveryStreamService) {
-		this.allocationService = allocationService;
+	public DeliveryStreamListener(AllocationDeliveryService allocationDeliveryService, DeliveryStreamService deliveryStreamService) {
+		this.allocationDeliveryService = allocationDeliveryService;
 		this.deliveryStreamService = deliveryStreamService;
 	}
 	
 	@StreamListener(DeliveryStream.INPUT_ALLOCATE_DELIVERY_ORDER)
-	public void handleAllocateRequest(@Payload AllocateRequest allocateRequest) {
-		// TODO cambiar logica
-		final OrderDto orderDto =  allocateRequest.getOrder();
-		final Boolean result = allocationService.allocateOrder(orderDto);
-		final AllocateResult allocateResult = new AllocateResult.Builder().withIsValid(result).withOrderId(orderDto.getId()).withReason(Boolean.FALSE.equals(result) ? "SOLD_OUT":null).build();
-		deliveryStreamService.sendAllocateResult(allocateResult);
+	public void handleAllocateDeliveryRequest(@Payload AllocateDeliveryRequest allocateDeliveryRequest) {
+		final OrderDto orderDto =  allocateDeliveryRequest.getOrder();
+		final Boolean result = allocationDeliveryService.allocateDeliveryOrder(orderDto);
+		final AllocateDeliveryResult allocateDeliveryResult = new AllocateDeliveryResult.Builder().withIsValid(result).withOrderId(orderDto.getId()).withReason(Boolean.FALSE.equals(result) ? "SOLD_OUT":null).build();
+		deliveryStreamService.sendDeliveryAllocateResult(allocateDeliveryResult);
 	}
 	
-	/*@StreamListener(DeliveryStream.INPUT_DEALLOCATE_ORDER)
-    public void handleDeallocateRequest(@Payload DeallocateRequest deallocateRequest) {
-		// TODO cambiar logica
-		final OrderDto orderDto =  deallocateRequest.getOrder();
-		allocationService.deallocateOrder(orderDto);
-	}*/
+	@StreamListener(DeliveryStream.INPUT_DEALLOCATE_DELIVERY_ORDER)
+    public void handleDeallocateDeliveryRequest(@Payload DeallocateDeliveryRequest deallocateDeliveryRequest) {
+		final OrderDto orderDto =  deallocateDeliveryRequest.getOrder();
+		allocationDeliveryService.deallocateDeliveryOrder(orderDto);
+	}
 }

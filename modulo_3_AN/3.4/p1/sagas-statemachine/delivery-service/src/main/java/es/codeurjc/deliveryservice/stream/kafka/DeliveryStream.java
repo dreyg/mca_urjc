@@ -9,14 +9,14 @@ public interface DeliveryStream {
 
 	public String INPUT_ALLOCATE_DELIVERY_ORDER = "allocate-delivery-order-request";
     public String OUTPUT_ALLOCATE_DELIVERY_ORDER = "allocate-delivery-order-response";
-    //public String INPUT_DEALLOCATE_ORDER = "deallocate-order-request";
+    public String INPUT_DEALLOCATE_DELIVERY_ORDER = "deallocate-delivery-order-request";
     
     @Input(INPUT_ALLOCATE_DELIVERY_ORDER)
-    SubscribableChannel inboundAllocateOrder();
+    SubscribableChannel inboundAllocateDeliveryOrder();
 
     @Output(OUTPUT_ALLOCATE_DELIVERY_ORDER)
-    MessageChannel outboundAllocateOrder();
+    MessageChannel outboundAllocateDeliveryOrder();
     
-    /*@Output(INPUT_DEALLOCATE_ORDER)
-    SubscribableChannel inboundDeallocateOrder();*/
+    @Output(INPUT_DEALLOCATE_DELIVERY_ORDER)
+    SubscribableChannel inboundDeallocateDeliveryOrder();
 }

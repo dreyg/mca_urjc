@@ -3,7 +3,7 @@ package es.codeurjc.deliveryservice.model.events;
 import es.codeurjc.deliveryservice.model.events.dto.OrderDto;
 
 
-public class DeallocateRequest {
+public class DeallocateDeliveryRequest {
 
     private OrderDto order;
     
@@ -13,10 +13,10 @@ public class DeallocateRequest {
 
     public static final class Builder {
 
-        private final DeallocateRequest object;
+        private final DeallocateDeliveryRequest object;
 
         public Builder() {
-            object = new DeallocateRequest();
+            object = new DeallocateDeliveryRequest();
         }
 
         public Builder withOrder(OrderDto value) {
@@ -24,7 +24,7 @@ public class DeallocateRequest {
             return this;
         }
 
-        public DeallocateRequest build() {
+        public DeallocateDeliveryRequest build() {
             return object;
         }
 

@@ -2,7 +2,7 @@ package es.codeurjc.deliveryservice.model.events;
 
 import java.util.UUID;
 
-public class AllocateResult {
+public class AllocateDeliveryResult {
 	
     private UUID orderId;
     private Boolean isValid;
@@ -22,10 +22,10 @@ public class AllocateResult {
 
 	public static final class Builder {
 
-        private final AllocateResult object;
+        private final AllocateDeliveryResult object;
 
         public Builder() {
-            object = new AllocateResult();
+            object = new AllocateDeliveryResult();
         }
 
         public Builder withOrderId(UUID value) {
@@ -43,7 +43,7 @@ public class AllocateResult {
             return this;
         }
         
-        public AllocateResult build() {
+        public AllocateDeliveryResult build() {
             return object;
         }
 

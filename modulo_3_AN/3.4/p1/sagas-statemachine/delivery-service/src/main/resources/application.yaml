@@ -46,6 +46,12 @@ spring:
             partitioned: true
             concurrency: 3
             auto.offset.reset: earliest
+        deallocate-delivery-order-request:
+          destination: deallocate-delivery-order-request
+          contentType: application/json
+          group: ordering
+          producer:
+            partition-count: 3
 
   kafka:
     bootstrap-servers: localhost:9092

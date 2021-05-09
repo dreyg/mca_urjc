@@ -9,7 +9,7 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MimeTypeUtils;
 
-import es.codeurjc.deliveryservice.model.events.AllocateResult;
+import es.codeurjc.deliveryservice.model.events.AllocateDeliveryResult;
 
 @Service
 public class DeliveryStreamService {
@@ -23,11 +23,11 @@ public class DeliveryStreamService {
 		this.deliveryStream = deliveryStream;
 	}
 	
-	public void sendAllocateResult(final AllocateResult allocateResult) {
-		log.info("Sending allocateResult {}", allocateResult);
-		MessageChannel messageChannel = deliveryStream.outboundAllocateOrder();
+	public void sendDeliveryAllocateResult(final AllocateDeliveryResult allocateDeliveryResult) {
+		log.info("Sending allocateResult {}", allocateDeliveryResult);
+		MessageChannel messageChannel = deliveryStream.outboundAllocateDeliveryOrder();
         messageChannel.send(MessageBuilder
-                .withPayload(allocateResult)
+                .withPayload(allocateDeliveryResult)
                 .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
                 .build());
 	}

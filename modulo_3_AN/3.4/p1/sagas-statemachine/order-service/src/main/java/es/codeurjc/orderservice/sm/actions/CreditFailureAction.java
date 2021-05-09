@@ -48,6 +48,7 @@ public class CreditFailureAction implements Action<OrderStatusEnum, OrderEventEn
 
 			final OrderDto orderDto = orderToOrderDtoConverter.convert(order);
 			orderStreamService.sendDeallocateDeliveryRequest(orderDto);
+			orderStreamService.sendDeallocateRequest(orderDto);
 			
 		}, () -> log.error("Order Not Found. Id: " + orderId));
 		

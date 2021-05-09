@@ -45,7 +45,7 @@ public class AllocateDeliveryOrderAction implements Action<OrderStatusEnum, Orde
 		orderOptional.ifPresentOrElse(order -> {
 			
 			final OrderDto orderDto = orderToOrderDtoConverter.convert(order);
-			orderStreamService.sendAllocateRequest(orderDto);
+			orderStreamService.sendAllocateDeliveryRequest(orderDto);
 			
 		}, () -> log.error("Order Not Found. Id: " + orderId));
 

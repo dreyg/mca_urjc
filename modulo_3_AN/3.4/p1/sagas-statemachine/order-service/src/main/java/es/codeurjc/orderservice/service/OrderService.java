@@ -40,6 +40,7 @@ public class OrderService {
 				                     .withName(createOrderRequest.getProductName())
 				                     .withQuantity(createOrderRequest.getQuantity())
 				                     .withReference(createOrderRequest.getProductReference())
+									 .withCodCity(createOrderRequest.getCodCity())
 				                     .build();
 		
 		final Order orderSaved = orderManager.newOrder(order);

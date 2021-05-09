@@ -17,7 +17,10 @@ public class OrderDto {
     
     @JsonProperty("reference")
     private String reference;
-    
+
+    @JsonProperty("codCity")
+    private String codCity;
+
     @JsonProperty("quantity")
     private Integer quantity;
     
@@ -39,6 +42,8 @@ public class OrderDto {
     public String getReference() {
 		return reference;
 	}
+
+    public String getCodCity() {return codCity;}
 
     public OrderStatusEnum getState() {
         return state;
@@ -64,6 +69,11 @@ public class OrderDto {
 
         public Builder withReference(String value) {
             object.reference = value;
+            return this;
+        }
+
+        public Builder withCodCity(String value) {
+            object.codCity = value;
             return this;
         }
         

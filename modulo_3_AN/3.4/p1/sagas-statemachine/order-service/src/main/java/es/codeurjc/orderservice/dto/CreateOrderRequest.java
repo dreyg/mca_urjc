@@ -11,6 +11,7 @@ public class CreateOrderRequest {
   private String productName;
   private String productReference;
   private Integer quantity;
+  private String codCity;
   
   public BigDecimal getOrderTotal() {
       return orderTotal;
@@ -32,7 +33,9 @@ public class CreateOrderRequest {
       return quantity;
   }
 
-  public static final class Builder {
+    public String getCodCity() {return codCity; }
+
+    public static final class Builder {
 
       private final CreateOrderRequest object;
 
@@ -64,6 +67,11 @@ public class CreateOrderRequest {
           object.quantity = value;
           return this;
       }
+
+        public Builder withCodCity(String value) {
+            object.codCity = value;
+            return this;
+        }
 
       public CreateOrderRequest build() {
           return object;

@@ -43,6 +43,8 @@ public class Order {
     private String name;
     
     private String reference;
+
+    private String codCity;
     
     @JsonProperty("quantity")
     private Integer quantity;
@@ -64,6 +66,8 @@ public class Order {
 
     @UpdateTimestamp
     private Timestamp lastModifiedDate;
+
+
 
 	public Order() {
 	}
@@ -105,7 +109,9 @@ public class Order {
     public String getReference() {
 		return reference;
 	}
-    
+
+    public String getCodCity() {return codCity;}
+
     public RejectionReasonEnum getRejectionReason() {
         return rejectionReason;
     }
@@ -145,6 +151,11 @@ public class Order {
 
         public Builder withReference(String value) {
             object.reference = value;
+            return this;
+        }
+
+        public Builder withCodCity(String value) {
+            object.codCity = value;
             return this;
         }
         

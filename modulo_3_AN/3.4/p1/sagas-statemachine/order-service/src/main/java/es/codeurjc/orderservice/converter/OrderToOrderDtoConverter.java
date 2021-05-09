@@ -18,6 +18,7 @@ public class OrderToOrderDtoConverter implements Converter<Order, OrderDto> {
 				           .withName(order.getName())
 				           .withQuantity(order.getQuantity())
 				           .withReference(order.getReference())
+						   .withCodCity(order.getCodCity())
 				           .build();
 	}
 

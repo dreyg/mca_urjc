@@ -48,7 +48,7 @@ public class AllocationDeliveryFailureAction implements Action<OrderStatusEnum, 
 
 		}, () -> log.error("Order Not Found. Id: " + orderId));
 
-		log.info("Compensating Transaction.... Credit Failed: " + orderId);
+		log.info("Compensating Transaction.... Delivery failed: " + orderId);
 	}
 
 }

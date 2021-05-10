@@ -57,7 +57,7 @@ public class OrderStateMachineConfig extends StateMachineConfigurerAdapter<Order
 	        .action(allocateOrderAction)
 	   .and().withExternal()
 	        .source(OrderStatusEnum.ALLOCATION_PENDING).target(OrderStatusEnum.ALLOCATED)
-	        .event(OrderEventEnum.ALLOCATION_SUCCESS)
+	        .event(OrderEventEnum.ALLOCATION_SUCCESS)			
 	   .and().withExternal()
 	        .source(OrderStatusEnum.ALLOCATION_PENDING).target(OrderStatusEnum.REJECTED)
 	        .event(OrderEventEnum.ALLOCATION_FAILED)

@@ -38,7 +38,7 @@ public class AllocationDeliveryService {
 	    Optional<City> optCity = cityRepository.findByCodCity(orderDto.getCodCity());
 	    if (optCity.isPresent()) {
 	    	City city = optCity.get();
-	    	if (city.getDeliveryQuantity() > orderDto.getQuantity() ) {
+	    	if (city.getDeliveryQuantity() >= 1 ) {
 	    		city.setDeliveryQuantity(city.getDeliveryQuantity() - 1);
 	    		City savedCity = cityRepository.save(city);
 				log.debug("Saved City city id: " + savedCity.getId());

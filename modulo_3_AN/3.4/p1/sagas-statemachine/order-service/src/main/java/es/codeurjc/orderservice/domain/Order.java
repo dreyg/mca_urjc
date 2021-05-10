@@ -50,14 +50,14 @@ public class Order {
     private Integer quantity;
     
     @Enumerated(EnumType.STRING)
-    @Column(length = 20)
+    @Column(length = 100)
 	private OrderStatusEnum state;
 
 	@Embedded
 	private OrderDetails orderDetails;
 	
     @Enumerated(EnumType.STRING)
-    @Column(length = 20)
+    @Column(length = 100)
 	private RejectionReasonEnum rejectionReason;
 	
     @CreationTimestamp

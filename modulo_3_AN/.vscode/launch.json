@@ -2,6 +2,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch InventoryServiceApplication",
+            "request": "launch",
+            "mainClass": "es.codeurjc.deliveryservice.InventoryServiceApplication",
+            "projectName": "inventory-service"
+        },
+        {
+            "type": "java",
+            "name": "Launch DeliveryServiceApplication",
+            "request": "launch",
+            "mainClass": "es.codeurjc.deliveryservice.DeliveryServiceApplication",
+            "projectName": "delivery-service"
+        },
+        {
+            "type": "java",
+            "name": "Launch OrderServiceApplication",
+            "request": "launch",
+            "mainClass": "es.codeurjc.orderservice.OrderServiceApplication",
+            "projectName": "order-service"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-Application<escabilidadTolerancia>",
             "request": "launch",
             "cwd": "${workspaceFolder}",

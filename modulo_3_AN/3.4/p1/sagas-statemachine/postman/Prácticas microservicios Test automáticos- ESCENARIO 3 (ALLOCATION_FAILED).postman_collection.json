@@ -203,6 +203,28 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "get product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9090/api/v1/products/25cecfde-7d43-4a15-8342-1a91640e137f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"25cecfde-7d43-4a15-8342-1a91640e137f"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"variable": [
@@ -228,6 +250,10 @@
 		},
 		{
 			"key": "name",
+			"value": ""
+		},
+		{
+			"key": "inventoryId",
 			"value": ""
 		}
 	]

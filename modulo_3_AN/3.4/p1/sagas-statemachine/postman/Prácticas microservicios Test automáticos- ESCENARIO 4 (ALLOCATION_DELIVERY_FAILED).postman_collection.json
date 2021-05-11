@@ -184,11 +184,25 @@
 		},
 		{
 			"name": "get order state",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"OrderState APPROVED\", function () {\r",
+							"  pm.response.to.have.jsonBody(\"orderState\",\"REJECTED\");\r",
+							"  pm.response.to.have.jsonBody(\"rejectionReason\",\"INSUFFICIENT_LOGISTIC\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:9090/api/v1/orders/119671a6-5d29-47ac-a236-3101777b8c59",
+					"raw": "http://localhost:9090/api/v1/orders/{{orderId}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -198,7 +212,7 @@
 						"api",
 						"v1",
 						"orders",
-						"119671a6-5d29-47ac-a236-3101777b8c59"
+						"{{orderId}}"
 					]
 				}
 			},

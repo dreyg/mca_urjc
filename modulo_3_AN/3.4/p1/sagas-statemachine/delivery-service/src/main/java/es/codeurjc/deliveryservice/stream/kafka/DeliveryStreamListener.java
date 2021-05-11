@@ -34,7 +34,7 @@ public class DeliveryStreamListener {
 	public void handleAllocateDeliveryRequest(@Payload AllocateDeliveryRequest allocateDeliveryRequest) {
 		final OrderDto orderDto =  allocateDeliveryRequest.getOrder();
 		final Boolean result = allocationDeliveryService.allocateDeliveryOrder(orderDto);
-		final AllocateDeliveryResult allocateDeliveryResult = new AllocateDeliveryResult.Builder().withIsValid(result).withOrderId(orderDto.getId()).withReason(Boolean.FALSE.equals(result) ? "SOLD_OUT":null).build();
+		final AllocateDeliveryResult allocateDeliveryResult = new AllocateDeliveryResult.Builder().withIsValid(result).withOrderId(orderDto.getId()).withReason(Boolean.FALSE.equals(result) ? "INSUFFICIENT_LOGISTIC":null).build();
 		deliveryStreamService.sendDeliveryAllocateResult(allocateDeliveryResult);
 	}
 	

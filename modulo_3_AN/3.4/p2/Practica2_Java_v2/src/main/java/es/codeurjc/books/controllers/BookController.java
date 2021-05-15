@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.validation.Valid;
 
+import es.codeurjc.books.dtos.responses.UserCommentResponseDto;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -113,6 +114,17 @@ public class BookController {
                                             @Parameter(description = "id of comment to be deleted")
                                             @PathVariable long commentId) {
         return this.commentService.deleteComment(bookId, commentId);
+    }
+
+    @Operation(summary = "Get all user's comments")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found all user's comments",
+                    content = {@Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = UserCommentResponseDto.class)))})})
+    @GetMapping("/{userId}/comments")
+    public Collection<UserCommentResponseDto> getUserComments(@Parameter(description = "id of user to get comments")
+                                                              @PathVariable long userId) {
+        return this.commentService.getComments(userId);
     }
 
 }

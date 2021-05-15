@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import es.codeurjc.books.dtos.requests.UpdateUserEmailRequestDto;
 import es.codeurjc.books.dtos.requests.UserRequestDto;
+import es.codeurjc.books.dtos.responses.UserCommentResponseDto;
 import es.codeurjc.books.dtos.responses.UserResponseDto;
 
 public interface UserService {
@@ -17,5 +18,7 @@ public interface UserService {
     UserResponseDto updateEmail(long userId, UpdateUserEmailRequestDto updateUserEmailRequestDto);
 
     UserResponseDto delete(long userId);
+
+    Collection<UserCommentResponseDto> getComments(long userId);
 
 }

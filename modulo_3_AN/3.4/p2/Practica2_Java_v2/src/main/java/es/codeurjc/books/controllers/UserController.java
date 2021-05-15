@@ -116,16 +116,6 @@ public class UserController {
         return this.userService.delete(userId);
     }
 
-    // TODO tomar decision donde se queda este controlador
-    @Operation(summary = "Get all user's comments")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Found all user's comments",
-                    content = {@Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = UserCommentResponseDto.class)))})})
-    @GetMapping("/{userId}/comments")
-    public Collection<UserCommentResponseDto> getUserComments(@Parameter(description = "id of user to get comments")
-                                                              @PathVariable long userId) {
-        return this.commentService.getComments(userId);
-    }
+
 
 }

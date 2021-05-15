@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.validation.Valid;
 
+import es.codeurjc.books.dtos.responses.UserCommentResponseDto;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -111,7 +112,7 @@ public class UserController {
     public UserResponseDto deleteUser(@Parameter(description = "id of user to be deleted") @PathVariable long userId) {
         return this.userService.delete(userId);
     }
-/*
+
     @Operation(summary = "Get all user's comments")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found all user's comments",
@@ -120,7 +121,9 @@ public class UserController {
     @GetMapping("/{userId}/comments")
     public Collection<UserCommentResponseDto> getUserComments(@Parameter(description = "id of user to get comments")
                                                               @PathVariable long userId) {
-        return this.commentService.getComments(userId);
+
+        //TODO llamar al APO REST
+        return this.userService.getComments(userId);
     }
-*/
+
 }

@@ -5,33 +5,46 @@ import static org.springframework.util.CollectionUtils.isEmpty;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+
 import org.dozer.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import es.codeurjc.books.dtos.requests.UpdateUserEmailRequestDto;
 import es.codeurjc.books.dtos.requests.UserRequestDto;
 import es.codeurjc.books.dtos.responses.UserResponseDto;
+import es.codeurjc.books.dtos.responses.UserCommentResponseDto;
 import es.codeurjc.books.exceptions.UserCanNotBeDeletedException;
 import es.codeurjc.books.exceptions.UserNotFoundException;
 import es.codeurjc.books.exceptions.UserWithSameNickException;
 import es.codeurjc.books.models.User;
 import es.codeurjc.books.repositories.UserRepository;
 import es.codeurjc.books.services.UserService;
+import org.springframework.web.client.RestTemplate;
 
-@Service
+
+@Component
 public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     private Mapper mapper;
     private UserRepository userRepository;
 
+    @Value(value = "${monolith.url}")
+    private String monolithBaseUri;
+
     public UserServiceImpl(Mapper mapper, UserRepository userRepository) {
+        RestTemplate restTemplate;
         this.mapper = mapper;
         this.userRepository = userRepository;
     }
 
     public Collection<UserResponseDto> findAll() {
-        return this.userRepository.findAll().stream()
-                .map(user -> this.mapper.map(user, UserResponseDto.class))
+        return this.userRepository.findAll().stream().map(user -> this.mapper.map(user, UserResponseDto.class))
                 .collect(Collectors.toList());
     }
 
@@ -58,14 +71,28 @@ public class UserServiceImpl implements UserService {
         return this.mapper.map(user, UserResponseDto.class);
     }
 
+    private  Collection<UserCommentResponseDto> fetchUserComments(final long userId) {
+        return restTemplate.getForObject(monolithBaseUri + "/"+userId+"/comments/",  Collection<UserCommentResponseDto>.class);
+    }
+
     public UserResponseDto delete(long userId) {
-        User user = this.userRepository.findById(userId).orElseThrow(UserNotFoundException::new); // Llamada API Rest
-        Integer numComments = 0; //
-        if (numComments > 0) {
+        User user = this.userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+
+        Collection<UserCommentResponseDto> userCommentResponseDtos;
+
+        userCommentResponseDtos = fetchUserComments(userId);
+
+        if (userCommentResponseDtos.size()  > 0) {
             throw new UserCanNotBeDeletedException();
-        }
+         }
         this.userRepository.delete(user);
-        return this.mapper.map(user, UserResponseDto.class);
+         return this.mapper.map(user, UserResponseDto.class);
+    }
+
+    @Override
+    public Collection<UserCommentResponseDto> getComments(long userId) {
+
+        return fetchUserComments(userId);
     }
 
 }

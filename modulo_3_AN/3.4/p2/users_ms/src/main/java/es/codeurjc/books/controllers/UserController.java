@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.codeurjc.books.dtos.requests.UpdateUserEmailRequestDto;
 import es.codeurjc.books.dtos.requests.UserRequestDto;
-import es.codeurjc.books.dtos.responses.UserCommentResponseDto;
 import es.codeurjc.books.dtos.responses.UserResponseDto;
-import es.codeurjc.books.services.CommentService;
 import es.codeurjc.books.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,11 +30,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 public class UserController {
 
     private UserService userService;
-    private CommentService commentService;
 
-    public UserController(UserService userService, CommentService commentService) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.commentService = commentService;
     }
 
     @Operation(summary = "Get all users")
@@ -115,8 +111,7 @@ public class UserController {
     public UserResponseDto deleteUser(@Parameter(description = "id of user to be deleted") @PathVariable long userId) {
         return this.userService.delete(userId);
     }
-
-    // TODO tomar decision donde se queda este controlador
+/*
     @Operation(summary = "Get all user's comments")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found all user's comments",
@@ -127,5 +122,5 @@ public class UserController {
                                                               @PathVariable long userId) {
         return this.commentService.getComments(userId);
     }
-
+*/
 }

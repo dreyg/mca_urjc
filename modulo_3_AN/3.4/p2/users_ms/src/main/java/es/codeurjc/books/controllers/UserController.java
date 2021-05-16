@@ -122,7 +122,7 @@ public class UserController {
     public Collection<UserCommentResponseDto> getUserComments(@Parameter(description = "id of user to get comments")
                                                               @PathVariable long userId) {
 
-        //TODO llamar al APO REST
+        //TODO llamar al API REST
         return this.userService.getComments(userId);
     }
 

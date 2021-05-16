@@ -2,13 +2,19 @@ package es.codeurjc.books.services.impl;
 
 import static org.springframework.util.CollectionUtils.isEmpty;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 
+import es.codeurjc.books.dtos.responses.UserCommentCollectionDto;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -71,8 +77,10 @@ public class UserServiceImpl implements UserService {
         return this.mapper.map(user, UserResponseDto.class);
     }
 
-    private  Collection<UserCommentResponseDto> fetchUserComments(final long userId) {
-        return restTemplate.getForObject(monolithBaseUri + "/"+userId+"/comments/",  Collection<UserCommentResponseDto>.class);
+    private Collection<UserCommentResponseDto> fetchUserComments(final long userId) {
+        ResponseEntity<Collection<UserCommentResponseDto>> response = restTemplate.exchange(monolithBaseUri + userId + "/comments/", HttpMethod.GET, null,
+                new ParameterizedTypeReference<Collection<UserCommentResponseDto>>(){});
+        return response.getBody();
     }
 
     public UserResponseDto delete(long userId) {

@@ -116,6 +116,4 @@ public class UserController {
         return this.userService.delete(userId);
     }
 
-
-
 }

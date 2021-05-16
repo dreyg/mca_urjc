@@ -68,6 +68,12 @@ public class UserServiceImpl implements UserService {
         return this.mapper.map(user, UserResponseDto.class);
     }
 
+    public UserResponseDto findByNick(String nick) {
+        User user = this.userRepository.findByNick(nick).orElseThrow(UserNotFoundException::new);
+        return this.mapper.map(user, UserResponseDto.class);
+    }
+
+
     public UserResponseDto updateEmail(long userId, UpdateUserEmailRequestDto updateUserEmailRequestDto) {
         User user = this.userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         if (!user.getEmail().equalsIgnoreCase(updateUserEmailRequestDto.getEmail())) {
@@ -99,7 +105,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Collection<UserCommentResponseDto> getComments(long userId) {
-
         return fetchUserComments(userId);
     }
 

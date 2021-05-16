@@ -3,7 +3,13 @@ package es.codeurjc.books.services.impl;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+import es.codeurjc.books.dtos.responses.UserResponseDto;
 import org.dozer.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import es.codeurjc.books.dtos.requests.CommentRequestDto;
@@ -19,9 +25,19 @@ import es.codeurjc.books.repositories.BookRepository;
 import es.codeurjc.books.repositories.CommentRepository;
 import es.codeurjc.books.repositories.UserRepository;
 import es.codeurjc.books.services.CommentService;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class CommentServiceImpl implements CommentService {
+
+    @Value(value = "${user.ms.service}")
+    private boolean useMsService;
+
+    @Value(value = "${ms.url}")
+    private String msBaseUri;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     private Mapper mapper;
     private CommentRepository commentRepository;
@@ -38,9 +54,12 @@ public class CommentServiceImpl implements CommentService {
 
     public CommentResponseDto addComment(long bookId, CommentRequestDto commentRequestDto) {
         Book book = this.bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new);
-
-        //TODO Implementar lógica monolito/micro
-        User user = this.userRepository.findByNick(commentRequestDto.getUserNick()).orElseThrow(UserNotFoundException::new);
+        User user = new User();
+        if (useMsService) {
+            user = fetchUserByNick(commentRequestDto.getUserNick());
+        } else {
+            user = this.userRepository.findByNick(commentRequestDto.getUserNick()).orElseThrow(UserNotFoundException::new);
+        }
 
         Comment comment = this.mapper.map(commentRequestDto, Comment.class);
         comment.setBook(book);
@@ -60,6 +79,13 @@ public class CommentServiceImpl implements CommentService {
         return this.commentRepository.findByUserId(userId).stream()
                 .map(comment -> this.mapper.map(comment, UserCommentResponseDto.class))
                 .collect(Collectors.toList());
+    }
+
+    private User fetchUserByNick(final String nick) {
+        ResponseEntity<UserResponseDto> response = restTemplate.exchange(msBaseUri + nick, HttpMethod.GET, null,
+                UserResponseDto.class);
+        User user = this.mapper.map(response.getBody(), User.class);
+        return user;
     }
 
 }

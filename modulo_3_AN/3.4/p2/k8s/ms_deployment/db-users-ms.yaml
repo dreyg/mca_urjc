@@ -1,0 +1,38 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: db-users-ms
+spec:
+  selector:
+    matchLabels:
+      app: db-users-ms
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: db-users-ms
+    spec:
+      containers:
+      - image: mysql:5.7
+        name: mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: pass
+        - name: MYSQL_DATABASE
+          value: micro
+        ports:
+        - containerPort: 3306
+          name: mysql          
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-users-ms
+spec:
+  type: NodePort
+  selector:
+    app: db-users-ms
+  ports:
+  - port: 3306
+  

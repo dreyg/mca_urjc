@@ -487,3 +487,5 @@ modulo_3_AN/3.4/p1/sagas-statemachine/delivery-service/target/test-classes/es/co
 modulo_3_AN/3.4/p1/sagas-statemachine/delivery-service/.settings/org.eclipse.core.resources.prefs
 modulo_3_AN/3.4/p1/sagas-statemachine/delivery-service/.settings/org.eclipse.jdt.apt.core.prefs
 modulo_3_AN/3.4/p1/sagas-statemachine/delivery-service/.settings/org.eclipse.jdt.core.prefs
+modulo_3_AN/3.4/p1/sagas-statemachine/zk-single-kafka-single/kafka/data/__consumer_offsets-8/00000000000000000000.log
+modulo_3_AN/3.4/p1/sagas-statemachine/zk-single-kafka-single/kafka/data/__consumer_offsets-8/00000000000000000000.log

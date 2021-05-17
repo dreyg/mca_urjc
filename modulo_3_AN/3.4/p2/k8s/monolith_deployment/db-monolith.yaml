@@ -1,0 +1,38 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: db-monolith
+spec:
+  selector:
+    matchLabels:
+      app: db-monolith
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: db-monolith
+    spec:
+      containers:
+      - image: mysql:5.7
+        name: mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: pass
+        - name: MYSQL_DATABASE
+          value: test
+        ports:
+        - containerPort: 3306
+          name: mysql          
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-monolith
+spec:
+  type: NodePort
+  selector:
+    app: db-monolith
+  ports:
+  - port: 3306
+  

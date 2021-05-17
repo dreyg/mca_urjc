@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: users-ms
+  name: users-ms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users-ms
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: users-ms
+    spec:
+      securityContext:
+         runAsUser: 1000300
+      containers:
+      - env:
+        - name: DATABASE_HOST
+          value: db-users-ms
+        - name: DATABASE_PORT
+          value: "3306"
+        - name: MYSQL_ROOT_PASSWORD
+          value: pass
+        - name: DATABASE_SCHEMA
+          value: micro
+        - name: DATABASE_PASS
+          value: pass
+        - name: MONOLITH_URL
+          value: http://monolith:8080/api/v1/books/        
+        image: juaneb/dreyg-jescribanob-users_ms
+        name: users-ms
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8081
+        securityContext:
+          allowPrivilegeEscalation: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: users-ms
+  name: users-ms
+spec:
+  ports:
+  - protocol: TCP
+    port: 8081
+    targetPort: 8081
+    name: users-ms-port
+  selector:
+    app: users-ms
+  type: LoadBalancer

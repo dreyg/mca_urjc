@@ -1,0 +1,160 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  p3-serverless
+
+  Sample SAM Template for p3-serverless
+  
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  usersFunction:
+    # This resource creates a Lambda function.
+    Type: 'AWS::Serverless::Function'
+    Properties:
+        # This function uses the Nodejs v8.10 runtime.
+        Runtime: nodejs14.x
+        # This is the Lambda function's handler.
+        Handler: indexUser.usersHandler
+        # The location of the Lambda function code.
+        CodeUri: ./src
+        # Event sources to attach to this function. In this case, we are attaching
+        # multiple API Gateway endpoints to the Lambda function. The function is
+        # called when a HTTP request is made to the API Gateway endpoint.
+        Events:
+            lambdaGetAllUsers:
+                # Define an API Gateway endpoint that responds to HTTP GET at /users
+                Type: Api
+                Properties:
+                    Path: /api/v1/users
+                    Method: GET
+            lambdaGetUser:
+                # Define an API Gateway endpoint that responds to HTTP GET at /users
+                Type: Api
+                Properties:
+                    Path: /api/v1/users/{userid}
+                    Method: GET
+            lambdaAddUser:
+                Type: Api
+                Properties:
+                    Path: /api/v1/users
+                    Method: POST
+            lambdaUpdateUser:
+                Type: Api
+                Properties:
+                    Path: /api/v1/users/{userid}
+                    Method: PATCH
+            lambdaDeleteUser:
+                Type: Api
+                Properties:
+                    Path: /api/v1/users/{userid}
+                    Method: DELETE
+            lambdaGetIdCommentUser:
+                Type: Api
+                Properties:
+                    Path: /api/v1/users/{userid}/comments
+                    Method: GET
+  booksFunction:
+    # This resource creates a Lambda function.
+    Type: 'AWS::Serverless::Function'
+    Properties:
+        # This function uses the Nodejs v8.10 runtime.
+        Runtime: nodejs14.x
+        # This is the Lambda function's handler.
+        Handler: indexBook.booksHandler
+        # The location of the Lambda function code.
+        CodeUri: ./src
+        # Event sources to attach to this function. In this case, we are attaching
+        # multiple API Gateway endpoints to the Lambda function. The function is
+        # called when a HTTP request is made to the API Gateway endpoint.
+        Events:
+            lambdaGetAllBooks:
+                # Define an API Gateway endpoint that responds to HTTP GET at /users
+                Type: Api
+                Properties:
+                    Path: /api/v1/books
+                    Method: GET
+            lambdaGetBook:
+                # Define an API Gateway endpoint that responds to HTTP GET at /users
+                Type: Api
+                Properties:
+                    Path: /api/v1/books/{bookid}
+                    Method: GET
+            lambdaAddBook:
+                Type: Api
+                Properties:
+                    Path: /api/v1/books
+                    Method: POST
+            lambdaAddCommentToBook:
+                Type: Api
+                Properties:
+                    Path: /api/v1/books/{bookid}/comments
+                    Method: POST
+            lambdaDeleteCommentBook:
+                Type: Api
+                Properties:
+                    Path: /api/v1/books/{bookid}/comments/{commentid}
+                    Method: DELETE
+        Policies:
+          - DynamoDBCrudPolicy:
+            TableName: users
+          - DynamoDBCrudPolicy:
+            TableName: comments
+          - DynamoDBCrudPolicy:
+            TableName: books
+  usersTable:
+    Type: 'AWS::DynamoDB::Table'
+    Properties:
+        TableName: users
+        AttributeDefinitions:
+            -   AttributeName: userid
+                AttributeType: S
+        KeySchema:
+            -   AttributeName: userid
+                KeyType: HASH
+        ProvisionedThroughput:
+            ReadCapacityUnits: 5
+            WriteCapacityUnits: 5
+  booksTable:
+    Type: 'AWS::DynamoDB::Table'
+    Properties:
+        TableName: books
+        AttributeDefinitions:
+            -   AttributeName: bookid
+                AttributeType: S
+        KeySchema:
+            -   AttributeName: bookid
+                KeyType: HASH
+        ProvisionedThroughput:
+            ReadCapacityUnits: 5
+            WriteCapacityUnits: 5
+  commentsTable:
+    Type: 'AWS::DynamoDB::Table'
+    Properties:
+        TableName: comments
+        AttributeDefinitions:
+            -   AttributeName: commentid
+                AttributeType: S
+        KeySchema:
+            -   AttributeName: commentid
+                KeyType: HASH
+        ProvisionedThroughput:
+            ReadCapacityUnits: 5
+            WriteCapacityUnits: 5
+
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  HelloWorldApi:
+    Description: "API Gateway endpoint URL for Prod stage for Hello World function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
+  HelloWorldFunction:
+    Description: "Hello World Lambda Function ARN"
+    Value: !GetAtt HelloWorldFunction.Arn
+  HelloWorldFunctionIamRole:
+    Description: "Implicit IAM Role created for Hello World function"
+    Value: !GetAtt HelloWorldFunctionRole.Arn

@@ -2,8 +2,8 @@ const uuid = require('uuid');
 const AWS = require('aws-sdk');
 
 AWS.config.update({
-    endpoint: "https://dynamodb.us-east-1.amazonaws.com",
-    region: "us-east-1"
+    endpoint: "https://dynamodb.eu-west-1.amazonaws.com",
+    region: "eu-west-1"
 });
 
 const docClient = new AWS.DynamoDB.DocumentClient();
@@ -19,14 +19,29 @@ const getAllUsers = () => {
     return docClient.scan(params).promise();
 };
 
+
+const getUser = (userid) => {
+
+    console.log("Dentro de dbManager, vamos a ver que tiene el data");
+    console.log(userid);
+    const params = {
+        TableName: table,        
+        Key: {
+            "userid": userid
+        },        
+    };
+
+    return docClient.scan(params).promise();
+};
+
 const addUser = (data) => {
+    console.log(data);
     const params = {
         TableName: table,
         Item: {
             "userid": uuid.v1(),
-            "name": data.name,
-            "email": data.email,
-            "age": data.age
+            "nick": data.nick,
+            "email": data.email            
         }
     };
 
@@ -34,25 +49,26 @@ const addUser = (data) => {
 };
 
 const updateUser = (data) => {
+    console.log(data);
     const params = {
         TableName: table,
         Key: {
             "userid": data.userid
         },
-        UpdateExpression: "set #na = :n, email = :e, age = :a",
-        ExpressionAttributeNames: { // Used when there are reserved words in DynamoDB, like name
-            "#na": 'name'
-        },
-        ExpressionAttributeValues: {
-            ":n": data.name,
-            ":e": data.email,
-            ":a": data.age
+        UpdateExpression: "set email = :e",
+        
+        ExpressionAttributeValues: {            
+            ":e": data.email            
         },
         ReturnValues: "ALL_OLD" // Returns the item content before it was updated
     };
 
     return docClient.update(params).promise();
 };
+
+
+
+
 
 const deleteUser = (userid) => {
     const params = {
@@ -72,7 +88,8 @@ const deleteUser = (userid) => {
 
 module.exports = {
     getAllUsers,
+    getUser,
     addUser,
     updateUser,
-    deleteUser
+    deleteUser    
 };

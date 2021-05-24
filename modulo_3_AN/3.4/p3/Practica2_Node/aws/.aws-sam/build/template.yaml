@@ -180,6 +180,25 @@ Resources:
           TableName: comments
       - DynamoDBCrudPolicy:
           TableName: books
+  updateBookFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs14.x
+      Handler: update.updateBookHandler
+      CodeUri: updateBookFunction
+      Events:
+        lambdaAddBook:
+          Type: Api
+          Properties:
+            Path: /api/v1/books
+            Method: PATCH
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: users
+      - DynamoDBCrudPolicy:
+          TableName: comments
+      - DynamoDBCrudPolicy:
+          TableName: books
   deleteBookFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -199,6 +218,25 @@ Resources:
           TableName: comments
       - DynamoDBCrudPolicy:
           TableName: books
+  getCommentFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs14.x
+      Handler: getComment.getCommentBookHandler
+      CodeUri: getCommentFunction
+      Events:
+        lambdaAddCommentToBook:
+          Type: Api
+          Properties:
+            Path: /api/v1/comments/{commentid}
+            Method: GET
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: users
+      - DynamoDBCrudPolicy:
+          TableName: comments
+      - DynamoDBCrudPolicy:
+          TableName: books
   addCommentBookFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -211,6 +249,63 @@ Resources:
           Properties:
             Path: /api/v1/books/{bookid}/comments
             Method: POST
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: users
+      - DynamoDBCrudPolicy:
+          TableName: comments
+      - DynamoDBCrudPolicy:
+          TableName: books
+  addCommentFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs14.x
+      Handler: addComment.addCommentHandler
+      CodeUri: addCommentFunction
+      Events:
+        lambdaAddCommentToBook:
+          Type: Api
+          Properties:
+            Path: /api/v1/comments
+            Method: POST
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: users
+      - DynamoDBCrudPolicy:
+          TableName: comments
+      - DynamoDBCrudPolicy:
+          TableName: books
+  updateCommentFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs14.x
+      Handler: updateComment.updateCommentHandler
+      CodeUri: updateCommentFunction
+      Events:
+        lambdaAddCommentToBook:
+          Type: Api
+          Properties:
+            Path: /comments/{commentid}
+            Method: PUT
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: users
+      - DynamoDBCrudPolicy:
+          TableName: comments
+      - DynamoDBCrudPolicy:
+          TableName: books
+  deleteCommentFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs14.x
+      Handler: deleteComment.deleteCommentHandler
+      CodeUri: deleteCommentFunction
+      Events:
+        lambdaAddCommentToBook:
+          Type: Api
+          Properties:
+            Path: /comments/{commentid}
+            Method: DELETE
       Policies:
       - DynamoDBCrudPolicy:
           TableName: users

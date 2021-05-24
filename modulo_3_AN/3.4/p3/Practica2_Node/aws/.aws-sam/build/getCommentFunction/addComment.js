@@ -3,13 +3,15 @@
 // dbManager file will have DynamoDB functionality in further changes. For now, it just uses mocked data to test a REST Api
 const dbManager = require('commentsDbManager');
 
-exports.addCommentBookHandler = (event, context, callback) => {
-    getAllComments(callback);
+exports.addCommentHandler = (event, context, callback) => {
+    addComment(event.body, callback);
 };
 
 
-const getAllComments = (callback) => {
-    dbManager.getAllComments()
+const addComment = (data, callback) => {
+    data = JSON.parse(data);
+
+    dbManager.addComment(data)
         .then((res) => {
             sendResponse(200, res, callback);
         })

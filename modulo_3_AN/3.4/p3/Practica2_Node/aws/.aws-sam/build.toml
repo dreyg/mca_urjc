@@ -13,6 +13,13 @@ codeuri = "E:\\1- Universidad\\1- Universidad\\repositorioPracticas\\modulo_3_AN
 runtime = "nodejs14.x"
 source_md5 = ""
 packagetype = "Zip"
-functions = ["getAllBooksFunction", "getBookFunction", "addBookFunction", "deleteBookFunction", "addCommentBookFunction", "deleteCommentBookFunction"]
+functions = ["getAllBooksFunction", "getBookFunction", "addBookFunction", "updateBookFunction", "deleteBookFunction", "deleteCommentBookFunction"]
+
+[function_build_definitions.47635683-fa18-4301-afe4-ad3fb018a2be]
+codeuri = "E:\\1- Universidad\\1- Universidad\\repositorioPracticas\\modulo_3_AN\\3.4\\p3\\Practica2_Node\\aws\\src\\comments"
+runtime = "nodejs14.x"
+source_md5 = ""
+packagetype = "Zip"
+functions = ["getCommentFunction", "addCommentBookFunction", "addCommentFunction", "updateCommentFunction", "deleteCommentFunction"]
 
 [layer_build_definitions]

@@ -262,6 +262,34 @@ Resources:
             - DynamoDBCrudPolicy:
                 TableName: books
 
+
+    updateBookFunction:
+        # This resource creates a Lambda function.
+        Type: 'AWS::Serverless::Function'
+        Properties:
+            # This function uses the Nodejs v8.10 runtime.
+            Runtime: nodejs14.x
+            # This is the Lambda function's handler.
+            Handler: update.updateBookHandler
+            # The location of the Lambda function code.
+            CodeUri: ./src/books/
+            # Event sources to attach to this function. In this case, we are attaching
+            # multiple API Gateway endpoints to the Lambda function. The function is
+            # called when a HTTP request is made to the API Gateway endpoint.
+            Events:
+                lambdaAddBook:
+                    Type: Api
+                    Properties:
+                        Path: /api/v1/books
+                        Method: PATCH
+            Policies:
+            - DynamoDBCrudPolicy:
+                TableName: users
+            - DynamoDBCrudPolicy:
+                TableName: comments
+            - DynamoDBCrudPolicy:
+                TableName: books
+
     deleteBookFunction:
         # This resource creates a Lambda function.
         Type: 'AWS::Serverless::Function'
@@ -289,6 +317,34 @@ Resources:
             - DynamoDBCrudPolicy:
                 TableName: books
 
+
+    getCommentFunction:
+        # This resource creates a Lambda function.
+        Type: 'AWS::Serverless::Function'
+        Properties:
+            # This function uses the Nodejs v8.10 runtime.
+            Runtime: nodejs14.x
+            # This is the Lambda function's handler.
+            Handler: getComment.getCommentBookHandler
+            # The location of the Lambda function code.
+            CodeUri: ./src/comments/
+            # Event sources to attach to this function. In this case, we are attaching
+            # multiple API Gateway endpoints to the Lambda function. The function is
+            # called when a HTTP request is made to the API Gateway endpoint.
+            Events:
+                lambdaAddCommentToBook:
+                    Type: Api
+                    Properties:
+                        Path: /api/v1/comments/{commentid}
+                        Method: GET
+            Policies:
+            - DynamoDBCrudPolicy:
+                TableName: users
+            - DynamoDBCrudPolicy:
+                TableName: comments
+            - DynamoDBCrudPolicy:
+                TableName: books
+    
     addCommentBookFunction:
         # This resource creates a Lambda function.
         Type: 'AWS::Serverless::Function'
@@ -298,7 +354,7 @@ Resources:
             # This is the Lambda function's handler.
             Handler: addCommentBook.addCommentBookHandler
             # The location of the Lambda function code.
-            CodeUri: ./src/books/
+            CodeUri: ./src/comments/
             # Event sources to attach to this function. In this case, we are attaching
             # multiple API Gateway endpoints to the Lambda function. The function is
             # called when a HTTP request is made to the API Gateway endpoint.
@@ -308,6 +364,87 @@ Resources:
                     Properties:
                         Path: /api/v1/books/{bookid}/comments
                         Method: POST
+            Policies:
+            - DynamoDBCrudPolicy:
+                TableName: users
+            - DynamoDBCrudPolicy:
+                TableName: comments
+            - DynamoDBCrudPolicy:
+                TableName: books
+
+    addCommentFunction:
+        # This resource creates a Lambda function.
+        Type: 'AWS::Serverless::Function'
+        Properties:
+            # This function uses the Nodejs v8.10 runtime.
+            Runtime: nodejs14.x
+            # This is the Lambda function's handler.
+            Handler: addComment.addCommentHandler
+            # The location of the Lambda function code.
+            CodeUri: ./src/comments/
+            # Event sources to attach to this function. In this case, we are attaching
+            # multiple API Gateway endpoints to the Lambda function. The function is
+            # called when a HTTP request is made to the API Gateway endpoint.
+            Events:
+                lambdaAddCommentToBook:
+                    Type: Api
+                    Properties:
+                        Path: /api/v1/comments
+                        Method: POST
+            Policies:
+            - DynamoDBCrudPolicy:
+                TableName: users
+            - DynamoDBCrudPolicy:
+                TableName: comments
+            - DynamoDBCrudPolicy:
+                TableName: books
+
+    updateCommentFunction:
+        # This resource creates a Lambda function.
+        Type: 'AWS::Serverless::Function'
+        Properties:
+            # This function uses the Nodejs v8.10 runtime.
+            Runtime: nodejs14.x
+            # This is the Lambda function's handler.
+            Handler: updateComment.updateCommentHandler
+            # The location of the Lambda function code.
+            CodeUri: ./src/comments/
+            # Event sources to attach to this function. In this case, we are attaching
+            # multiple API Gateway endpoints to the Lambda function. The function is
+            # called when a HTTP request is made to the API Gateway endpoint.
+            Events:
+                lambdaAddCommentToBook:
+                    Type: Api
+                    Properties:
+                        Path: /comments/{commentid}
+                        Method: PUT
+            Policies:
+            - DynamoDBCrudPolicy:
+                TableName: users
+            - DynamoDBCrudPolicy:
+                TableName: comments
+            - DynamoDBCrudPolicy:
+                TableName: books
+
+    deleteCommentFunction:
+        # This resource creates a Lambda function.
+        Type: 'AWS::Serverless::Function'
+        Properties:
+            # This function uses the Nodejs v8.10 runtime.
+            Runtime: nodejs14.x
+            # This is the Lambda function's handler.
+            Handler: deleteComment.deleteCommentHandler
+            # The location of the Lambda function code.
+            CodeUri: ./src/comments/
+            # Event sources to attach to this function. In this case, we are attaching
+            # multiple API Gateway endpoints to the Lambda function. The function is
+            # called when a HTTP request is made to the API Gateway endpoint.
+            Events:
+                lambdaAddCommentToBook:
+                    Type: Api
+                    Properties:
+                        Path: /comments/{commentid}
+                        Method: DELETE
             Policies:
             - DynamoDBCrudPolicy:
                 TableName: users

@@ -8,6 +8,7 @@ exports.getAllBooksHandler = (event, context, callback) => {
 };
 
 const getAllBooks = (callback) => {
+    console.log("Dentro del callback")
     dbManager.getAllBooks()
     .then((res) => {
         sendResponse(200, res, callback);

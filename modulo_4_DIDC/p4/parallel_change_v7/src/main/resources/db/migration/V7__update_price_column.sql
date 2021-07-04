@@ -1,0 +1,1 @@
+UPDATE book SET book.price = book.priceint;

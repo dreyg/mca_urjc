@@ -1,32 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: zerodowntime
+  name: zerodowntime-v2
   labels:
+    version: v2
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: zerodowntime
+      version: v2
   template:
     metadata:
       labels:
         app: zerodowntime
+        version: v2
     spec:
       containers:
       - name: zerodowntime
-        image: docker.io/gortazar/flyway:v1
+        image: docker.io/juaneb/zerodowntime:v2
         resources:
           requests:
             cpu: "100m"
         imagePullPolicy: IfNotPresent #Always
         ports:
-        - containerPort: 9991
-        env:
-        - name: MYSQL_HOST
-          value: "db"
+        - containerPort: 8882
+        env:        
+        - name: SPRING_DATASOURCE_URL
+          value: "jdbc:mysql://db:3306/test"
         - name: SERVER_PORT
-          value: "9991"
+          value: "8882"
         - name: SPRING_FLYWAY_VALIDATE-ON-MIGRATE
           value: "false"
 ---
@@ -38,7 +41,7 @@ metadata:
     app: zerodowntime
 spec:
   ports:
-  - port: 9991
+  - port: 8882
     name: http
   selector:
     app: zerodowntime

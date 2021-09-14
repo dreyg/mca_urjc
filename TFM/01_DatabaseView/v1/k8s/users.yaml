@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: users
+  name: users
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: users
+    spec:
+      securityContext:
+        runAsUser: 1000300
+      containers:
+        - env:
+          - name: MYSQL_HOST
+            value: mysql-service
+          - name: MONOLITH_URL
+            value: http://monolith:8080
+          - name: USE_NOTIFICATION_SERVICE
+            value: "true"
+          image: dionisioc/users:0.0.6
+          name: users
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8090
+          securityContext:
+            allowPrivilegeEscalation: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: users
+  labels:
+    app: users
+spec:
+  ports:
+    - protocol: TCP
+      port: 8090
+      targetPort: 8090
+  selector:
+    app: users
+  type: LoadBalancer

@@ -9,11 +9,11 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>monolith</artifactId>
-	<version>0.0.5</version>
+	<artifactId>loyalty</artifactId>
+	<version>0.0.1</version>
 
-	<name>Monolith</name>
-	<description>Monolith</description>
+	<name>Loyalty</name>
+	<description>Functionality about loyalty cards</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

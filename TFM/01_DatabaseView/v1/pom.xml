@@ -11,11 +11,11 @@
 	</parent>
 
 	<groupId>es.codeurjc.mca</groupId>
-	<artifactId>practica2PartiendoMonolito</artifactId>
+	<artifactId>decomposingDatabaseDatabaseView</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<name>PartiendoMonolito</name>
-	<description>Practica2 partiendo el monolito</description>
+	<name>DecomposingDatabase</name>
+	<description>DatabaseView</description>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -25,7 +25,7 @@
 
 	<modules>
 		<module>monolith</module>
-		<module>users</module>
+		<module>loyalty</module>
 	</modules>
 
 </project>

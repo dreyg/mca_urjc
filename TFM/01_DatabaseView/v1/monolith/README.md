@@ -3,7 +3,7 @@
 ## Usage
 
 ```sh
-docker run -p 3306:3306 --name mysql-db -e MYSQL_ROOT_PASSWORD=pass -e MYSQL_DATABASE=test -e -d mysql:8.0.25
+docker run -p 3306:3306 --name mysql-db -e MYSQL_ROOT_PASSWORD=pass -e MYSQL_DATABASE=monolith -e -d mysql:8.0.25
 mvn spring-boot:run
 ```
 

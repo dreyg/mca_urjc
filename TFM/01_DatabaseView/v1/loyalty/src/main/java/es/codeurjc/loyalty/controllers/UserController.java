@@ -49,38 +49,4 @@ public class UserController {
     @PathVariable String userId) {
             return this.userService.findById(Long.parseLong(userId));
     }
-
-    @Operation(summary = "Create a new user")
-    @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "User to be created", required = true,
-            content = @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = UserRequestDto.class)))
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Created the user",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = UserResponseDto.class))}),
-            @ApiResponse(responseCode = "400", description = "Invalid user attributes supplied",
-                    content = @Content),
-            @ApiResponse(responseCode = "409", description = "Already exists an user with same nick",
-                    content = @Content)})
-    @PostMapping("/")
-    public UserResponseDto createUser(@Valid @RequestBody UserRequestDto userRequestDto) {
-        return this.userService.save(userRequestDto);
-    }
-
-    @Operation(summary = "Deletes user")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "User deleted",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = UserResponseDto.class))}),
-            @ApiResponse(responseCode = "400", description = "Invalid format id supplied",
-                    content = @Content),
-            @ApiResponse(responseCode = "404", description = "User not found",
-                    content = @Content),
-            @ApiResponse(responseCode = "409", description = "User can't be deleted because has associated comments",
-                    content = @Content)})
-    @DeleteMapping("/{userId}")
-    public UserResponseDto deleteUser(@Parameter(description = "id of user to be deleted") @PathVariable long userId) {
-        return this.userService.delete(userId);
-    }
-
 }

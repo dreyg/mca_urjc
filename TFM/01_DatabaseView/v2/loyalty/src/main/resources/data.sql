@@ -1,7 +1,7 @@
 -- create view
-CREATE VIEW T_LOYALTY_CARD_NUMBER_VIEW AS
+CREATE or replace VIEW loyalty.t_loyalty_card_number_view AS
 SELECT
-    id AS ID,
-    loyalty_card_number AS LOYALTY_CARD_NUMBER
+    id AS id,
+    loyalty_card_number AS loyalty_card_number
 FROM
-    t_user;
+    monolith.t_user;

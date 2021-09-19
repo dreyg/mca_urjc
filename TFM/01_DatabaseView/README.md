@@ -35,36 +35,87 @@ This is a very simple SpringBoot project to manage customers.
 
 We are going to user a Docker compose file to deploy the examples: 
 
-- In the v1 version we are going to deploy the database, and the v1 of the monolith and the loyalty service. Both services  will be hosted on dockerhub.
+- In the v1 version we are going to deploy the database, and the v1 of the monolith and the loyalty service. Both services  will be hosted on dockerhub and will be deploy with a docker-compose file:
+
+
+     version: '3.9'
+
+        services:
+        monolith:
+        image: juaneb/database_view_monolith_v1
+        ports:
+        - 8080:8080
+        environment:
+        # Enviroment variables for connect to MySQL
+        - MYSQL_HOST=mysql
+        depends_on:
+        - mysql
+        restart: on-failure
+    
+        loyaltyservice:
+        image: juaneb/database_view_loyalty_v1
+        ports:
+        - 8090:8090
+        environment:
+        - MYSQL_HOST=mysql
+        restart: on-failure
+    
+        mysql:
+        image: mysql:8.0.25
+        ports:
+        - 3306:3306
+        environment:
+        # Enviroment variables for securize MySQL and create default Database
+        - MYSQL_DATABASE=monolith
+        - MYSQL_ROOT_PASSWORD=pass
+        volumes:  
+        - ./mysql_db:/var/lib/mysql
+        restart: always
 
 
 
-- In the v1 version we are going to deploy the database, and the v1 of the monolith and the loyalty service. Both services  will be hosted on dockerhub.
+- In the v2 version we are going to deploy the database, and the v2 of the monolith and the loyalty service. Both services  will be hosted on dockerhub and will be deploy with a docker-compose file:
+
+'
+
+    version: '3.9'
+        services:
+        monolith:
+        image: juaneb/database_view_monolith_v2
+        ports:
+        - 8080:8080
+        environment:
+        # Enviroment variables for connect to MySQL
+        - MYSQL_HOST=mysql
+        depends_on:
+        - mysql
+        restart: on-failure
+        
+        loyaltyservice:
+        image: juaneb/database_view_loyalty_v2
+        ports:
+        - 8090:8090
+        environment:
+        - MYSQL_HOST=mysql
+        depends_on:
+        - mysql
+        - monolith
+        restart: on-failure
+        
+        mysql:
+        image: mysql:8.0.25
+        ports:
+        - 3306:3306
+        environment:
+        # Enviroment variables for securize MySQL and create default Database
+        - MYSQL_DATABASE=monolith
+        - MYSQL_ROOT_PASSWORD=pass
+        volumes:
+        - ./mysql_db:/var/lib/mysql
+        restart: always
+
 
 
 Both services uses mysql as database, whose tables are created by hibernate in the startup.
-
-Three self-explaining entities:
-
-    Book
-        id
-        title 
-        summary
-        author
-        publisher 
-        publicationYear 
-        comments (OneToMany)
-    Commment
-        id
-        comment
-        score
-        book (ManyToOne)
-        user (ManyToOne)
-    User
-        id
-        nick
-        email
-        comments (OneToMany)
-
 
 

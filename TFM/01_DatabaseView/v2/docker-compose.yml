@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   monolith:
-    image: juaneb/database_view_monolith_v1
+    image: juaneb/database_view_monolith_v2
     ports:
       - 8080:8080
     environment:
@@ -12,11 +12,14 @@ services:
     restart: on-failure
 
   loyaltyservice:
-    image: juaneb/database_view_loyalty_v1
+    image: juaneb/database_view_loyalty_v2
     ports:
       - 8090:8090
     environment:
       - MYSQL_HOST=mysql
+    depends_on:
+      - mysql
+      - monolith
     restart: on-failure
 
   mysql:

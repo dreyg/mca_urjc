@@ -116,6 +116,8 @@ We are going to user a Docker compose file to deploy the examples:
 
 
 
-Both services uses mysql as database, whose tables are created by hibernate in the startup.
+Both services uses mysql as database, whose tables are created by hibernate in the startup. We are going to use flyway to deploy the view in the V2 of loyalty service.
+
+
 
 

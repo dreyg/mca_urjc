@@ -27,10 +27,10 @@ FROM openjdk:11-jre-slim
 WORKDIR /usr/src/app/
 
 # Copia el JAR del contenedor de compilación
-COPY --from=builder /project/target/loyalty-0.0.1-SNAPSHOT.jar /usr/src/app/
+COPY --from=builder /project/target/externalConsumer-0.0.1-SNAPSHOT.jar /usr/src/app/
 
 # Indica el puerto que expone el contenedor
-EXPOSE 8080
+EXPOSE 8090
 
 # Comando que se ejecuta al hacer docker run
-CMD ["java", "-jar", "loyalty-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "externalConsumer-0.0.1-SNAPSHOT.jar"]

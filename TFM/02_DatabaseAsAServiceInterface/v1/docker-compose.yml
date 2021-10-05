@@ -1,7 +1,7 @@
 version: '3.9'
 services:
-  monolith:
-    image: juaneb/database_view_monolith_v1
+  order:
+    image: dreyg/database_as_a_service_order_v1
     ports:
       - 8080:8080
     environment:
@@ -11,12 +11,12 @@ services:
       - mysql
     restart: on-failure
 
-  loyaltyservice:
-    image: juaneb/database_view_loyalty_v1
+  externalconsumer:
+    image: dreyg/database_as_a_service_external_consumer_v1
     ports:
       - 8090:8090
     environment:
-      - MYSQL_HOST=mysql
+      - HOST=order
     restart: on-failure
 
   mysql:
@@ -25,8 +25,9 @@ services:
       - 3306:3306
     environment:
       # Enviroment variables for securize MySQL and create default Database
-      - MYSQL_DATABASE=monolith
+      - MYSQL_DATABASE=order
       - MYSQL_ROOT_PASSWORD=pass
     volumes:
       - ./mysql_db:/var/lib/mysql
     restart: always
+

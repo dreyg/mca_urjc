@@ -6,28 +6,28 @@ docker login
 ```
 
 
-## Build the monolith docker image
+## Build the Order docker image
 
 ```
-docker build -t juaneb/database_view_monolith_v1 ./monolith
+docker build -t dreyg/database_as_a_service_order_v1 ./order
 ```
-## Push the monolith docker image
+## Push the Order docker image
 
 ```
-docker push juaneb/database_view_monolith_v1
-```
-
-
-## Build the loyalty service docker image
-```
-docker build -t juaneb/database_view_loyalty_v1 ./loyalty
+docker push dreyg/database_as_a_service_order_v1
 ```
 
 
-## Push the loyalty service docker image
+## Build the external consumer service docker image
+```
+docker build -t dreyg/database_as_a_service_external_consumer_v1 ./externalConsumer
+```
+
+
+## Push the external consumer service docker image
 
 ```
-docker push juaneb/database_view_loyalty_v1
+docker push dreyg/database_as_a_service_external_consumer_v1
 ```
 
 

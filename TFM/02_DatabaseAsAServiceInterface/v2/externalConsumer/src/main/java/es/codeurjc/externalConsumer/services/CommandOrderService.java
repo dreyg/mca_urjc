@@ -5,7 +5,7 @@ import es.codeurjc.externalConsumer.dtos.responses.OrderResponseDto;
 
 import java.util.Collection;
 
-public interface OrderService {
+public interface QueryOrderService {
 
     Collection<OrderResponseDto> findAll();
 

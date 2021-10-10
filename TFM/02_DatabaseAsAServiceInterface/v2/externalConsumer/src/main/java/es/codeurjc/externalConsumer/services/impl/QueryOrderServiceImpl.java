@@ -1,9 +1,7 @@
 package es.codeurjc.externalConsumer.services.impl;
 
-import es.codeurjc.externalConsumer.dtos.requests.OrderRequestDto;
 import es.codeurjc.externalConsumer.dtos.responses.OrderResponseDto;
-import es.codeurjc.externalConsumer.exceptions.OrderNotFoundException;
-import es.codeurjc.externalConsumer.services.OrderService;
+import es.codeurjc.externalConsumer.services.QueryOrderService;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -15,13 +13,13 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Collection;
 
 @Service
-public class OrderServiceImpl implements OrderService {
+public class QueryOrderServiceImpl implements QueryOrderService {
 
     private Mapper mapper;
     private String ordersServiceUrl;
     private RestTemplate restTemplate;
 
-    public OrderServiceImpl(Mapper mapper, @Value("${orders.service.url}") String ordersServiceUrl, RestTemplate restTemplate) {
+    public QueryOrderServiceImpl(Mapper mapper, @Value("${orders.service.url}") String ordersServiceUrl, RestTemplate restTemplate) {
         this.mapper = mapper;
         this.ordersServiceUrl = ordersServiceUrl + "/api/v1/orders/";
         this.restTemplate = restTemplate;
@@ -38,15 +36,6 @@ public class OrderServiceImpl implements OrderService {
         return responseEntity.getBody();
     }
 
-    public OrderResponseDto save(OrderRequestDto orderRequestDto) {
-
-        ResponseEntity<OrderResponseDto> orderResponseDto = restTemplate.postForEntity(
-                ordersServiceUrl,
-                orderRequestDto,
-                OrderResponseDto.class);
-
-        return orderResponseDto.getBody();
-    }
 
     public OrderResponseDto findById(long orderId) {
         ResponseEntity<OrderResponseDto> responseEntity = restTemplate.exchange(
@@ -58,23 +47,4 @@ public class OrderServiceImpl implements OrderService {
 
         return responseEntity.getBody();
     }
-
-    public OrderResponseDto delete(long orderId) {
-        OrderResponseDto order = this.findById(orderId);
-
-        if (order == null) {
-            throw new OrderNotFoundException();
-        }
-
-        ResponseEntity<OrderResponseDto> responseEntity = restTemplate.exchange(
-                ordersServiceUrl + "/" + orderId,
-                HttpMethod.DELETE,
-                null,
-                new ParameterizedTypeReference<>() {
-                });
-
-        return this.mapper.map(responseEntity, OrderResponseDto.class);
-    }
-    
-
 }

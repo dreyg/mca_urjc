@@ -2,7 +2,7 @@ package es.codeurjc.externalConsumer.controllers;
 
 import es.codeurjc.externalConsumer.dtos.requests.OrderRequestDto;
 import es.codeurjc.externalConsumer.dtos.responses.OrderResponseDto;
-import es.codeurjc.externalConsumer.services.UserService;
+import es.codeurjc.externalConsumer.services.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -16,23 +16,23 @@ import javax.validation.Valid;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/api/v1/user")
-public class UserController {
+@RequestMapping("/api/v1/externalConsumer")
+public class QueryExternalController {
 
-    private UserService userService;
+    private QueryOrderService queryOrderService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public QueryExternalController(OrderService queryOrderService) {
+        this.queryOrderService = queryOrderService;
     }
 
-    @Operation(summary = "Get all users")
+    @Operation(summary = "Get all orders")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Found all users",
+            @ApiResponse(responseCode = "200", description = "Found all orders",
                     content = {@Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = OrderResponseDto.class)))})})
     @GetMapping("/")
     public Collection<OrderResponseDto> getUsers() {
-        return this.userService.findAll();
+        return this.queryOrderService.findAll();
     }
 
     @Operation(summary = "Get a order by its id")
@@ -47,8 +47,7 @@ public class UserController {
     @GetMapping("/{userId}")
     public OrderResponseDto getUser(@Parameter(description = "id of order to be searched")
     @PathVariable String userId) {
-            return this.userService.findById(Long.parseLong(userId));
+            return this.queryOrderService.findById(Long.parseLong(userId));
     }
-
 
 }

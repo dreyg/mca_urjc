@@ -17,11 +17,11 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("/api/v1/externalConsumer")
-public class ExternalController {
+public class QueryExternalController {
 
     private OrderService orderService;
 
-    public ExternalController(OrderService orderService) {
+    public QueryExternalController(OrderService orderService) {
         this.orderService = orderService;
     }
 

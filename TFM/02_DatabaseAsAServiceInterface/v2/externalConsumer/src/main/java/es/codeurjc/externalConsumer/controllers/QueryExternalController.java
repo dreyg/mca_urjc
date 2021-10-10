@@ -2,7 +2,7 @@ package es.codeurjc.externalConsumer.controllers;
 
 import es.codeurjc.externalConsumer.dtos.requests.OrderRequestDto;
 import es.codeurjc.externalConsumer.dtos.responses.OrderResponseDto;
-import es.codeurjc.externalConsumer.services.OrderService;
+import es.codeurjc.externalConsumer.services.QueryOrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -21,7 +21,7 @@ public class QueryExternalController {
 
     private QueryOrderService queryOrderService;
 
-    public QueryExternalController(OrderService queryOrderService) {
+    public QueryExternalController(QueryOrderService queryOrderService) {
         this.queryOrderService = queryOrderService;
     }
 

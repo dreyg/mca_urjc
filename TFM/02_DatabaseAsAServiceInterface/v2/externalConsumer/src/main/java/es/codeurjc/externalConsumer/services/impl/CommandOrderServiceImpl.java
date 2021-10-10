@@ -3,7 +3,7 @@ package es.codeurjc.externalConsumer.services.impl;
 import es.codeurjc.externalConsumer.dtos.requests.OrderRequestDto;
 import es.codeurjc.externalConsumer.dtos.responses.OrderResponseDto;
 import es.codeurjc.externalConsumer.exceptions.OrderNotFoundException;
-import es.codeurjc.externalConsumer.services.OrderService;
+import es.codeurjc.externalConsumer.services.CommandOrderService;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -15,27 +15,16 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Collection;
 
 @Service
-public class QueryOrderServiceImpl implements OrderService {
+public class CommandOrderServiceImpl implements CommandOrderService {
 
     private Mapper mapper;
     private String ordersServiceUrl;
     private RestTemplate restTemplate;
 
-    public QueryOrderServiceImpl(Mapper mapper, @Value("${orders.service.url}") String ordersServiceUrl, RestTemplate restTemplate) {
+    public CommandOrderServiceImpl(Mapper mapper, @Value("${orders.service.url}") String ordersServiceUrl, RestTemplate restTemplate) {
         this.mapper = mapper;
         this.ordersServiceUrl = ordersServiceUrl + "/api/v1/orders/";
         this.restTemplate = restTemplate;
-    }
-
-    public Collection<OrderResponseDto> findAll() {
-        ResponseEntity<Collection<OrderResponseDto>> responseEntity = restTemplate.exchange(
-                ordersServiceUrl,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<>() {
-                });
-
-        return responseEntity.getBody();
     }
 
     public OrderResponseDto save(OrderRequestDto orderRequestDto) {
@@ -48,23 +37,13 @@ public class QueryOrderServiceImpl implements OrderService {
         return orderResponseDto.getBody();
     }
 
-    public OrderResponseDto findById(long orderId) {
-        ResponseEntity<OrderResponseDto> responseEntity = restTemplate.exchange(
-                ordersServiceUrl + "/" + orderId,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<>() {
-                });
-
-        return responseEntity.getBody();
-    }
 
     public OrderResponseDto delete(long orderId) {
-        OrderResponseDto order = this.findById(orderId);
+        /*OrderResponseDto order = this.findById(orderId);
 
         if (order == null) {
             throw new OrderNotFoundException();
-        }
+        }*/
 
         ResponseEntity<OrderResponseDto> responseEntity = restTemplate.exchange(
                 ordersServiceUrl + "/" + orderId,

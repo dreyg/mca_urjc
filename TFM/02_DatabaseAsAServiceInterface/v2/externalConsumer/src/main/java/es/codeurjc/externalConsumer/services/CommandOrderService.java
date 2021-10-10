@@ -5,13 +5,9 @@ import es.codeurjc.externalConsumer.dtos.responses.OrderResponseDto;
 
 import java.util.Collection;
 
-public interface QueryOrderService {
-
-    Collection<OrderResponseDto> findAll();
+public interface CommandOrderService {
 
     OrderResponseDto save(OrderRequestDto orderRequestDto);
-
-    OrderResponseDto findById(long userId);
 
     OrderResponseDto delete(long userId);
 

@@ -1,4 +1,4 @@
-package es.codeurjc.mastercloudapps.amqp;
+package es.codeurjc.externalConsumer;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;

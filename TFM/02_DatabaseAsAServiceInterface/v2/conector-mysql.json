@@ -9,9 +9,9 @@
     "database.password": "pass",
     "database.server.id": "184054",
     "database.server.name": "dbserver1",
-    "database.include.list": "t_order",
+    "database.include.list": "order",
     "database.history.kafka.bootstrap.servers": "kafka:9092",
-    "database.history.kafka.topic": "schema-changes.t_order"
+    "database.history.kafka.topic": "schema-changes.order"
   }
 }
 

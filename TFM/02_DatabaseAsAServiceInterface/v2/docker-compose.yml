@@ -81,6 +81,7 @@ services:
     environment:
       - MYSQL_HOST=mysqlsuscriber
       - HOST=order
+      - BROKER_HOST=kafka
     depends_on:
       - mysqlproducer
       - mysqlsuscriber

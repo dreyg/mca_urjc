@@ -1,10 +1,12 @@
 package es.codeurjc.externalConsumer.dtos.requests;
 
-import lombok.Data;
+import lombok.*;
 
-import java.util.Date;
-
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class OrderRequestDto {
 
     private Long id;

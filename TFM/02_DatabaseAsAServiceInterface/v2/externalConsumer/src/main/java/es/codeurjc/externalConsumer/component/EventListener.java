@@ -1,6 +1,7 @@
 package es.codeurjc.externalConsumer.component;
 
 import es.codeurjc.externalConsumer.models.event.Event;
+import es.codeurjc.externalConsumer.services.IntegrationService;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 import lombok.extern.slf4j.Slf4j;

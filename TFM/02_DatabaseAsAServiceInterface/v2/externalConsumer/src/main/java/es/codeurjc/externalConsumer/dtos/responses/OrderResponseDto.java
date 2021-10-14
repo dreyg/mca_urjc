@@ -1,5 +1,6 @@
 package es.codeurjc.externalConsumer.dtos.responses;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 @Getter

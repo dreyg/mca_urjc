@@ -24,6 +24,7 @@ public class IntegrationServiceImpl implements IntegrationService {
       SourceDatabaseEntity entity = SourceDatabaseEntity.fromId(event.getPayload().getSource().getTable());
       switch (entity){
         case ORDER:
+          log.info("Inside of processKafkaEvent");
           managementService.manageProduct(event.getPayload());
           break;
         default:

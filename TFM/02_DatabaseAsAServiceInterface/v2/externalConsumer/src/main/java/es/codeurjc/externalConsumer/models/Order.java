@@ -18,7 +18,7 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = false, name = "DATE_ORDER")
+	@Column(nullable = false, name = "DATEORDER")
 	private String dateOrder;
 
 	@Column(nullable = false, name = "PURCHASER")
@@ -27,7 +27,7 @@ public class Order {
 	@Column(nullable = false, name = "ADDRESS")
 	private String address;
 
-	@Column(nullable = false, name = "TOTAL_PRICE")
+	@Column(nullable = false, name = "TOTALPRICE")
 	private String totalPrice;
 
 }

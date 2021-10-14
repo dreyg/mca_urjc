@@ -22,9 +22,9 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    @Bean
+    /*@Bean
     public NewTopic messagesTopic() {
         return TopicBuilder.name("dbserver1.order.t_order").build();
-    }
+    }*/
 
 }

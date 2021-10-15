@@ -26,7 +26,3 @@ docker push juaneb/database_as_a_service_external_consumer_v2
 ## Registering a connector to monitor the inventory database
 
 curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" localhost:8083/connectors/ -d @conector-mysql.json
-
-## configure the connector:
-
-curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" localhost:8083/connectors/ -d @conector-mysql.json

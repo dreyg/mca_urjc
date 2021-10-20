@@ -1,5 +1,6 @@
 package es.codeurjc.invoice.controllers;
 
+import es.codeurjc.invoice.dtos.requests.EmployeeRequestDto;
 import es.codeurjc.invoice.dtos.responses.EmployeeResponseDto;
 import es.codeurjc.invoice.services.InvoiceService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,10 +12,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/api/v1/employees")
+@RequestMapping("/api/v1/invoice")
 public class InvoiceController {
 
     private InvoiceService invoiceService;
@@ -46,5 +48,34 @@ public class InvoiceController {
     public EmployeeResponseDto getEmployee(@Parameter(description = "id of employee to be searched")
     @PathVariable String employeeId) {
             return this.invoiceService.findById(Long.parseLong(employeeId));
+    }
+
+    @Operation(summary = "Create a new employee")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Order to be created", required = true,
+            content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = EmployeeRequestDto.class)))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Created the order",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = EmployeeResponseDto.class))}),
+            @ApiResponse(responseCode = "400", description = "Invalid employ attributes supplied",
+                    content = @Content)})
+    @PostMapping("/")
+    public EmployeeResponseDto createOrder(@Valid @RequestBody EmployeeRequestDto employeeRequestDto) {
+        return this.invoiceService.save(employeeRequestDto);
+    }
+
+    @Operation(summary = "Deletes employ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Employ deleted",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = EmployeeResponseDto.class))}),
+            @ApiResponse(responseCode = "400", description = "Invalid format id supplied",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "Order not found",
+                    content = @Content)})
+    @DeleteMapping("/{id}")
+    public EmployeeResponseDto deleteUser(@Parameter(description = "id of employ to be deleted") @PathVariable long id) {
+        return this.invoiceService.delete(id);
     }
 }

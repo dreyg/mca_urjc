@@ -6,6 +6,9 @@ import lombok.Data;
 public class EmployeeResponseDto {
 
     private Long id;
-    private String loyaltyCardNumber;
+    private String name;
+    private String lastName;
+    private String birthDate;
+    private String document;
 
 }

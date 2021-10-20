@@ -18,18 +18,18 @@ import java.util.Collection;
 public class InvoiceServiceImpl implements InvoiceService {
 
     private Mapper mapper;
-    private String ordersServiceUrl;
+    private String employServiceUrl;
     private RestTemplate restTemplate;
 
-    public InvoiceServiceImpl(Mapper mapper, @Value("${orders.service.url}") String ordersServiceUrl, RestTemplate restTemplate) {
+    public InvoiceServiceImpl(Mapper mapper, @Value("${monolith.url}") String employServiceUrl, RestTemplate restTemplate) {
         this.mapper = mapper;
-        this.ordersServiceUrl = ordersServiceUrl + "/api/v1/orders/";
+        this.employServiceUrl = employServiceUrl + "/api/v1/employ/";
         this.restTemplate = restTemplate;
     }
 
     public Collection<EmployeeResponseDto> findAll() {
         ResponseEntity<Collection<EmployeeResponseDto>> responseEntity = restTemplate.exchange(
-                ordersServiceUrl,
+                employServiceUrl,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<>() {
@@ -41,7 +41,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     public EmployeeResponseDto save(EmployeeRequestDto orderRequestDto) {
 
         ResponseEntity<EmployeeResponseDto> orderResponseDto = restTemplate.postForEntity(
-                ordersServiceUrl,
+                employServiceUrl,
                 orderRequestDto,
                 EmployeeResponseDto.class);
 
@@ -50,7 +50,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     public EmployeeResponseDto findById(long orderId) {
         ResponseEntity<EmployeeResponseDto> responseEntity = restTemplate.exchange(
-                ordersServiceUrl + "/" + orderId,
+                employServiceUrl + "/" + orderId,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<>() {
@@ -59,15 +59,15 @@ public class InvoiceServiceImpl implements InvoiceService {
         return responseEntity.getBody();
     }
 
-    public EmployeeResponseDto delete(long orderId) {
-        EmployeeResponseDto order = this.findById(orderId);
+    public EmployeeResponseDto delete(long employId) {
+        EmployeeResponseDto order = this.findById(employId);
 
         if (order == null) {
             throw new EmployeeNotFoundException();
         }
 
         ResponseEntity<EmployeeResponseDto> responseEntity = restTemplate.exchange(
-                ordersServiceUrl + "/" + orderId,
+                employServiceUrl + "/" + employId,
                 HttpMethod.DELETE,
                 null,
                 new ParameterizedTypeReference<>() {

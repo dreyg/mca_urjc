@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/api/v1/employees")
+@RequestMapping("/api/v1/employ")
 public class EmployeeController {
 
     private EmployeeService employeeService;

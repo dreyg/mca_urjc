@@ -23,7 +23,7 @@ services:
       - mysql
     restart: on-failure
 
-  loyaltyservice:
+  invoiceservice:
     image: juaneb/aggregate_exposing_monolith_invoice_v1
     ports:
       - 8090:8090

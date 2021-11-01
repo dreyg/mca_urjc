@@ -6,116 +6,124 @@ In Figure 4-8, our new Invoicing service needs to access a variety of informatio
 
 ![database view](images/AggregateExposingMonolith.jpg)
 
-## Limitations 
+## Expose an aggregate with API
 
-- It's important to see the impact on performance of the views (cache vs online query)
-- There are database engines that only support read-only views
+- It is not simply to export the database
+- The aggregate management service is exported
+- The life cycle of this data begins to be controlled
+- It is a previous step to extracting that API to your own microservice in the future
+
+![database view](images/AggregateExposingMonolith_v2.jpg)
 
 ## Where to Use It
 
-- Should be avoided as much as possible
-- There are times when other services cannot be updated to use a service and need to access directly to the database
+-  When you need to access the monolith data because they have not yet been extracted
+- It is a preliminary step to the new reasonable microservice
+- In general it is much better than using views
+- It cannot be used if the monolith cannot / will not change
 
 ## Our Example
 
-This is a very simple SpringBoot project to manage customers. 
+This is a very simple SpringBoot project to manage Employee Data. 
 
-- In the v1, we have all services get data from the monolith schema:
+- In the v1, we have an Invoice Service get Employee Data from the Monolith DB through an employee endpoint:
 
-![database view_v1](images/databaseViewV1.PNG)
+![database view](images/AggregateExposingMonolith.jpg)
 
-- In the v2, we have one microservice (loyaltyService) get data from the loyalty schema through a view:
+- In the v2, the employee data is exposed by the Employee Service. All the services that need employee data get the data through the Employee API
 
-![database view_v2](images/databaseViewV2.PNG)
+![database view](images/AggregateExposingMonolith_v2.jpg)
 
 
 ## Deployment
 
 We are going to user a Docker compose file to deploy the examples: 
 
-- In the v1 version we are going to deploy the database, and the v1 of the monolith and the loyalty service. Both services  will be hosted on dockerhub and will be deploy with a docker-compose file:
-
-
-     version: '3.9'
-
-        services:
-        monolith:
-        image: juaneb/database_view_monolith_v1
-        ports:
-        - 8080:8080
-        environment:
-        # Enviroment variables for connect to MySQL
-        - MYSQL_HOST=mysql
-        depends_on:
-        - mysql
-        restart: on-failure
-    
-        loyaltyservice:
-        image: juaneb/database_view_loyalty_v1
-        ports:
-        - 8090:8090
-        environment:
-        - MYSQL_HOST=mysql
-        restart: on-failure
-    
-        mysql:
-        image: mysql:8.0.25
-        ports:
-        - 3306:3306
-        environment:
-        # Enviroment variables for securize MySQL and create default Database
-        - MYSQL_DATABASE=monolith
-        - MYSQL_ROOT_PASSWORD=pass
-        volumes:  
-        - ./mysql_db:/var/lib/mysql
-        restart: always
-
-
-
-- In the v2 version we are going to deploy the database, and the v2 of the monolith and the loyalty service. Both services  will be hosted on dockerhub and will be deploy with a docker-compose file:
+- In the v1 version we are going to deploy the database, and the v1 of the monolith and the invoice service. Both services  will be hosted on dockerhub and will be deploy with a docker-compose file:
 
 '
 
     version: '3.9'
-        services:
-        monolith:
-        image: juaneb/database_view_monolith_v2
-        ports:
-        - 8080:8080
-        environment:
-        # Enviroment variables for connect to MySQL
-        - MYSQL_HOST=mysql
-        depends_on:
-        - mysql
-        restart: on-failure
-        
-        loyaltyservice:
-        image: juaneb/database_view_loyalty_v2
-        ports:
-        - 8090:8090
-        environment:
-        - MYSQL_HOST=mysql
-        depends_on:
-        - mysql
-        - monolith
-        restart: on-failure
-        
+    services:
         mysql:
-        image: mysql:8.0.25
-        ports:
-        - 3306:3306
-        environment:
-        # Enviroment variables for securize MySQL and create default Database
-        - MYSQL_DATABASE=monolith
-        - MYSQL_ROOT_PASSWORD=pass
-        volumes:
-        - ./mysql_db:/var/lib/mysql
-        restart: always
+            image: mysql:8.0.25
+            ports:
+            - 3306:3306
+            environment:
+            # Enviroment variables for securize MySQL and create default Database
+            - MYSQL_DATABASE=monolith
+            - MYSQL_ROOT_PASSWORD=pass
+            volumes:
+            - ./mysql_db:/var/lib/mysql
+            restart: always
+        monolith:
+            image: juaneb/aggregate_exposing_monolith_monolith_v1
+            ports:
+            - 8080:8080
+            environment:
+            # Enviroment variables for connect to MySQL
+            - MYSQL_HOST=mysql
+            depends_on:
+            - mysql
+            restart: on-failure
+        invoiceservice:
+            image: juaneb/aggregate_exposing_monolith_invoice_v1
+            ports:
+            - 8090:8090
+            environment:
+            - MYSQL_HOST=mysql
+            - HOST=monolith
+            restart: on-failure
 
 
 
-Both services uses mysql as database, whose tables are created by hibernate in the startup. We are going to use flyway to deploy the view in the V2 of loyalty service.
 
+- In the v2 version we are going to deploy the database, and the v2 of the monolith, employee and the catalog service. All services  will be hosted on dockerhub and will be deploy with a docker-compose file:
 
+'
 
+    version: '3.9'
+    services:
+        mysql:
+            image: mysql:8.0.25
+            ports:
+            - 3306:3306
+            environment:
+            # Enviroment variables for securize MySQL and create default Database
+            - MYSQL_DATABASE=employee
+            - MYSQL_ROOT_PASSWORD=pass
+            volumes:
+            - ./mysql_db:/var/lib/mysql
+            restart: always   
 
+        employee:
+            image: juaneb/aggregate_exposing_monolith_employee_v2
+            ports:
+            - 8080:8080
+            environment:
+            - MYSQL_HOST=mysql        
+            restart: on-failure
+
+        monolith:
+            image: juaneb/aggregate_exposing_monolith_monolith_v2
+            ports:
+            - 8090:8090
+            environment:
+            # Enviroment variables for connect to MySQL
+            - MYSQL_HOST=mysql
+            - HOST=employee
+            depends_on:
+            - mysql
+            restart: on-failure
+
+        catalog:
+            image: juaneb/aggregate_exposing_monolith_catalog_v2
+            ports:
+            - 8100:8100
+            environment:
+            # Enviroment variables for connect to MySQL
+            - MYSQL_HOST=mysql
+            - HOST=employee
+            depends_on:
+            - mysql
+            restart: on-failure

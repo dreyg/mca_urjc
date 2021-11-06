@@ -1,6 +1,8 @@
 package es.codeurjc.monolith.controllers;
 
+import es.codeurjc.monolith.dtos.requests.CustomerRequestDto;
 import es.codeurjc.monolith.dtos.requests.FinanceRequestDto;
+import es.codeurjc.monolith.dtos.responses.CustomerResponseDto;
 import es.codeurjc.monolith.dtos.responses.FinanceResponseDto;
 import es.codeurjc.monolith.services.FinanceService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -63,6 +65,25 @@ public class FinanceController {
     @PostMapping("/")
     public FinanceResponseDto createFinance(@Valid @RequestBody FinanceRequestDto financeRequestDto) {
         return this.financeService.save(financeRequestDto);
+    }
+
+    @Operation(summary = "Updates customer's status")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Status to be updated", required = true,
+            content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = CustomerResponseDto.class)))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Customer with updated status",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CustomerResponseDto.class))}),
+            @ApiResponse(responseCode = "400", description = "Invalid status supplied",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "Customer not found",
+                    content = @Content)})
+    @PatchMapping("/{customerId}")
+    public FinanceResponseDto updateCustomerStatus(@Parameter(description = "id of customer to update the status")
+                                                    @PathVariable long customerId,
+                                                    @Valid @RequestBody FinanceRequestDto financeRequestDto) {
+        return this.financeService.updateStatus(customerId, financeRequestDto);
     }
 
     @Operation(summary = "Deletes finance")

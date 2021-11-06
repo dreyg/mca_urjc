@@ -2,7 +2,7 @@ package es.codeurjc.monolith.services.impl;
 
 import es.codeurjc.monolith.dtos.requests.CustomerRequestDto;
 import es.codeurjc.monolith.dtos.responses.CustomerResponseDto;
-import es.codeurjc.monolith.exceptions.OrderNotFoundException;
+import es.codeurjc.monolith.exceptions.CustomerNotFoundException;
 import es.codeurjc.monolith.models.Customer;
 import es.codeurjc.monolith.repositories.CustomerRepository;
 import es.codeurjc.monolith.services.CustomerService;
@@ -36,13 +36,21 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     public CustomerResponseDto findById(long orderId) {
-        Customer customer = this.customerRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
+        Customer customer = this.customerRepository.findById(orderId).orElseThrow(CustomerNotFoundException::new);
         return this.mapper.map(customer, CustomerResponseDto.class);
     }
 
+    public CustomerResponseDto updateStatus(long userId, CustomerRequestDto customerRequestDto) {
+        Customer customer = this.customerRepository.findById(userId).orElseThrow(CustomerNotFoundException::new);
+        if (!customer.getStatus().equalsIgnoreCase(customerRequestDto.getStatus())) {
+            customer.setStatus(customerRequestDto.getStatus());
+            customer = this.customerRepository.save(customer);
+        }
+        return this.mapper.map(customer, CustomerResponseDto.class);
+    }
 
     public CustomerResponseDto delete(long orderId) {
-        Customer customer = this.customerRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
+        Customer customer = this.customerRepository.findById(orderId).orElseThrow(CustomerNotFoundException::new);
         this.customerRepository.delete(customer);
         return this.mapper.map(customer, CustomerResponseDto.class);
     }

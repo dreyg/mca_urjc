@@ -6,28 +6,13 @@ docker login
 ```
 
 
-## Build the Order docker image
+## Build the Monolith docker image
 
 ```
-docker build -t dreyg/database_as_a_service_order_v1 ./order
+docker build -t juaneb/split_table_monolith_v1 ./monolith
 ```
 ## Push the Order docker image
 
 ```
-docker push dreyg/database_as_a_service_order_v1
+docker push juaneb/split_table_monolith_v1
 ```
-
-
-## Build the external consumer service docker image
-```
-docker build -t dreyg/database_as_a_service_external_consumer_v1 ./externalConsumer
-```
-
-
-## Push the external consumer service docker image
-
-```
-docker push dreyg/database_as_a_service_external_consumer_v1
-```
-
-

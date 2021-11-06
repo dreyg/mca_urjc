@@ -65,6 +65,25 @@ public class CustomerController {
         return this.customerService.save(customerRequestDto);
     }
 
+    @Operation(summary = "Updates customer's status")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Status to be updated", required = true,
+            content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = CustomerResponseDto.class)))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Customer with updated status",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CustomerResponseDto.class))}),
+            @ApiResponse(responseCode = "400", description = "Invalid status supplied",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "Customer not found",
+                    content = @Content)})
+    @PatchMapping("/{customerId}")
+    public CustomerResponseDto updateCustomerStatus(@Parameter(description = "id of customer to update the status")
+                                           @PathVariable long customerId,
+                                           @Valid @RequestBody CustomerRequestDto customerRequestDto) {
+        return this.customerService.updateStatus(customerId, customerRequestDto);
+    }
+
     @Operation(summary = "Deletes customer")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Customer deleted",

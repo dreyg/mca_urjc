@@ -6,28 +6,28 @@ docker login
 ```
 
 
-## Build the monolith docker image
+## Build the customer docker image
 
 ```
-docker build -t juaneb/aggregate_exposing_monolith_monolith_v1 ./monolith
+docker build -t juaneb/split_table_customer_v2 ./customer
 ```
-## Push the monolith docker image
+## Push the customer docker image
 
 ```
-docker push juaneb/aggregate_exposing_monolith_monolith_v1
+docker push juaneb/split_table_customer_v2
 ```
 
 
-## Build the invoice service docker image
+## Build the finance service docker image
 ```
-docker build -t juaneb/aggregate_exposing_monolith_invoice_v1 ./invoice
+docker build -t juaneb/split_table_finance_v2 ./finance
 ```
 
 
 ## Push the invoice service docker image
 
 ```
-docker push juaneb/aggregate_exposing_monolith_invoice_v1
+docker push juaneb/split_table_finance_v2
 ```
 
 

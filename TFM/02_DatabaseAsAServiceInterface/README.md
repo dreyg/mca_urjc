@@ -44,38 +44,39 @@ We are going to user a Docker compose file to deploy the examples:
 - In the v1 version we are going to deploy the database, and the v1 of the order and the externalconsumer service. Both services  will be hosted on dockerhub and will be deploy with a docker-compose file:
 
 '
+
 	version: '3.9'
 	services:
-	order:
-		image: dreyg/database_as_a_service_order_v1
-		ports:
-		- 8080:8080
-		environment:
-		# Enviroment variables for connect to MySQL
-		- MYSQL_HOST=mysql
-		depends_on:
-		- mysql
-		restart: on-failure
+		order:
+			image: dreyg/database_as_a_service_order_v1
+			ports:
+			- 8080:8080
+			environment:
+			# Enviroment variables for connect to MySQL
+			- MYSQL_HOST=mysql
+			depends_on:
+			- mysql
+			restart: on-failure
 
-	externalconsumer:
-		image: dreyg/database_as_a_service_external_consumer_v1
-		ports:
-		- 8090:8090
-		environment:
-		- HOST=order
-		restart: on-failure
+		externalconsumer:
+			image: dreyg/database_as_a_service_external_consumer_v1
+			ports:
+			- 8090:8090
+			environment:
+			- HOST=order
+			restart: on-failure
 
-	mysql:
-		image: mysql:8.0.25
-		ports:
-		- 3306:3306
-		environment:
-		# Enviroment variables for securize MySQL and create default Database
-		- MYSQL_DATABASE=order
-		- MYSQL_ROOT_PASSWORD=pass
-		volumes:
-		- ./mysql_db:/var/lib/mysql
-		restart: always
+		mysql:
+			image: mysql:8.0.25
+			ports:
+			- 3306:3306
+			environment:
+			# Enviroment variables for securize MySQL and create default Database
+			- MYSQL_DATABASE=order
+			- MYSQL_ROOT_PASSWORD=pass
+			volumes:
+			- ./mysql_db:/var/lib/mysql
+			restart: always
 
 
 

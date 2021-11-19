@@ -6,7 +6,7 @@ In a situation where we want a single source of data for multiple services, a vi
 ## The Database as a Public Contract
 
 
-![database view](images/databaseView1.jpg)
+![database view](images/DatabaseView1.jpg)
 
 ## Limitations 
 
@@ -25,7 +25,7 @@ This is a very simple SpringBoot project to manage customers. We can find, add, 
 
 - In the v1, we have two independents services (Monolith & Loyalty Service) both of them accesing to the same repository (Monolith schema). From the "Monolith Service", I can execute CRUD operations while from the "Loyalty Service", I can only execute read operations. The "Monolith Schema" has an USER table with four fields: ID, ADDRESS, PASSWORD, LOYALTY_CARD_NUMBER. When the application start, we are going to insert some data in the user table.
 
-![database view_v1](images/databaseViewV1.jpg)
+![database view_v1](images/DatabaseViewV1.jpg)
 
 - In the v2, we have two microservices (monolith and loyaltyService) where both of them get data from different database schemas (Monolith Schema and Loyalty Service Schema). The user information required by "Loyalty Service" is not found in "Loyalty Service Schema", but we have a view on table T_USER of "Monolith Schema" from "Loyalty Service".  
 
@@ -35,7 +35,7 @@ This is a very simple SpringBoot project to manage customers. We can find, add, 
        SELECT id AS id, loyalty_card_number AS loyalty_card_number 
        FROM monolith.t_user;
 
-![database view_v2](images/databaseViewV2.jpg)
+![database view_v2](images/DatabaseViewV2.jpg)
 
 ## Deployment
 

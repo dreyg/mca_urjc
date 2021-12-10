@@ -19,9 +19,9 @@ In this work we have tried to focus into the database decomposition patterns to 
 We are implement these database patterns:
 
 - [Database view](01_DatabaseView/) 
-- Database as a service
-- Aggregate Exponsing Monolith
-- Split Table
+- [Database as a service](02_DatabaseAsAServiceInterface/)
+- [Aggregate Exponsing Monolith](03_AggregateExposingMonolith/)
+- [Split Table](04_SplitTable)
 
 The academic work associated with this repository can be found at this [link](memoria/memoriaTFM.docx)
 

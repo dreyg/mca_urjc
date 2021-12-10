@@ -18,7 +18,7 @@ In this work we have tried to focus into the database decomposition patterns to 
 
 We are implement these database patterns:
 
-- Database view
+- [Database view](01_DatabaseView/) 
 - Database as a service
 - Aggregate Exponsing Monolith
 - Split Table
